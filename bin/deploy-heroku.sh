@@ -6,6 +6,7 @@ deploy_branch="${DEPLOY_BRANCH:-master}"
 
 deploy() {
   git push -f "$deploy_remote" "$branch_name:$deploy_branch"
+  git checkout "develop"
   git branch -D "$branch_name"
 }
 
