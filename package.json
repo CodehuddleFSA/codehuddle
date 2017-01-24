@@ -10,7 +10,7 @@
     "build-watch": "check-node-version --node '>= 6.7.0' && bin/setup && webpack -w",
     "build-branch": "bin/build-branch.sh",
     "deploy-heroku": "bin/deploy-heroku.sh",
-    "start": "bin/setup && nodemon server/start.js",
+    "start": "bin/setup && webpack && nodemon server/start.js",
     "seed": "node db/seed.js"
   },
   "repository": {
