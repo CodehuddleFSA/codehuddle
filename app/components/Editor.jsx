@@ -8,13 +8,14 @@ import 'brace/theme/solarized_dark';
 
 /* -----------------    COMPONENT     ------------------ */
 
-export const Editor = ({ AceEditor, onChange }) => {
+export const Editor = ({ AceEditor, onChange, text }) => {
   return (
     <AceEditor
       mode="javascript"
       theme="solarized_dark"
       name="myEditor"
       onChange={ onChange }
+      value={ text }
       />
   );
 };
@@ -29,7 +30,8 @@ import { setText } from '../reducers/editor';
 
 const mapState = (state) => {
   return {
-    AceEditor
+    AceEditor,
+    text: state.editor.text
   };
 };
 

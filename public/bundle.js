@@ -31093,13 +31093,15 @@
 	
 	var Editor = exports.Editor = function Editor(_ref) {
 	  var AceEditor = _ref.AceEditor,
-	      onChange = _ref.onChange;
+	      onChange = _ref.onChange,
+	      text = _ref.text;
 	
 	  return _react2.default.createElement(AceEditor, {
 	    mode: 'javascript',
 	    theme: 'solarized_dark',
 	    name: 'myEditor',
-	    onChange: onChange
+	    onChange: onChange,
+	    value: text
 	  });
 	};
 	
@@ -31114,7 +31116,8 @@
 	
 	var mapState = function mapState(state) {
 	  return {
-	    AceEditor: _reactAce2.default
+	    AceEditor: _reactAce2.default,
+	    text: state.editor.text
 	  };
 	};
 	
@@ -53520,7 +53523,7 @@
 	
 	/* ------------       REDUCER     ------------------ */
 	var initialEditorData = {
-	  text: ''
+	  text: 'default text'
 	};
 	
 	function reducer() {

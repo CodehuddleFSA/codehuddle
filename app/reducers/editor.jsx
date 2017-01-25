@@ -7,7 +7,7 @@ export const setText = text => ({ type: SET_TEXT, text });
 
 /* ------------       REDUCER     ------------------ */
 const initialEditorData = {
-  text: ''
+  text: 'default text'
 };
 
 export default function reducer (editorData = initialEditorData, action) {
