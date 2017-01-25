@@ -76,6 +76,10 @@
 	
 	var _Editor2 = _interopRequireDefault(_Editor);
 	
+	var _Splash = __webpack_require__(309);
+	
+	var _Splash2 = _interopRequireDefault(_Splash);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var ExampleApp = (0, _reactRedux.connect)(function (_ref) {
@@ -104,8 +108,7 @@
 	    { history: _reactRouter.browserHistory },
 	    _react2.default.createElement(
 	      _reactRouter.Route,
-	      { path: '/', component: ExampleApp },
-	      _react2.default.createElement(_reactRouter.IndexRedirect, { to: '/jokes' }),
+	      { path: '/', component: _Splash2.default },
 	      _react2.default.createElement(_reactRouter.Route, { path: '/jokes', component: _Jokes2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/editor', component: _Editor2.default })
 	    )
@@ -53322,6 +53325,276 @@
 	dom.importCssString(exports.cssText, exports.cssClass);
 	});
 
+
+/***/ },
+/* 309 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Splash = undefined;
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _SplashNav = __webpack_require__(310);
+	
+	var _SplashNav2 = _interopRequireDefault(_SplashNav);
+	
+	var _SplashFooter = __webpack_require__(311);
+	
+	var _SplashFooter2 = _interopRequireDefault(_SplashFooter);
+	
+	var _reactRedux = __webpack_require__(233);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Splash = exports.Splash = function Splash() {
+		return _react2.default.createElement(
+			'div',
+			null,
+			_react2.default.createElement(_SplashNav2.default, null),
+			_react2.default.createElement(_SplashFooter2.default, null)
+		);
+	}; /*global $*/
+	
+	var mapStateToProps = null;
+	var mapDispatchToProps = null;
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Splash);
+
+/***/ },
+/* 310 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function (props) {
+	  return _react2.default.createElement(
+	    "nav",
+	    null,
+	    _react2.default.createElement(
+	      "div",
+	      { className: "nav-wrapper" },
+	      _react2.default.createElement(
+	        "a",
+	        { href: "#!", className: "brand-logo" },
+	        "Logo"
+	      ),
+	      _react2.default.createElement(
+	        "a",
+	        { href: "#", "data-activates": "mobile-demo", className: "button-collapse" },
+	        _react2.default.createElement(
+	          "i",
+	          { className: "material-icons" },
+	          "menu"
+	        )
+	      ),
+	      _react2.default.createElement(
+	        "ul",
+	        { className: "right hide-on-med-and-down" },
+	        _react2.default.createElement(
+	          "li",
+	          null,
+	          _react2.default.createElement(
+	            "a",
+	            { href: "sass.html" },
+	            "Sass"
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "li",
+	          null,
+	          _react2.default.createElement(
+	            "a",
+	            { href: "badges.html" },
+	            "Components"
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "li",
+	          null,
+	          _react2.default.createElement(
+	            "a",
+	            { href: "collapsible.html" },
+	            "Javascript"
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "li",
+	          null,
+	          _react2.default.createElement(
+	            "a",
+	            { href: "mobile.html" },
+	            "Mobile"
+	          )
+	        )
+	      ),
+	      _react2.default.createElement(
+	        "ul",
+	        { className: "side-nav", id: "mobile-demo" },
+	        _react2.default.createElement(
+	          "li",
+	          null,
+	          _react2.default.createElement(
+	            "a",
+	            { href: "sass.html" },
+	            "Sass"
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "li",
+	          null,
+	          _react2.default.createElement(
+	            "a",
+	            { href: "badges.html" },
+	            "Components"
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "li",
+	          null,
+	          _react2.default.createElement(
+	            "a",
+	            { href: "collapsible.html" },
+	            "Javascript"
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "li",
+	          null,
+	          _react2.default.createElement(
+	            "a",
+	            { href: "mobile.html" },
+	            "Mobile"
+	          )
+	        )
+	      )
+	    )
+	  );
+	};
+
+/***/ },
+/* 311 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function (props) {
+	  return _react2.default.createElement(
+	    "footer",
+	    { className: "page-footer" },
+	    _react2.default.createElement(
+	      "div",
+	      { className: "container" },
+	      _react2.default.createElement(
+	        "div",
+	        { className: "row" },
+	        _react2.default.createElement(
+	          "div",
+	          { className: "col l6 s12" },
+	          _react2.default.createElement(
+	            "h5",
+	            { className: "white-text" },
+	            "Footer Content"
+	          ),
+	          _react2.default.createElement(
+	            "p",
+	            { className: "grey-text text-lighten-4" },
+	            "You can use rows and columns here to organize your footer content."
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          { className: "col l4 offset-l2 s12" },
+	          _react2.default.createElement(
+	            "h5",
+	            { className: "white-text" },
+	            "Links"
+	          ),
+	          _react2.default.createElement(
+	            "ul",
+	            null,
+	            _react2.default.createElement(
+	              "li",
+	              null,
+	              _react2.default.createElement(
+	                "a",
+	                { className: "grey-text text-lighten-3", href: "#!" },
+	                "Link 1"
+	              )
+	            ),
+	            _react2.default.createElement(
+	              "li",
+	              null,
+	              _react2.default.createElement(
+	                "a",
+	                { className: "grey-text text-lighten-3", href: "#!" },
+	                "Link 2"
+	              )
+	            ),
+	            _react2.default.createElement(
+	              "li",
+	              null,
+	              _react2.default.createElement(
+	                "a",
+	                { className: "grey-text text-lighten-3", href: "#!" },
+	                "Link 3"
+	              )
+	            ),
+	            _react2.default.createElement(
+	              "li",
+	              null,
+	              _react2.default.createElement(
+	                "a",
+	                { className: "grey-text text-lighten-3", href: "#!" },
+	                "Link 4"
+	              )
+	            )
+	          )
+	        )
+	      )
+	    ),
+	    _react2.default.createElement(
+	      "div",
+	      { className: "footer-copyright" },
+	      _react2.default.createElement(
+	        "div",
+	        { className: "container" },
+	        "\xA9 2017 Copyright Amy Paschal, Andrew Garcia, Evan DiGiambattista, Surabhi Nigam",
+	        _react2.default.createElement(
+	          "a",
+	          { className: "grey-text text-lighten-4 right", href: "#!" },
+	          "More Links"
+	        )
+	      )
+	    )
+	  );
+	};
 
 /***/ }
 /******/ ]);

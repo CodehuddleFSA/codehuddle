@@ -45,8 +45,11 @@ module.exports = app
   .use(passport.initialize())
   .use(passport.session())
   
-  // Serve static files from ../public
+  // Serve static files from:
+  // ../public
   .use(express.static(resolve(__dirname, '..', 'public')))
+  // ../node_modules/
+  // .use(express.static(resolve(__dirname, '..', 'node_modules')))
 
   // Serve our api
   .use('/api', require('./api'))
