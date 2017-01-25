@@ -28413,10 +28413,19 @@
 	
 	var _redux = __webpack_require__(240);
 	
+	var _editor = __webpack_require__(319);
+	
+	var _editor2 = _interopRequireDefault(_editor);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	// Required libraries
 	var rootReducer = (0, _redux.combineReducers)({
-	  auth: __webpack_require__(273).default
+	  auth: __webpack_require__(273).default,
+	  editor: _editor2.default
 	});
 	
+	// Requried files
 	exports.default = rootReducer;
 
 /***/ },
@@ -31076,15 +31085,15 @@
 	
 	var _reactRedux = __webpack_require__(233);
 	
+	var _editor = __webpack_require__(319);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	/* -----------------    COMPONENT     ------------------ */
 	
-	var onChange = function onChange(text) {
-	  return console.log('changing', text);
-	}; // Required libraries
 	var Editor = exports.Editor = function Editor(_ref) {
-	  var AceEditor = _ref.AceEditor;
+	  var AceEditor = _ref.AceEditor,
+	      onChange = _ref.onChange;
 	
 	  return _react2.default.createElement(AceEditor, {
 	    mode: 'javascript',
@@ -31097,6 +31106,10 @@
 	/* -----------------    CONTAINER     ------------------ */
 	
 	// Required libraries
+	// Required libraries
+	
+	
+	// Required filed
 	
 	
 	var mapState = function mapState(state) {
@@ -31105,7 +31118,13 @@
 	  };
 	};
 	
-	var mapDispatch = null;
+	var mapDispatch = function mapDispatch(dispatch) {
+	  return {
+	    onChange: function onChange(text) {
+	      dispatch((0, _editor.setText)(text));
+	    }
+	  };
+	};
 	
 	exports.default = (0, _reactRedux.connect)(mapState, mapDispatch)(Editor);
 
@@ -53479,6 +53498,51 @@
 	dom.importCssString(exports.cssText, exports.cssClass);
 	});
 
+
+/***/ },
+/* 319 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = reducer;
+	
+	/* -----------------    ACTIONS     ------------------ */
+	var SET_TEXT = 'SET_TEXT';
+	
+	/* ------------   ACTION CREATORS     ------------------ */
+	var setText = exports.setText = function setText(text) {
+	  return { type: SET_TEXT, text: text };
+	};
+	
+	/* ------------       REDUCER     ------------------ */
+	var initialEditorData = {
+	  text: ''
+	};
+	
+	function reducer() {
+	  var editorData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialEditorData;
+	  var action = arguments[1];
+	
+	  var newEditorData = Object.assign({}, editorData);
+	
+	  switch (action.type) {
+	    case SET_TEXT:
+	      newEditorData.text = action.text;
+	      break;
+	
+	    default:
+	      return editorData;
+	
+	  }
+	
+	  return newEditorData;
+	}
+	
+	/* ------------       DISPATCHERS     ------------------ */
 
 /***/ }
 /******/ ]);

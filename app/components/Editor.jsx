@@ -8,9 +8,7 @@ import 'brace/theme/solarized_dark';
 
 /* -----------------    COMPONENT     ------------------ */
 
-const onChange = (text) => console.log('changing', text);
-
-export const Editor = ({ AceEditor }) => {
+export const Editor = ({ AceEditor, onChange }) => {
   return (
     <AceEditor
       mode="javascript"
@@ -26,12 +24,21 @@ export const Editor = ({ AceEditor }) => {
 // Required libraries
 import {connect} from 'react-redux';
 
+// Required filed
+import { setText } from '../reducers/editor';
+
 const mapState = (state) => {
   return {
     AceEditor
   };
 };
 
-const mapDispatch = null;
+const mapDispatch = (dispatch) => {
+  return {
+    onChange: (text) => {
+      dispatch(setText(text));
+    }
+  };
+};
 
 export default connect(mapState, mapDispatch)(Editor);
