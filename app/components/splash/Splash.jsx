@@ -7,7 +7,7 @@ import SplashFooter from './Splash-Footer';
 
 export const Splash = (props) => {
 	return (
-		<div id="splash-root">
+		<div id="splash-root" className="page-flexbox-wrapper">
 			<SplashNav/>
 				<SplashContent/>
 			<SplashFooter/>

@@ -53362,7 +53362,7 @@
 	var Splash = exports.Splash = function Splash(props) {
 		return _react2.default.createElement(
 			'div',
-			{ id: 'splash-root' },
+			{ id: 'splash-root', className: 'page-flexbox-wrapper' },
 			_react2.default.createElement(_SplashNav2.default, null),
 			_react2.default.createElement(_SplashContent2.default, null),
 			_react2.default.createElement(_SplashFooter2.default, null)
@@ -53392,102 +53392,106 @@
 	
 	exports.default = function (props) {
 	  return _react2.default.createElement(
-	    "nav",
+	    "header",
 	    null,
 	    _react2.default.createElement(
-	      "div",
-	      { className: "nav-wrapper" },
+	      "nav",
+	      null,
 	      _react2.default.createElement(
-	        "a",
-	        { href: "#!", className: "brand-logo" },
-	        "CodeHuddle"
-	      ),
-	      _react2.default.createElement(
-	        "a",
-	        { href: "#", "data-activates": "mobile-demo", className: "button-collapse" },
+	        "div",
+	        { className: "nav-wrapper purple darken-3" },
 	        _react2.default.createElement(
-	          "i",
-	          { className: "material-icons" },
-	          "menu"
-	        )
-	      ),
-	      _react2.default.createElement(
-	        "ul",
-	        { className: "right hide-on-med-and-down" },
+	          "a",
+	          { href: "#!", className: "brand-logo" },
+	          "CodeHuddle"
+	        ),
 	        _react2.default.createElement(
-	          "li",
-	          null,
+	          "a",
+	          { href: "#", "data-activates": "mobile-demo", className: "button-collapse" },
 	          _react2.default.createElement(
-	            "a",
-	            { href: "sass.html" },
-	            "Sass"
+	            "i",
+	            { className: "material-icons" },
+	            "menu"
 	          )
 	        ),
 	        _react2.default.createElement(
-	          "li",
-	          null,
+	          "ul",
+	          { className: "right hide-on-med-and-down" },
 	          _react2.default.createElement(
-	            "a",
-	            { href: "badges.html" },
-	            "Components"
+	            "li",
+	            null,
+	            _react2.default.createElement(
+	              "a",
+	              { href: "sass.html" },
+	              "Sass"
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "li",
+	            null,
+	            _react2.default.createElement(
+	              "a",
+	              { href: "badges.html" },
+	              "Components"
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "li",
+	            null,
+	            _react2.default.createElement(
+	              "a",
+	              { href: "collapsible.html" },
+	              "Javascript"
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "li",
+	            null,
+	            _react2.default.createElement(
+	              "a",
+	              { href: "mobile.html" },
+	              "Mobile"
+	            )
 	          )
 	        ),
 	        _react2.default.createElement(
-	          "li",
-	          null,
+	          "ul",
+	          { className: "side-nav", id: "mobile-demo" },
 	          _react2.default.createElement(
-	            "a",
-	            { href: "collapsible.html" },
-	            "Javascript"
-	          )
-	        ),
-	        _react2.default.createElement(
-	          "li",
-	          null,
+	            "li",
+	            null,
+	            _react2.default.createElement(
+	              "a",
+	              { href: "sass.html" },
+	              "Sass"
+	            )
+	          ),
 	          _react2.default.createElement(
-	            "a",
-	            { href: "mobile.html" },
-	            "Mobile"
-	          )
-	        )
-	      ),
-	      _react2.default.createElement(
-	        "ul",
-	        { className: "side-nav", id: "mobile-demo" },
-	        _react2.default.createElement(
-	          "li",
-	          null,
+	            "li",
+	            null,
+	            _react2.default.createElement(
+	              "a",
+	              { href: "badges.html" },
+	              "Components"
+	            )
+	          ),
 	          _react2.default.createElement(
-	            "a",
-	            { href: "sass.html" },
-	            "Sass"
-	          )
-	        ),
-	        _react2.default.createElement(
-	          "li",
-	          null,
+	            "li",
+	            null,
+	            _react2.default.createElement(
+	              "a",
+	              { href: "collapsible.html" },
+	              "Javascript"
+	            )
+	          ),
 	          _react2.default.createElement(
-	            "a",
-	            { href: "badges.html" },
-	            "Components"
-	          )
-	        ),
-	        _react2.default.createElement(
-	          "li",
-	          null,
-	          _react2.default.createElement(
-	            "a",
-	            { href: "collapsible.html" },
-	            "Javascript"
-	          )
-	        ),
-	        _react2.default.createElement(
-	          "li",
-	          null,
-	          _react2.default.createElement(
-	            "a",
-	            { href: "mobile.html" },
-	            "Mobile"
+	            "li",
+	            null,
+	            _react2.default.createElement(
+	              "a",
+	              { href: "mobile.html" },
+	              "Mobile"
+	            )
 	          )
 	        )
 	      )
@@ -53513,7 +53517,7 @@
 	
 	exports.default = function () {
 	  return _react2.default.createElement(
-	    "div",
+	    "main",
 	    { id: "splash-content", className: "valign-wrapper" },
 	    _react2.default.createElement(
 	      "div",
@@ -53577,7 +53581,7 @@
 	exports.default = function (props) {
 	  return _react2.default.createElement(
 	    "footer",
-	    { className: "page-footer" },
+	    { className: "page-footer purple darken-3" },
 	    _react2.default.createElement(
 	      "div",
 	      { className: "row" },

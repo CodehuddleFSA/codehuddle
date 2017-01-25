@@ -2,7 +2,7 @@ import React from 'react';
 
 export default (props) => {
 	return (
-		<footer className="page-footer">
+		<footer className="page-footer purple darken-3">
       
         <div className="row">
           <div className="col l6 s12">

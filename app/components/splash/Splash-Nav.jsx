@@ -2,8 +2,9 @@ import React from 'react';
 
 export default (props) => {
 	return (
+    <header>
 		<nav>
-    <div className="nav-wrapper">
+    <div className="nav-wrapper purple darken-3">
       <a href="#!" className="brand-logo">CodeHuddle</a>
       <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
       <ul className="right hide-on-med-and-down">
@@ -20,5 +21,6 @@ export default (props) => {
       </ul>
     </div>
   </nav>
+  </header>
 	);
 };
