@@ -53345,7 +53345,11 @@
 	
 	var _SplashNav2 = _interopRequireDefault(_SplashNav);
 	
-	var _SplashFooter = __webpack_require__(311);
+	var _SplashContent = __webpack_require__(311);
+	
+	var _SplashContent2 = _interopRequireDefault(_SplashContent);
+	
+	var _SplashFooter = __webpack_require__(312);
 	
 	var _SplashFooter2 = _interopRequireDefault(_SplashFooter);
 	
@@ -53353,14 +53357,17 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Splash = exports.Splash = function Splash() {
+	/*global $*/
+	
+	var Splash = exports.Splash = function Splash(props) {
 		return _react2.default.createElement(
 			'div',
-			null,
+			{ id: 'splash-root' },
 			_react2.default.createElement(_SplashNav2.default, null),
+			_react2.default.createElement(_SplashContent2.default, null),
 			_react2.default.createElement(_SplashFooter2.default, null)
 		);
-	}; /*global $*/
+	};
 	
 	var mapStateToProps = null;
 	var mapDispatchToProps = null;
@@ -53393,7 +53400,7 @@
 	      _react2.default.createElement(
 	        "a",
 	        { href: "#!", className: "brand-logo" },
-	        "Logo"
+	        "CodeHuddle"
 	      ),
 	      _react2.default.createElement(
 	        "a",
@@ -53504,76 +53511,135 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	exports.default = function () {
+	  return _react2.default.createElement(
+	    "div",
+	    { id: "splash-content", className: "valign-wrapper" },
+	    _react2.default.createElement(
+	      "div",
+	      { className: "row valign" },
+	      _react2.default.createElement(
+	        "div",
+	        { className: "col s12 m6 offset-m3" },
+	        _react2.default.createElement(
+	          "div",
+	          { className: "card blue-grey darken-1" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "card-content white-text" },
+	            _react2.default.createElement(
+	              "span",
+	              { className: "card-title right-align" },
+	              "Card Title"
+	            ),
+	            _react2.default.createElement(
+	              "p",
+	              null,
+	              "I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively."
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "card-action center-align" },
+	            _react2.default.createElement(
+	              "a",
+	              { href: "#" },
+	              "This is a link"
+	            ),
+	            _react2.default.createElement(
+	              "a",
+	              { href: "#" },
+	              "This is a link"
+	            )
+	          )
+	        )
+	      )
+	    )
+	  );
+	};
+
+/***/ },
+/* 312 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
 	exports.default = function (props) {
 	  return _react2.default.createElement(
 	    "footer",
 	    { className: "page-footer" },
 	    _react2.default.createElement(
 	      "div",
-	      { className: "container" },
+	      { className: "row" },
 	      _react2.default.createElement(
 	        "div",
-	        { className: "row" },
+	        { className: "col l6 s12" },
 	        _react2.default.createElement(
-	          "div",
-	          { className: "col l6 s12" },
-	          _react2.default.createElement(
-	            "h5",
-	            { className: "white-text" },
-	            "Footer Content"
-	          ),
-	          _react2.default.createElement(
-	            "p",
-	            { className: "grey-text text-lighten-4" },
-	            "You can use rows and columns here to organize your footer content."
-	          )
+	          "h5",
+	          { className: "white-text" },
+	          "Footer Content"
 	        ),
 	        _react2.default.createElement(
-	          "div",
-	          { className: "col l4 offset-l2 s12" },
+	          "p",
+	          { className: "grey-text text-lighten-4" },
+	          "You can use rows and columns here to organize your footer content."
+	        )
+	      ),
+	      _react2.default.createElement(
+	        "div",
+	        { className: "col l4 offset-l2 s12" },
+	        _react2.default.createElement(
+	          "h5",
+	          { className: "white-text" },
+	          "Links"
+	        ),
+	        _react2.default.createElement(
+	          "ul",
+	          null,
 	          _react2.default.createElement(
-	            "h5",
-	            { className: "white-text" },
-	            "Links"
-	          ),
-	          _react2.default.createElement(
-	            "ul",
+	            "li",
 	            null,
 	            _react2.default.createElement(
-	              "li",
-	              null,
-	              _react2.default.createElement(
-	                "a",
-	                { className: "grey-text text-lighten-3", href: "#!" },
-	                "Link 1"
-	              )
-	            ),
+	              "a",
+	              { className: "grey-text text-lighten-3", href: "#!" },
+	              "Link 1"
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "li",
+	            null,
 	            _react2.default.createElement(
-	              "li",
-	              null,
-	              _react2.default.createElement(
-	                "a",
-	                { className: "grey-text text-lighten-3", href: "#!" },
-	                "Link 2"
-	              )
-	            ),
+	              "a",
+	              { className: "grey-text text-lighten-3", href: "#!" },
+	              "Link 2"
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "li",
+	            null,
 	            _react2.default.createElement(
-	              "li",
-	              null,
-	              _react2.default.createElement(
-	                "a",
-	                { className: "grey-text text-lighten-3", href: "#!" },
-	                "Link 3"
-	              )
-	            ),
+	              "a",
+	              { className: "grey-text text-lighten-3", href: "#!" },
+	              "Link 3"
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "li",
+	            null,
 	            _react2.default.createElement(
-	              "li",
-	              null,
-	              _react2.default.createElement(
-	                "a",
-	                { className: "grey-text text-lighten-3", href: "#!" },
-	                "Link 4"
-	              )
+	              "a",
+	              { className: "grey-text text-lighten-3", href: "#!" },
+	              "Link 4"
 	            )
 	          )
 	        )

@@ -2,13 +2,14 @@
 
 import React from 'react';
 import SplashNav from './Splash-Nav';
+import SplashContent from './Splash-Content';
 import SplashFooter from './Splash-Footer';
 
-export const Splash = () => {
+export const Splash = (props) => {
 	return (
-		<div>
+		<div id="splash-root">
 			<SplashNav/>
-				
+				<SplashContent/>
 			<SplashFooter/>
 		</div>
 	);
