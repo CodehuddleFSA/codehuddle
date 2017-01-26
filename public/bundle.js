@@ -28242,8 +28242,35 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var store = (0, _redux.createStore)(_reducers2.default, (0, _redux.applyMiddleware)((0, _reduxLogger2.default)(), _reduxThunk2.default));
+	/* ------------       SOCKETS     ------------------ */
+	var socket = window && window.io(window.location.origin);
+	window.socket = socket; // Place socket reference on window
 	
+	socket.on('connect', function () {
+	  console.log('Client connected', socket.id);
+	
+	  socket.emit('wantToJoinRoom', 'spongebob');
+	});
+	
+	// Sockets Middleware
+	var socketsEmit = function socketsEmit(socket) {
+	  var channelName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'action';
+	  return function (store) {
+	    socket.on(channelName, store.dispatch); // When action is received, disptach to store
+	
+	    return function (next) {
+	      return function (action) {
+	        if (action.meta && action.meta.remote) {
+	          socket.emit(channelName, action); // If action has meta.remote = true, this emit to server;
+	        }
+	        return next(action);
+	      };
+	    };
+	  };
+	};
+	
+	// Create store
+	var store = (0, _redux.createStore)(_reducers2.default, (0, _redux.applyMiddleware)((0, _reduxLogger2.default)(), _reduxThunk2.default, socketsEmit(socket)));
 	exports.default = store;
 	
 	// Set the auth info at start
@@ -28262,10 +28289,21 @@
 	
 	var _redux = __webpack_require__(240);
 	
+	var _editor = __webpack_require__(313);
+	
+	var _editor2 = _interopRequireDefault(_editor);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	// Required libraries
 	var rootReducer = (0, _redux.combineReducers)({
-	  auth: __webpack_require__(263).default
+	  auth: __webpack_require__(263).default,
+	  interview: (0, _redux.combineReducers)({
+	    editor: _editor2.default
+	  })
 	});
 	
+	// Requried files
 	exports.default = rootReducer;
 
 /***/ },
@@ -30913,10 +30951,6 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _brace = __webpack_require__(300);
-	
-	var _brace2 = _interopRequireDefault(_brace);
-	
 	var _reactAce = __webpack_require__(303);
 	
 	var _reactAce2 = _interopRequireDefault(_reactAce);
@@ -30929,31 +30963,52 @@
 	
 	var _reactRedux = __webpack_require__(233);
 	
+	var _editor = __webpack_require__(313);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var onChange = function onChange(text) {
-	  return console.log('changing', text);
-	};
-	var theme = 'solarized_dark';
+	/* -----------------    COMPONENT     ------------------ */
 	
 	var Editor = exports.Editor = function Editor(_ref) {
 	  var AceEditor = _ref.AceEditor,
-	      theme = _ref.theme;
+	      onChange = _ref.onChange,
+	      text = _ref.text;
 	
 	  return _react2.default.createElement(AceEditor, {
 	    mode: 'javascript',
-	    theme: theme,
+	    theme: 'solarized_dark',
 	    name: 'myEditor',
-	    onChange: onChange
+	    onChange: onChange,
+	    value: text,
+	    width: '100%'
 	  });
 	};
 	
-	exports.default = (0, _reactRedux.connect)(function (state) {
+	/* -----------------    CONTAINER     ------------------ */
+	
+	// Required libraries
+	// Required libraries
+	
+	
+	// Required filed
+	
+	
+	var mapState = function mapState(state) {
 	  return {
 	    AceEditor: _reactAce2.default,
-	    theme: theme
+	    text: state.interview.editor.text
 	  };
-	}, {})(Editor);
+	};
+	
+	var mapDispatch = function mapDispatch(dispatch) {
+	  return {
+	    onChange: function onChange(text) {
+	      dispatch((0, _editor.setText)(text));
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapState, mapDispatch)(Editor);
 
 /***/ },
 /* 300 */
@@ -53360,10 +53415,6 @@
 	/*global $*/
 	
 	var Splash = exports.Splash = function Splash(props) {
-		// Initialize jQuery in root 
-		$(document).ready(function () {
-			$(".button-collapse").sideNav();
-		});
 		return _react2.default.createElement(
 			'div',
 			{ id: 'splash-root', className: 'page-flexbox-wrapper' },
@@ -53397,13 +53448,18 @@
 	exports.default = function (props) {
 	  return _react2.default.createElement(
 	    "header",
-	    { className: "animated fadeInDown" },
+	    null,
 	    _react2.default.createElement(
 	      "nav",
 	      null,
 	      _react2.default.createElement(
 	        "div",
-	        { className: "nav-wrapper white" },
+	        { className: "nav-wrapper purple darken-3" },
+	        _react2.default.createElement(
+	          "a",
+	          { href: "#!", className: "brand-logo" },
+	          "CodeHuddle"
+	        ),
 	        _react2.default.createElement(
 	          "a",
 	          { href: "#", "data-activates": "mobile-demo", className: "button-collapse" },
@@ -53664,6 +53720,56 @@
 	    )
 	  );
 	};
+
+/***/ },
+/* 313 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = reducer;
+	
+	/* -----------------    ACTIONS     ------------------ */
+	var SET_TEXT = 'SET_TEXT';
+	
+	/* ------------   ACTION CREATORS     ------------------ */
+	var setText = exports.setText = function setText(text) {
+	  return {
+	    type: SET_TEXT,
+	    meta: {
+	      remote: true
+	    },
+	    text: text };
+	};
+	
+	/* ------------       REDUCER     ------------------ */
+	var initialEditorData = {
+	  text: 'default text'
+	};
+	
+	function reducer() {
+	  var editorData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialEditorData;
+	  var action = arguments[1];
+	
+	  var newEditorData = Object.assign({}, editorData);
+	
+	  switch (action.type) {
+	    case SET_TEXT:
+	      newEditorData.text = action.text;
+	      break;
+	
+	    default:
+	      return editorData;
+	
+	  }
+	
+	  return newEditorData;
+	}
+	
+	/* ------------       DISPATCHERS     ------------------ */
 
 /***/ }
 /******/ ]);

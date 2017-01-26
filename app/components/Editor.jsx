@@ -1,31 +1,47 @@
+// Required libraries
 import React from 'react';
-import brace from 'brace';
 import AceEditor from 'react-ace';
 
 import 'brace/mode/javascript';
 import 'brace/theme/github';
 import 'brace/theme/solarized_dark';
 
-const onChange = (text) => console.log('changing', text);
-const theme = 'solarized_dark';
+/* -----------------    COMPONENT     ------------------ */
 
-export const Editor = ({ AceEditor, theme }) => {
+export const Editor = ({ AceEditor, onChange, text }) => {
   return (
     <AceEditor
       mode="javascript"
-      theme={ theme }
+      theme="solarized_dark"
       name="myEditor"
       onChange={ onChange }
-    />
+      value={ text }
+      width="100%"
+      />
   );
 };
 
+/* -----------------    CONTAINER     ------------------ */
+
+// Required libraries
 import {connect} from 'react-redux';
 
-export default connect(
-  state => ({
+// Required filed
+import { setText } from '../reducers/editor';
+
+const mapState = (state) => {
+  return {
     AceEditor,
-    theme
-  }),
-  {},
-)(Editor);
+    text: state.interview.editor.text
+  };
+};
+
+const mapDispatch = (dispatch) => {
+  return {
+    onChange: (text) => {
+      dispatch(setText(text));
+    }
+  };
+};
+
+export default connect(mapState, mapDispatch)(Editor);
