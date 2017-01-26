@@ -60,6 +60,13 @@ module.exports = app
     next();
   });
 
+// Store room data locally for reload
+const roomData = {
+  editor: {
+    data: 'default text'
+  }
+};
+
 if (module === require.main) {
   // Start listening only if we're the main module.
   //
@@ -73,10 +80,18 @@ if (module === require.main) {
       // Sockets
       const io = socketio(server);
 
+      const setText = text => ({
+        type: 'SET_TEXT',
+        text });
+
       io.on('connection', (socket) => {
         console.log('Socket client connected', socket.id);
+        let action = setText(roomData.editor.data);
+        console.log('Emitting action', action);
+        socket.emit('action', action);
 
         socket.on('action', (action) => { // When an action is received, send it out. This acts like a reducer.
+          roomData.editor.data = action.text;
           action.meta.remote = false; // Remove the remote true to prevent continuous back and forth.
           socket.broadcast.emit('action', action); // Broadcast out to everyone but the sender.
         });

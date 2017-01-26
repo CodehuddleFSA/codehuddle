@@ -6,8 +6,8 @@ import thunkMiddleware from 'redux-thunk';
 import {whoami} from './reducers/auth';
 
 /* ------------       SOCKETS     ------------------ */
-const socket = window.io(window.location.origin);
-window.socket = socket;
+const socket = window && window.io(window.location.origin);
+window.socket = socket; // Place socket reference on window
 
 socket.on('connect', () => {
   console.log('Client connected', socket.id);

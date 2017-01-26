@@ -28394,8 +28394,8 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	/* ------------       SOCKETS     ------------------ */
-	var socket = window.io(window.location.origin);
-	window.socket = socket;
+	var socket = window && window.io(window.location.origin);
+	window.socket = socket; // Place socket reference on window
 	
 	socket.on('connect', function () {
 	  console.log('Client connected', socket.id);
