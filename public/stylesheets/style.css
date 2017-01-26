@@ -1,4 +1,5 @@
-/* Variables */
+/* Variables & Imports */
+@import url("https://fonts.googleapis.com/css?family=Aldrich");
 /* Rules */
 body {
   box-sizing: border-box; }
@@ -19,9 +20,24 @@ main {
 
 #splash-content {
   background-color: #FFF;
-  height: 100%;
   background-size: cover;
-  height: 100%; }
+  height: 100vh;
+  justify-content: center; }
+  #splash-content #splash-header {
+    font-family: Aldrich;
+    margin-top: 50vh;
+    height: 100vh;
+    justify-content: center; }
+    #splash-content #splash-header h1 {
+      animation-delay: .4s; }
+    #splash-content #splash-header h5 {
+      animation-delay: .8s; }
+    #splash-content #splash-header #header-down-arrow-icon,
+    #splash-content #splash-header a i.medium.material-icons {
+      animation-delay: 1.5s;
+      margin-top: 30vh;
+      margin-left: 20%;
+      justify-content: center; }
 
 footer.page-footer {
   margin-top: 0px; }

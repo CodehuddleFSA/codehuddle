@@ -1,5 +1,8 @@
-/* Variables */
+/* Variables & Imports */
+@import url('https://fonts.googleapis.com/css?family=Aldrich');
+
 $splash-bg: #FFF;
+$header-font: Aldrich;
 
 /* Rules */
 body {
@@ -25,10 +28,29 @@ main {
 
 #splash-content {
   background-color: $splash-bg;
-	height: 100%;
   // background-image: url("/images/code-background.jpeg");
   background-size: cover;
-  height: 100%;
+  height: 100vh;
+  justify-content: center;
+  #splash-header {
+    font-family: $header-font;
+    margin-top: 50vh;
+    height: 100vh;
+    justify-content: center;
+    h1 {
+      animation-delay: .4s;
+    }
+    h5 {
+      animation-delay: .8s;
+    }
+    #header-down-arrow-icon,
+    a i.medium.material-icons {
+      animation-delay: 1.5s;
+      margin-top: 30vh;
+      margin-left: 20%;
+      justify-content: center;
+    }
+  }
 }
 
 footer.page-footer {
