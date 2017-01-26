@@ -2,10 +2,10 @@ import React from 'react';
 
 export default (props) => {
 	return (
-    <header>
+    <header className="animated fadeInDown">
 		<nav>
-    <div className="nav-wrapper purple darken-3">
-      <a href="#!" className="brand-logo">CodeHuddle</a>
+    <div className="nav-wrapper white">
+      {/*<a href="/" className="brand-logo">CodeHuddle</a>*/}
       <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
       <ul className="right hide-on-med-and-down">
         <li><a href="sass.html">Sass</a></li>

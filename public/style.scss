@@ -1,3 +1,7 @@
+/* Variables */
+$splash-bg: #FFF;
+
+/* Rules */
 body {
   box-sizing: border-box;
 }
@@ -20,8 +24,10 @@ main {
 }
 
 #splash-content {
+  background-color: $splash-bg;
 	height: 100%;
-  background-image: url("/images/code-background.jpeg");
+  // background-image: url("/images/code-background.jpeg");
+  background-size: cover;
   height: 100%;
 }
 

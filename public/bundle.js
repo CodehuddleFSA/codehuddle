@@ -53360,6 +53360,10 @@
 	/*global $*/
 	
 	var Splash = exports.Splash = function Splash(props) {
+		// Initialize jQuery in root 
+		$(document).ready(function () {
+			$(".button-collapse").sideNav();
+		});
 		return _react2.default.createElement(
 			'div',
 			{ id: 'splash-root', className: 'page-flexbox-wrapper' },
@@ -53393,18 +53397,13 @@
 	exports.default = function (props) {
 	  return _react2.default.createElement(
 	    "header",
-	    null,
+	    { className: "animated fadeInDown" },
 	    _react2.default.createElement(
 	      "nav",
 	      null,
 	      _react2.default.createElement(
 	        "div",
-	        { className: "nav-wrapper purple darken-3" },
-	        _react2.default.createElement(
-	          "a",
-	          { href: "#!", className: "brand-logo" },
-	          "CodeHuddle"
-	        ),
+	        { className: "nav-wrapper white" },
 	        _react2.default.createElement(
 	          "a",
 	          { href: "#", "data-activates": "mobile-demo", className: "button-collapse" },

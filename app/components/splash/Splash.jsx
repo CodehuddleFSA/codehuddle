@@ -6,6 +6,10 @@ import SplashContent from './Splash-Content';
 import SplashFooter from './Splash-Footer';
 
 export const Splash = (props) => {
+	// Initialize jQuery in root 
+	$(document).ready(() => {
+		$(".button-collapse").sideNav();
+	});
 	return (
 		<div id="splash-root" className="page-flexbox-wrapper">
 			<SplashNav/>
