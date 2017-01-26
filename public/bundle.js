@@ -53467,13 +53467,19 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var Splash = exports.Splash = function Splash(props) {
+	
+		var handleScroll = function handleScroll() {
+			console.log(window.scrollX, window.scrollY);
+		};
+	
 		// Initialize jQuery in root 
 		$(document).ready(function () {
-			$(".button-collapse").sideNav();
+			// $(".button-collapse").sideNav();
 		});
 		return _react2.default.createElement(
 			'div',
-			{ id: 'splash-root', className: 'page-flexbox-wrapper' },
+			{ id: 'splash-root', className: 'page-flexbox-wrapper', onScroll: handleScroll },
+			_react2.default.createElement(_SplashNav4.default, null),
 			_react2.default.createElement(_SplashContent2.default, null),
 			_react2.default.createElement(_SplashFooter2.default, null)
 		);
@@ -53503,7 +53509,7 @@
 	exports.default = function (props) {
 	  return _react2.default.createElement(
 	    "header",
-	    { className: "animated fadeInDown" },
+	    { id: "splash-header", className: "animated fadeInDown" },
 	    _react2.default.createElement(
 	      "nav",
 	      null,
@@ -53621,31 +53627,23 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = function (props) {
+	
 	  return _react2.default.createElement(
 	    "header",
-	    { className: "animated fadeInDown" },
+	    { id: "splash-header", className: "animated fadeInDown" },
 	    _react2.default.createElement(
-	      "nav",
-	      null,
-	      _react2.default.createElement(
-	        "a",
-	        { href: "#", "data-activates": "mobile-demo", className: "button-collapse" },
-	        _react2.default.createElement(
-	          "i",
-	          { className: "material-icons" },
-	          "menu"
-	        )
-	      ),
+	      "div",
+	      { role: "navigation" },
 	      _react2.default.createElement(
 	        "ul",
-	        { className: "right hide-on-med-and-down" },
+	        { id: "header-nav-links", className: "right" },
 	        _react2.default.createElement(
 	          "li",
 	          null,
 	          _react2.default.createElement(
 	            "a",
-	            { href: "sass.html" },
-	            "Sass"
+	            { href: "#" },
+	            "Register"
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -53653,8 +53651,8 @@
 	          null,
 	          _react2.default.createElement(
 	            "a",
-	            { href: "badges.html" },
-	            "Components"
+	            { href: "#" },
+	            "Candidate Sign-In"
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -53662,57 +53660,8 @@
 	          null,
 	          _react2.default.createElement(
 	            "a",
-	            { href: "collapsible.html" },
-	            "Javascript"
-	          )
-	        ),
-	        _react2.default.createElement(
-	          "li",
-	          null,
-	          _react2.default.createElement(
-	            "a",
-	            { href: "mobile.html" },
-	            "Mobile"
-	          )
-	        )
-	      ),
-	      _react2.default.createElement(
-	        "ul",
-	        { className: "side-nav", id: "mobile-demo" },
-	        _react2.default.createElement(
-	          "li",
-	          null,
-	          _react2.default.createElement(
-	            "a",
-	            { href: "sass.html" },
-	            "Sass"
-	          )
-	        ),
-	        _react2.default.createElement(
-	          "li",
-	          null,
-	          _react2.default.createElement(
-	            "a",
-	            { href: "badges.html" },
-	            "Components"
-	          )
-	        ),
-	        _react2.default.createElement(
-	          "li",
-	          null,
-	          _react2.default.createElement(
-	            "a",
-	            { href: "collapsible.html" },
-	            "Javascript"
-	          )
-	        ),
-	        _react2.default.createElement(
-	          "li",
-	          null,
-	          _react2.default.createElement(
-	            "a",
-	            { href: "mobile.html" },
-	            "Mobile"
+	            { href: "#" },
+	            "Employer Sign-In"
 	          )
 	        )
 	      )

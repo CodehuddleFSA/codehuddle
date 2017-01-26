@@ -7,14 +7,19 @@ import SplashContent from './Splash-Content';
 import SplashFooter from './Splash-Footer';
 
 export const Splash = (props) => {
+	
+	const handleScroll = () => {
+		console.log(window.scrollX, window.scrollY);
+	};
+	
 	// Initialize jQuery in root 
 	$(document).ready(() => {
-		$(".button-collapse").sideNav();
+		// $(".button-collapse").sideNav();
 	});
 	return (
-		<div id="splash-root" className="page-flexbox-wrapper">
-			
-				<SplashContent/>
+		<div id="splash-root" className="page-flexbox-wrapper" onScroll={ handleScroll }>
+			<SplashNav1/>
+			<SplashContent/>
 			<SplashFooter/>
 		</div>
 	);

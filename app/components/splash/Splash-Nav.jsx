@@ -2,7 +2,7 @@ import React from 'react';
 
 export default (props) => {
 	return (
-    <header className="animated fadeInDown">
+    <header id="splash-header" className="animated fadeInDown">
 		<nav>
     <div className="nav-wrapper">
       {/*<a href="/" className="brand-logo">CodeHuddle</a>*/}

@@ -1,5 +1,6 @@
-/* Variables & Imports */
+/*  Imports */
 @import url("https://fonts.googleapis.com/css?family=Aldrich");
+/* Variables */
 /* Rules */
 body {
   box-sizing: border-box; }
@@ -12,11 +13,15 @@ main {
   min-height: 100vh;
   flex-direction: column; }
 
-.brand-logo {
-  margin-left: 20px; }
-
 .row {
   margin: 0px; }
+
+#splash-header div[role="navigation"] ul {
+  margin-right: 10px; }
+#splash-header div[role="navigation"] ul li {
+  display: inline-block;
+  padding-left: 10px;
+  padding-right: 10px; }
 
 #splash-content {
   background-color: #FFF;
