@@ -16,6 +16,7 @@ export const Editor = ({ AceEditor, onChange, text }) => {
       name="myEditor"
       onChange={ onChange }
       value={ text }
+      width="100%"
       />
   );
 };

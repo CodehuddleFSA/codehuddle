@@ -1,40 +1,40 @@
-'use strict'
+'use strict';
 
-const express = require('express')
-const bodyParser = require('body-parser')
-const {resolve} = require('path')
-const passport = require('passport')
-const PrettyError = require('pretty-error')
-const socketio = require('socket.io')
+const express = require('express');
+const bodyParser = require('body-parser');
+const {resolve} = require('path');
+const passport = require('passport');
+const PrettyError = require('pretty-error');
+const socketio = require('socket.io');
 
 // Bones has a symlink from node_modules/APP to the root of the app.
 // That means that we can require paths relative to the app root by
 // saying require('APP/whatever').
 //
 // This next line requires our root index.js:
-const pkg = require('APP')
+const pkg = require('APP');
 
-const app = express()
+const app = express();
 
 if (!pkg.isProduction && !pkg.isTesting) {
   // Logging middleware (dev only)
-  app.use(require('volleyball'))
+  app.use(require('volleyball'));
 }
 
 // Pretty error prints errors all pretty.
 const prettyError = new PrettyError();
 
 // Skip events.js and http.js and similar core node files.
-prettyError.skipNodeFiles()
+prettyError.skipNodeFiles();
 
 // Skip all the trace lines about express' core and sub-modules.
-prettyError.skipPackage('express')
+prettyError.skipPackage('express');
 
 module.exports = app
   // We'll store the whole session in a cookie
-  .use(require('cookie-session') ({
+  .use(require('cookie-session')({
     name: 'session',
-    keys: [process.env.SESSION_SECRET || 'an insecure secret key'],
+    keys: [process.env.SESSION_SECRET || 'an insecure secret key']
   }))
 
   // Body parsing middleware
@@ -55,10 +55,10 @@ module.exports = app
   .get('/*', (_, res) => res.sendFile(resolve(__dirname, '..', 'public', 'index.html')))
 
   .use((err, req, res, next) => {
-    console.log(prettyError.render(err))
-    res.status(500).send(err)
-    next()
-  })
+    console.log(prettyError.render(err));
+    res.status(500).send(err);
+    next();
+  });
 
 if (module === require.main) {
   // Start listening only if we're the main module.
@@ -76,12 +76,11 @@ if (module === require.main) {
       io.on('connection', (socket) => {
         console.log('Socket client connected', socket.id);
 
-        socket.on('action', (action) => { // When an action is received, send it out
-          action.meta.remote = false; // Remove the remote true to prevent continuous back and forth
-          socket.broadcast.emit('action', action); // Broadcast out to everyone but the sender
-        })
+        socket.on('action', (action) => { // When an action is received, send it out. This acts like a reducer.
+          action.meta.remote = false; // Remove the remote true to prevent continuous back and forth.
+          socket.broadcast.emit('action', action); // Broadcast out to everyone but the sender.
+        });
       });
-
     }
   );
 }

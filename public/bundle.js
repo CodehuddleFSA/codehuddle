@@ -31176,7 +31176,8 @@
 	    theme: 'solarized_dark',
 	    name: 'myEditor',
 	    onChange: onChange,
-	    value: text
+	    value: text,
+	    width: '100%'
 	  });
 	};
 	
