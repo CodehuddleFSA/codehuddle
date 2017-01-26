@@ -9,6 +9,7 @@ import Jokes from './components/Jokes';
 import Login from './components/Login';
 import WhoAmI from './components/WhoAmI';
 import Editor from './components/Editor';
+import Splash from './components/Splash/Splash';
 
 const ExampleApp = connect(
   ({ auth }) => ({ user: auth })
@@ -25,8 +26,8 @@ const ExampleApp = connect(
 render (
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={ExampleApp}>
-        <IndexRedirect to="/jokes" />
+      <Route path="/" component={Splash}>
+        {/*<IndexRedirect to="/jokes" /> */}
         <Route path="/jokes" component={Jokes} />
         <Route path="/editor" component={Editor} />
       </Route>
