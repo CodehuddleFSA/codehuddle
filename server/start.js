@@ -70,12 +70,18 @@ if (module === require.main) {
       console.log(`--- Started HTTP Server for ${pkg.name} ---`);
       console.log(`Listening on ${JSON.stringify(server.address())}`);
 
+      // Sockets
       const io = socketio(server);
 
       io.on('connection', (socket) => {
-        console.log('you are now connected');
-        console.log(socket.id);
+        console.log('Socket client connected', socket.id);
+
+        socket.on('action', (action) => { // When an action is received, send it out
+          action.meta.remote = false; // Remove the remote true to prevent continuous back and forth
+          socket.broadcast.emit('action', action); // Broadcast out to everyone but the sender
+        })
       });
+
     }
   );
 }

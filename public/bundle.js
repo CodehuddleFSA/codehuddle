@@ -28393,8 +28393,33 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var store = (0, _redux.createStore)(_reducers2.default, (0, _redux.applyMiddleware)((0, _reduxLogger2.default)(), _reduxThunk2.default));
+	/* ------------       SOCKETS     ------------------ */
+	var socket = window.io(window.location.origin);
+	window.socket = socket;
 	
+	socket.on('connect', function () {
+	  console.log('Client connected', socket.id);
+	});
+	
+	// Sockets Middleware
+	var socketsEmit = function socketsEmit(socket) {
+	  var channelName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'action';
+	  return function (store) {
+	    socket.on(channelName, store.dispatch); // When action is received, disptach to store
+	
+	    return function (next) {
+	      return function (action) {
+	        if (action.meta && action.meta.remote) {
+	          socket.emit(channelName, action); // If action has meta.remote = true, this emit to server;
+	        }
+	        return next(action);
+	      };
+	    };
+	  };
+	};
+	
+	// Create store
+	var store = (0, _redux.createStore)(_reducers2.default, (0, _redux.applyMiddleware)((0, _reduxLogger2.default)(), _reduxThunk2.default, socketsEmit(socket)));
 	exports.default = store;
 	
 	// Set the auth info at start
@@ -28444,7 +28469,12 @@
 	
 	/* ------------   ACTION CREATORS     ------------------ */
 	var setText = exports.setText = function setText(text) {
-	  return { type: SET_TEXT, text: text };
+	  return {
+	    type: SET_TEXT,
+	    meta: {
+	      remote: true
+	    },
+	    text: text };
 	};
 	
 	/* ------------       REDUCER     ------------------ */
@@ -31140,7 +31170,6 @@
 	  var AceEditor = _ref.AceEditor,
 	      onChange = _ref.onChange,
 	      text = _ref.text;
-	
 	
 	  return _react2.default.createElement(AceEditor, {
 	    mode: 'javascript',

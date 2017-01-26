@@ -9,7 +9,6 @@ import 'brace/theme/solarized_dark';
 /* -----------------    COMPONENT     ------------------ */
 
 export const Editor = ({ AceEditor, onChange, text }) => {
-
   return (
     <AceEditor
       mode="javascript"

@@ -3,7 +3,12 @@
 const SET_TEXT = 'SET_TEXT';
 
 /* ------------   ACTION CREATORS     ------------------ */
-export const setText = text => ({ type: SET_TEXT, text });
+export const setText = text => ({
+  type: SET_TEXT,
+  meta: {
+    remote: true
+  },
+  text });
 
 /* ------------       REDUCER     ------------------ */
 const initialEditorData = {
