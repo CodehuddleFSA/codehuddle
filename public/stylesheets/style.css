@@ -1,0 +1,26 @@
+body {
+  box-sizing: border-box; }
+
+main {
+  flex: 1 0 auto; }
+
+.page-flexbox-wrapper {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column; }
+
+.brand-logo {
+  margin-left: 20px; }
+
+.row {
+  margin: 0px; }
+
+#splash-content {
+  height: 100%;
+  background-image: url("/images/code-background.jpeg");
+  height: 100%; }
+
+footer.page-footer {
+  margin-top: 0px; }
+
+/*# sourceMappingURL=style.css.map */
