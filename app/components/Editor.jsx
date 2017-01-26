@@ -32,7 +32,7 @@ import { setText } from '../reducers/editor';
 const mapState = (state) => {
   return {
     AceEditor,
-    text: state.editor.text
+    text: state.interview.editor.text
   };
 };
 

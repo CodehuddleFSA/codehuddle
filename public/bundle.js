@@ -28449,7 +28449,9 @@
 	// Required libraries
 	var rootReducer = (0, _redux.combineReducers)({
 	  auth: __webpack_require__(274).default,
-	  editor: _editor2.default
+	  interview: (0, _redux.combineReducers)({
+	    editor: _editor2.default
+	  })
 	});
 	
 	// Requried files
@@ -31195,7 +31197,7 @@
 	var mapState = function mapState(state) {
 	  return {
 	    AceEditor: _reactAce2.default,
-	    text: state.editor.text
+	    text: state.interview.editor.text
 	  };
 	};
 	
