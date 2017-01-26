@@ -61,11 +61,13 @@ module.exports = app
   });
 
 // Store room data locally for reload
-const roomData = {
-  editor: {
-    data: 'default text'
-  }
-};
+const roomData = {};
+
+// Action creators; TODO: move to a separate file
+const setText = text => ({
+  type: 'SET_TEXT',
+  text
+});
 
 if (module === require.main) {
   // Start listening only if we're the main module.
@@ -80,18 +82,23 @@ if (module === require.main) {
       // Sockets
       const io = socketio(server);
 
-      const setText = text => ({
-        type: 'SET_TEXT',
-        text });
-
       io.on('connection', (socket) => {
         console.log('Socket client connected', socket.id);
-        let action = setText(roomData.editor.data);
-        console.log('Emitting action', action);
-        socket.emit('action', action);
+        let room;
+
+        socket.on('wantToJoinRoom', (roomName) => {
+          room = roomName;
+          socket.join(room);
+          // If room doesn't exist, set the default value
+          if (!roomData[room]) roomData[room] = { editor: { value: 'default val' } };
+          // Create a new action with the current text
+          let action = setText(roomData[room].editor.value);
+
+          socket.emit('action', action);
+        });
 
         socket.on('action', (action) => { // When an action is received, send it out. This acts like a reducer.
-          roomData.editor.data = action.text;
+          if (action.type === 'SET_TEXT') roomData[room].editor.value = action.text;
           action.meta.remote = false; // Remove the remote true to prevent continuous back and forth.
           socket.broadcast.emit('action', action); // Broadcast out to everyone but the sender.
         });

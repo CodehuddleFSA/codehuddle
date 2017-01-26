@@ -11,6 +11,8 @@ window.socket = socket; // Place socket reference on window
 
 socket.on('connect', () => {
   console.log('Client connected', socket.id);
+
+  socket.emit('wantToJoinRoom', 'spongebob');
 });
 
 // Sockets Middleware

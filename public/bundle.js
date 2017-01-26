@@ -28399,6 +28399,8 @@
 	
 	socket.on('connect', function () {
 	  console.log('Client connected', socket.id);
+	
+	  socket.emit('wantToJoinRoom', 'spongebob');
 	});
 	
 	// Sockets Middleware
