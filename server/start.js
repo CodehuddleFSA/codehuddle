@@ -101,6 +101,7 @@ if (module === require.main) {
         });
 
         socket.on('action', (action) => { // When an action is received, send it out. This acts like a reducer.
+          console.log('action:', action)
           if (action.type === 'SET_TEXT') roomData[room].editor.value = action.text;
           action.meta.remote = false; // Remove the remote true to prevent continuous back and forth.
           socket.broadcast.emit('action', action); // Broadcast out to everyone but the sender.
