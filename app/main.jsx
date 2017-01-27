@@ -7,6 +7,7 @@ import {connect, Provider} from 'react-redux';
 import store from './store';
 import Jokes from './components/Jokes';
 import Login from './components/Login';
+import Canvas3 from './components/Canvas3';
 import WhoAmI from './components/WhoAmI';
 import Editor from './components/Editor';
 import Splash from './components/Splash/Splash';
@@ -26,10 +27,10 @@ const ExampleApp = connect(
 render (
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={Splash}>
-        {/*<IndexRedirect to="/jokes" /> */}
-        <Route path="/jokes" component={Jokes} />
-        <Route path="/editor" component={Editor} />
+      <Route>
+        <IndexRedirect to="/canvas3" /> 
+      
+        <Route path="/canvas3" component={Canvas3} />
       </Route>
     </Router>
   </Provider>,
