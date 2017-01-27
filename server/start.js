@@ -6,6 +6,7 @@ const {resolve} = require('path');
 const passport = require('passport');
 const PrettyError = require('pretty-error');
 const socketio = require('socket.io');
+const { socketPubSub } = require('./sockets');
 
 // Bones has a symlink from node_modules/APP to the root of the app.
 // That means that we can require paths relative to the app root by
@@ -63,15 +64,6 @@ module.exports = app
     next();
   });
 
-// Store room data locally for reload
-const roomData = {};
-
-// Action creators; TODO: move to a separate file
-const setText = text => ({
-  type: 'SET_TEXT',
-  text
-});
-
 if (module === require.main) {
   // Start listening only if we're the main module.
   //
@@ -82,30 +74,9 @@ if (module === require.main) {
       console.log(`--- Started HTTP Server for ${pkg.name} ---`);
       console.log(`Listening on ${JSON.stringify(server.address())}`);
 
-      // Sockets
+      // Socket initialization
       const io = socketio(server);
-
-      io.on('connection', (socket) => {
-        console.log('Socket client connected', socket.id);
-        let room;
-
-        socket.on('wantToJoinRoom', (roomName) => {
-          room = roomName;
-          socket.join(room);
-          // If room doesn't exist, set the default value
-          if (!roomData[room]) roomData[room] = { editor: { value: 'default val' } };
-          // Create a new action with the current text
-          let action = setText(roomData[room].editor.value);
-
-          socket.emit('action', action);
-        });
-
-        socket.on('action', (action) => { // When an action is received, send it out. This acts like a reducer.
-          if (action.type === 'SET_TEXT') roomData[room].editor.value = action.text;
-          action.meta.remote = false; // Remove the remote true to prevent continuous back and forth.
-          socket.broadcast.emit('action', action); // Broadcast out to everyone but the sender.
-        });
-      });
+      socketPubSub(io); // Subscribe and emit setup
     }
   );
 }
