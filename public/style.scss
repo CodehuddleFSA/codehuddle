@@ -5,6 +5,7 @@
 /* Variables */
 
 $splash-bg: #FFF;
+$splash-bg-1: #2EACE9;
 $header-font: Aldrich;
 
 /* Rules */
@@ -27,6 +28,12 @@ main {
   margin: 0px;
 }
 
+/* Helpers */
+.title-svg {
+  background: url('/images/code-outline.svg');
+  background-origin: content-box;
+  background-repeat: no-repeat;
+}
 
 /* Navigation */
 
@@ -51,16 +58,21 @@ div[role="navigation"] {
   justify-content: center;
   #splash-header {
     font-family: $header-font;
-    margin-top: 50vh;
+    margin-top: 40vh;
     height: 100vh;
+    width: 60%;
     justify-content: center;
+    img {
+      height: 64px;
+      width: 64px;
+      animation-delay: .3s;
+    }
     h1 {
       padding-top: 20px;
       padding-bottom: 20px;
       animation-delay: .4s;
     }
     h5 {
-      margin-left: 40px;
       animation-delay: .8s;
     }
     #header-down-arrow-icon,

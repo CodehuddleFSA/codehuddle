@@ -16,6 +16,12 @@ main {
 .row {
   margin: 0px; }
 
+/* Helpers */
+.title-svg {
+  background: url("/images/code-outline.svg");
+  background-origin: content-box;
+  background-repeat: no-repeat; }
+
 /* Navigation */
 div[role="navigation"] ul {
   margin-right: 10px; }
@@ -32,15 +38,19 @@ div[role="navigation"] ul li {
   justify-content: center; }
   #splash-content #splash-header {
     font-family: Aldrich;
-    margin-top: 50vh;
+    margin-top: 40vh;
     height: 100vh;
+    width: 60%;
     justify-content: center; }
+    #splash-content #splash-header img {
+      height: 64px;
+      width: 64px;
+      animation-delay: .3s; }
     #splash-content #splash-header h1 {
       padding-top: 20px;
       padding-bottom: 20px;
       animation-delay: .4s; }
     #splash-content #splash-header h5 {
-      margin-left: 40px;
       animation-delay: .8s; }
     #splash-content #splash-header #header-down-arrow-icon,
     #splash-content #splash-header a i.medium.material-icons {
