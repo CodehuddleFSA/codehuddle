@@ -16,13 +16,15 @@ main {
 .row {
   margin: 0px; }
 
-#splash-header div[role="navigation"] ul {
+/* Navigation */
+div[role="navigation"] ul {
   margin-right: 10px; }
-#splash-header div[role="navigation"] ul li {
+div[role="navigation"] ul li {
   display: inline-block;
-  padding-left: 10px;
-  padding-right: 10px; }
+  padding-left: 14px;
+  padding-right: 14px; }
 
+/* Content */
 #splash-content {
   background-color: #FFF;
   background-size: cover;
@@ -34,16 +36,19 @@ main {
     height: 100vh;
     justify-content: center; }
     #splash-content #splash-header h1 {
+      padding-top: 20px;
+      padding-bottom: 20px;
       animation-delay: .4s; }
     #splash-content #splash-header h5 {
+      margin-left: 40px;
       animation-delay: .8s; }
     #splash-content #splash-header #header-down-arrow-icon,
     #splash-content #splash-header a i.medium.material-icons {
       animation-delay: 1.5s;
-      margin-top: 30vh;
-      margin-left: 20%;
+      margin-top: 25vh;
       justify-content: center; }
 
+s
 footer.page-footer {
   margin-top: 0px; }
 

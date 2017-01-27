@@ -27,22 +27,25 @@ main {
   margin: 0px;
 }
 
-#splash-header {
-  div[role="navigation"] {
-    ul {
-      margin-right: 10px;
-    }
-    ul li {
-      display: inline-block;
-      padding-left: 10px;
-      padding-right: 10px;
-    }
+
+/* Navigation */
+
+div[role="navigation"] {
+  ul {
+    margin-right: 10px;
+  }
+  ul li {
+    display: inline-block;
+    padding-left: 14px;
+    padding-right: 14px;
   }
 }
 
+
+/* Content */
+
 #splash-content {
   background-color: $splash-bg;
-  // background-image: url("/images/code-background.jpeg");
   background-size: cover;
   height: 100vh;
   justify-content: center;
@@ -52,20 +55,25 @@ main {
     height: 100vh;
     justify-content: center;
     h1 {
+      padding-top: 20px;
+      padding-bottom: 20px;
       animation-delay: .4s;
     }
     h5 {
+      margin-left: 40px;
       animation-delay: .8s;
     }
     #header-down-arrow-icon,
     a i.medium.material-icons {
       animation-delay: 1.5s;
-      margin-top: 30vh;
-      margin-left: 20%;
+      margin-top: 25vh;
       justify-content: center;
     }
   }
 }
+
+s
+/* Footer */
 
 footer.page-footer {
   margin-top: 0px;

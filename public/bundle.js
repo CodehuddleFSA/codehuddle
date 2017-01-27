@@ -53450,15 +53450,11 @@
 	
 	var _SplashNav2 = _interopRequireDefault(_SplashNav);
 	
-	var _SplashNav3 = __webpack_require__(312);
-	
-	var _SplashNav4 = _interopRequireDefault(_SplashNav3);
-	
-	var _SplashContent = __webpack_require__(313);
+	var _SplashContent = __webpack_require__(312);
 	
 	var _SplashContent2 = _interopRequireDefault(_SplashContent);
 	
-	var _SplashFooter = __webpack_require__(315);
+	var _SplashFooter = __webpack_require__(314);
 	
 	var _SplashFooter2 = _interopRequireDefault(_SplashFooter);
 	
@@ -53468,22 +53464,16 @@
 	
 	var Splash = exports.Splash = function Splash(props) {
 	
-		var handleScroll = function handleScroll() {
-			console.log(window.scrollX, window.scrollY);
-		};
-	
-		// Initialize jQuery in root 
-		$(document).ready(function () {
-			// $(".button-collapse").sideNav();
-		});
 		return _react2.default.createElement(
 			'div',
-			{ id: 'splash-root', className: 'page-flexbox-wrapper', onScroll: handleScroll },
-			_react2.default.createElement(_SplashNav4.default, null),
+			{ id: 'splash-root', className: 'page-flexbox-wrapper' },
+			_react2.default.createElement(_SplashNav2.default, null),
 			_react2.default.createElement(_SplashContent2.default, null),
 			_react2.default.createElement(_SplashFooter2.default, null)
 		);
-	}; /*global $*/
+	};
+	// import SplashNav from './Splash-Nav';
+	
 	
 	var mapStateToProps = null;
 	var mapDispatchToProps = null;
@@ -53506,127 +53496,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	exports.default = function (props) {
-	  return _react2.default.createElement(
-	    "header",
-	    { id: "splash-header", className: "animated fadeInDown" },
-	    _react2.default.createElement(
-	      "nav",
-	      null,
-	      _react2.default.createElement(
-	        "div",
-	        { className: "nav-wrapper" },
-	        _react2.default.createElement(
-	          "a",
-	          { href: "#", "data-activates": "mobile-demo", className: "button-collapse" },
-	          _react2.default.createElement(
-	            "i",
-	            { className: "material-icons" },
-	            "menu"
-	          )
-	        ),
-	        _react2.default.createElement(
-	          "ul",
-	          { className: "right hide-on-med-and-down" },
-	          _react2.default.createElement(
-	            "li",
-	            null,
-	            _react2.default.createElement(
-	              "a",
-	              { href: "sass.html" },
-	              "Sass"
-	            )
-	          ),
-	          _react2.default.createElement(
-	            "li",
-	            null,
-	            _react2.default.createElement(
-	              "a",
-	              { href: "badges.html" },
-	              "Components"
-	            )
-	          ),
-	          _react2.default.createElement(
-	            "li",
-	            null,
-	            _react2.default.createElement(
-	              "a",
-	              { href: "collapsible.html" },
-	              "Javascript"
-	            )
-	          ),
-	          _react2.default.createElement(
-	            "li",
-	            null,
-	            _react2.default.createElement(
-	              "a",
-	              { href: "mobile.html" },
-	              "Mobile"
-	            )
-	          )
-	        ),
-	        _react2.default.createElement(
-	          "ul",
-	          { className: "side-nav", id: "mobile-demo" },
-	          _react2.default.createElement(
-	            "li",
-	            null,
-	            _react2.default.createElement(
-	              "a",
-	              { href: "sass.html" },
-	              "Sass"
-	            )
-	          ),
-	          _react2.default.createElement(
-	            "li",
-	            null,
-	            _react2.default.createElement(
-	              "a",
-	              { href: "badges.html" },
-	              "Components"
-	            )
-	          ),
-	          _react2.default.createElement(
-	            "li",
-	            null,
-	            _react2.default.createElement(
-	              "a",
-	              { href: "collapsible.html" },
-	              "Javascript"
-	            )
-	          ),
-	          _react2.default.createElement(
-	            "li",
-	            null,
-	            _react2.default.createElement(
-	              "a",
-	              { href: "mobile.html" },
-	              "Mobile"
-	            )
-	          )
-	        )
-	      )
-	    )
-	  );
-	};
-
-/***/ },
-/* 312 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = function (props) {
+	exports.default = function () {
 	
 	  return _react2.default.createElement(
 	    "header",
@@ -53670,7 +53540,7 @@
 	};
 
 /***/ },
-/* 313 */
+/* 312 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -53683,7 +53553,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _SCHeader = __webpack_require__(314);
+	var _SCHeader = __webpack_require__(313);
 	
 	var _SCHeader2 = _interopRequireDefault(_SCHeader);
 	
@@ -53698,7 +53568,7 @@
 	};
 
 /***/ },
-/* 314 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -53713,14 +53583,23 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	exports.default = function (props) {
+	exports.default = function () {
 		return _react2.default.createElement(
 			"div",
-			{ id: "splash-header" },
+			{ id: "splash-header", className: "container center-align" },
 			_react2.default.createElement(
-				"h1",
-				{ className: "animated fadeIn" },
-				"Code Huddle"
+				"div",
+				{ className: "row" },
+				_react2.default.createElement(
+					"h1",
+					{ className: "animated fadeIn col s12" },
+					_react2.default.createElement(
+						"i",
+						{ className: "material-icons" },
+						"desktop_mac"
+					),
+					" Code Huddle"
+				)
 			),
 			_react2.default.createElement(
 				"h5",
@@ -53740,7 +53619,7 @@
 	};
 
 /***/ },
-/* 315 */
+/* 314 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
