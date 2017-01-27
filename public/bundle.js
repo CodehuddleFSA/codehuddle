@@ -53595,7 +53595,7 @@
 					{ className: "animated fadeIn col s12 section" },
 					_react2.default.createElement(
 						"i",
-						{ className: "material-icons" },
+						{ className: "material-icons medium" },
 						"desktop_mac"
 					),
 					" Code Huddle"
