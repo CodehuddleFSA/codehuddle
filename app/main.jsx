@@ -20,7 +20,8 @@ const ExampleApp = connect(
       <nav>
         {user ? <WhoAmI/> : <Login/>}
       </nav>
-      {children}
+      <Editor />
+      <Canvas />
     </div>
 )
 

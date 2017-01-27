@@ -1,59 +1,64 @@
+// Required libraries
 import React from 'react';
 const { Component } = React;
 import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 
-// Smart-ish component
+/* -----------------    COMPONENT     ------------------ */
+
 class Canvas extends Component {
   componentDidMount () {
+    // Set the canvas context
     const canvas = findDOMNode(this.refs.canvas);
+    const ctx = canvas.getContext('2d');
+    this.props.initCanvas(ctx);
 
-    const currentMousePosition = {
-      x: 0,
-      y: 0
-    };
-
-    const lastMousePosition = {
-      x: 0,
-      y: 0
-    };
-
+    // Initialize default state for canvas
+    const currentMousePosition = { x: 0, y: 0 };
+    const lastMousePosition = { x: 0, y: 0 };
     let drawing = false;
 
     const self = this; // :(
-    canvas.addEventListener('mousedown', function (e) {
+    canvas.addEventListener('mousedown', function (evt) {
       drawing = true;
-      currentMousePosition.x = e.pageX - this.offsetLeft;
-      currentMousePosition.y = e.pageY - this.offsetTop;
+      // Update current mouse position
+      currentMousePosition.x = evt.pageX - this.offsetLeft;
+      currentMousePosition.y = evt.pageY - this.offsetTop;
     });
 
     canvas.addEventListener('mouseup', function () {
       drawing = false;
     });
 
-    canvas.addEventListener('mousemove', function (e) {
-      if (!drawing) return;
+    canvas.addEventListener('mousemove', function (evt) {
+      if (!drawing) return; // Short circuit if mouse button isn't down
 
+      // Update last and current mouse positions
       lastMousePosition.x = currentMousePosition.x;
       lastMousePosition.y = currentMousePosition.y;
+      currentMousePosition.x = evt.pageX - this.offsetLeft;
+      currentMousePosition.y = evt.pageY - this.offsetTop;
 
-      currentMousePosition.x = e.pageX - this.offsetLeft;
-      currentMousePosition.y = e.pageY - this.offsetTop;
-
+      // Send dispatch out for new coordinates
       self.props.setCoordinates(lastMousePosition, currentMousePosition, '#000000');
     });
-
-    const ctx = canvas.getContext('2d');
-    this.props.initCanvas(ctx);
   }
 
   componentWillUpdate () {
+    // On drawing, the props will update and cause a draw
+    // Initiate context and bring in drawing data
     const { lastPx, currentPx, color } = this.props.lastDraw;
-    if (this.props.lastDraw.relay) {
-      console.log('sendingRelay');
-      this.props.setCoordinatesLocal(lastPx, currentPx, color);
+    const ctx = this.props.ctx;
+
+    // Drawing
+    if (!ctx.notReady) { // Only draw if context is initialized
+      ctx.beginPath();
+      ctx.strokeStyle = color;
+      ctx.moveTo(lastPx.x, lastPx.y);
+      ctx.lineTo(currentPx.x, currentPx.y);
+      ctx.closePath();
+      ctx.stroke();
     }
-    console.log('inside RECEIVE PROPS', this.props.lastDraw);
   }
 
   render () {
@@ -63,24 +68,23 @@ class Canvas extends Component {
   }
 }
 
-import { initCanvas, setCoordinates, setCoordinatesLocal } from '../reducers/whiteboard';
+/* -----------------    CONTAINER     ------------------ */
 
-// Connect component
+import { initCanvas, setCoordinates } from '../reducers/whiteboard';
+
 const mapStateToProps = (state) => {
   return {
-    lastDraw: state.interview.whiteboard.lastDraw
+    lastDraw: state.interview.whiteboard.lastDraw,
+    ctx: state.interview.whiteboard.ctx
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     initCanvas: (ctx) => {
-      dispatch(initCanvas(ctx, 'spongebob'));
+      dispatch(initCanvas(ctx));
     },
     setCoordinates: (lastPx, currentPx, color) => {
       dispatch(setCoordinates(lastPx, currentPx, color));
-    },
-    setCoordinatesLocal: (lastPx, currentPx, color) => {
-      dispatch(setCoordinatesLocal(lastPx, currentPx, color));
     }
   };
 };

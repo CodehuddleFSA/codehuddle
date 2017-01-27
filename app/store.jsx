@@ -2,7 +2,6 @@ import { createStore, applyMiddleware } from 'redux';
 import rootReducer from './reducers';
 import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
-import canvas from 'redux-canvas';
 
 import {whoami} from './reducers/auth';
 
@@ -22,7 +21,6 @@ const socketsEmit = (socket, channelName = 'action') => store => {
 
   return next => action => {
     if (action.meta && action.meta.remote) {
-      console.log('THIS IS THE MIDDLEWARE', action);
       socket.emit(channelName, action); // If action has meta.remote = true, this emit to server;
     }
     return next(action);
@@ -30,7 +28,7 @@ const socketsEmit = (socket, channelName = 'action') => store => {
 };
 
 // Create store
-const store = createStore(rootReducer, applyMiddleware(createLogger(), thunkMiddleware, socketsEmit(socket), canvas));
+const store = createStore(rootReducer, applyMiddleware(createLogger(), thunkMiddleware, socketsEmit(socket)));
 export default store;
 
 // Set the auth info at start
