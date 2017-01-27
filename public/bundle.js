@@ -53592,7 +53592,7 @@
 				{ className: "row" },
 				_react2.default.createElement(
 					"h1",
-					{ className: "animated fadeIn col s12" },
+					{ className: "animated fadeIn col s12 section" },
 					_react2.default.createElement(
 						"i",
 						{ className: "material-icons" },
