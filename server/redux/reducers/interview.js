@@ -34,9 +34,10 @@ function reducer (interviewData = initialInterviewData, action) {
     case ADD_ROOM:
       newInterviewData[action.room] = defaultRoom;
       break;
-    // case SET_TEXT:
-    //   newInterviewData[action.room].text = action.text;
-    //   break;
+
+    case SET_TEXT:
+      newInterviewData[action.room].editor.text = action.text;
+      break;
 
     default: return interviewData;
 

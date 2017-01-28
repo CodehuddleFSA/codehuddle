@@ -1,50 +1,45 @@
 
+// Required libraries
+const chalk = require('chalk');
+
 // Required files
 const { setText, addRoom } = require('./redux/reducers/interview');
 const { store } = require('./redux/store');
 
-// Store room data locally for reload
-const roomData = {};
-
-// Action creators; TODO: move to a separate file
-// const setText = text => ({
-//   type: 'SET_TEXT',
-//   text
-// });
-
+// This establishes the publish and subscribe function for the specific socket instance
 const socketPubSub = io => {
   io.on('connection', (socket) => {
-    console.log('Socket client connected', socket.id);
+    console.log(chalk.green(`Socket client connected: ${socket.id}`));
+
     let room;
 
+    // Socket just connected, and wants to join a room. Grab the room information and send back to the user.
     socket.on('wantToJoinRoom', (roomName) => {
       room = roomName;
       socket.join(room);
 
-      // Redux
-      // Grab state data
+      let initialInterViewData = store.getState().interview;
+      let action;
+
       // If room doesn't exist, send out an action to create it with default text
-      // Then issue a getstate to grab the data from the room
-      const interviewData = store.getState().interview;
-      if (!interviewData[room]) {
+      if (!initialInterViewData[room]) {
         store.dispatch(addRoom(room));
+        initialInterViewData = store.getState().interview; // Reset with updated data
       }
 
-      // If room doesn't exist, set the default value
-      if (!roomData[room]) roomData[room] = { editor: { value: 'default val' } };
-      // Create a new action with the current text
-      let action = setText(roomData[room].editor.value);
+      // Create an action for the socket to emit to the requesting client
+      action = setText(initialInterViewData[room].editor.text);
 
       socket.emit('action', action);
     });
 
+    
     socket.on('action', (action) => { // When an action is received, send it out. This acts like a reducer.
-      // Set room for action
+      // Set room for action, that was established
       action.room = room;
 
       if (action.type === 'SET_TEXT') {
         store.dispatch(action);
-        roomData[room].editor.value = action.text;
       }
 
       action.meta.remote = false; // Remove the remote true to prevent continuous back and forth.
