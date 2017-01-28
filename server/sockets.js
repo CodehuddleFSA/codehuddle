@@ -9,7 +9,7 @@ const { store } = require('./redux/store');
 // This establishes the publish and subscribe function for the specific socket instance
 const socketPubSub = io => {
   io.on('connection', (socket) => {
-    console.log(chalk.green(`Socket client connected: ${socket.id}`));
+    console.log(chalk.bgBlue(`Socket client connected: ${socket.id}`));
 
     let room;
 

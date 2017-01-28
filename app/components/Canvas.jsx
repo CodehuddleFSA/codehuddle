@@ -45,17 +45,12 @@ class Canvas extends Component {
   }
 
   componentDidUpdate () {
-    console.log('+++++++++++++++++++++ inside update')
-    const ctx = this.props.ctx;
-    const drawingHistory = this.props.drawingHistory;
-
+    const ctx = this.props.ctx; // Grab the canvas context
     if (ctx.notReady) return;
 
-    // On drawing, the props will update and cause a draw
-    // Initiate context and bring in drawing data
+    const drawingHistory = this.props.drawingHistory;
 
-    if (drawingHistory.length) {
-      console.log('+++++++++++++++++++++ inside length')
+    if (drawingHistory.length) { // If there is a drawing history, draw then clear
       drawingHistory.forEach(event => {
         draw(event.lastPx, event.currentPx, event.color);
       });
@@ -63,6 +58,7 @@ class Canvas extends Component {
       return;
     }
 
+    // Else, on every re-render, draw the new line
     const { lastPx, currentPx, color } = this.props.lastDraw;
     draw(lastPx, currentPx, color);
 
