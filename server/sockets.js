@@ -3,7 +3,7 @@
 const chalk = require('chalk');
 
 // Required files
-const { setText, addRoom } = require('./redux/reducers/interview');
+const { addRoom, setText, requestHistory } = require('./redux/reducers/interview');
 const { store } = require('./redux/store');
 
 // This establishes the publish and subscribe function for the specific socket instance
@@ -19,7 +19,6 @@ const socketPubSub = io => {
       socket.join(room);
 
       let initialInterViewData = store.getState().interview;
-      let action;
 
       // If room doesn't exist, send out an action to create it with default text
       if (!initialInterViewData[room]) {
@@ -28,9 +27,11 @@ const socketPubSub = io => {
       }
 
       // Create an action for the socket to emit to the requesting client
-      action = setText(initialInterViewData[room].editor.text);
+      const sendTextHistory = setText(initialInterViewData[room].editor.text);
+      const sendWhiteboardHistory = requestHistory(initialInterViewData[room].whiteboard.drawingHistory);
 
-      socket.emit('clientStoreAction', action);
+      socket.emit('clientStoreAction', sendTextHistory);
+      socket.emit('clientStoreAction', sendWhiteboardHistory);
     });
 
     // Socket sends out a client-side store action

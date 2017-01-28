@@ -6,6 +6,7 @@ const ADD_ROOM = 'ADD_ROOM';
 const SET_TEXT = 'SET_TEXT';
 
 // Whiteboard
+const REQUEST_HISTORY = 'REQUEST_HISTORY';
 const SET_COORDINATES = 'SET_COORDINATES';
 
 /* ------------   ACTION CREATORS     ------------------ */
@@ -23,6 +24,13 @@ const setText = text => (
 );
 
 // Whiteboard
+const requestHistory = drawingHistory => {
+  return {
+    type: REQUEST_HISTORY,
+    drawingHistory
+  };
+};
+
 const setCoordinates = (lastPx, currentPx, color) => {
   return {
     type: SET_COORDINATES,
@@ -74,5 +82,6 @@ module.exports = {
   addRoom,
   setText,
   setCoordinates,
+  requestHistory,
   reducer
 };

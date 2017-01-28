@@ -44,14 +44,29 @@ class Canvas extends Component {
     });
   }
 
-  componentWillUpdate () {
+  componentDidUpdate () {
+    console.log('+++++++++++++++++++++ inside update')
+    const ctx = this.props.ctx;
+    const drawingHistory = this.props.drawingHistory;
+
+    if (ctx.notReady) return;
+
     // On drawing, the props will update and cause a draw
     // Initiate context and bring in drawing data
-    const { lastPx, currentPx, color } = this.props.lastDraw;
-    const ctx = this.props.ctx;
 
-    // Drawing
-    if (!ctx.notReady) { // Only draw if context is initialized
+    if (drawingHistory.length) {
+      console.log('+++++++++++++++++++++ inside length')
+      drawingHistory.forEach(event => {
+        draw(event.lastPx, event.currentPx, event.color);
+      });
+      this.props.clearHistory();
+      return;
+    }
+
+    const { lastPx, currentPx, color } = this.props.lastDraw;
+    draw(lastPx, currentPx, color);
+
+    function draw (lastPx, currentPx, color) {
       ctx.beginPath();
       ctx.strokeStyle = color;
       ctx.moveTo(lastPx.x, lastPx.y);
@@ -70,14 +85,16 @@ class Canvas extends Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-import { initCanvas, setCoordinates } from '../reducers/whiteboard';
+import { initCanvas, setCoordinates, clearHistory } from '../reducers/whiteboard';
 
 const mapStateToProps = (state) => {
   return {
     lastDraw: state.interview.whiteboard.lastDraw,
-    ctx: state.interview.whiteboard.ctx
+    ctx: state.interview.whiteboard.ctx,
+    drawingHistory: state.interview.whiteboard.drawingHistory
   };
 };
+
 const mapDispatchToProps = (dispatch) => {
   return {
     initCanvas: (ctx) => {
@@ -85,6 +102,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setCoordinates: (lastPx, currentPx, color) => {
       dispatch(setCoordinates(lastPx, currentPx, color));
+    },
+    clearHistory: () => {
+      dispatch(clearHistory());
     }
   };
 };
