@@ -6,15 +6,25 @@ const chalk = require('chalk');
 const { addRoom, setText, requestHistory } = require('./redux/reducers/interview');
 const { store } = require('./redux/store');
 
+// Util chalk logger for backend socket messages
+function socketLog (socketId, message) {
+  console.log(
+    chalk.bgYellow.white(` `),
+    chalk.dim(`[Socket] client ID: ${socketId}`),
+    chalk.yellow(message)
+  );
+}
+
 // This establishes the publish and subscribe function for the specific socket instance
 const socketPubSub = io => {
   io.on('connection', (socket) => {
-    console.log(chalk.bgBlue(`Socket client connected: ${socket.id}`));
+    socketLog(socket.id, `is now connected`);
 
     let room;
 
     // Socket just connected, and wants to join a room. Grab the room information and send back to the user.
     socket.on('wantToJoinRoom', (roomName) => {
+      socketLog(socket.id, `has joined room: ${roomName}`);
       room = roomName;
       socket.join(room);
 
