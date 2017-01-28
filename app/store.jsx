@@ -1,8 +1,11 @@
+
+// Required libraries
 import { createStore, applyMiddleware } from 'redux';
-import rootReducer from './reducers';
 import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 
+// Required files
+import rootReducer from './reducers';
 import {whoami} from './reducers/auth';
 
 /* ------------       SOCKETS     ------------------ */
@@ -16,7 +19,7 @@ socket.on('connect', () => {
 });
 
 // Sockets Middleware
-const socketsEmit = (socket, channelName = 'action') => store => {
+const socketsEmit = (socket, channelName) => store => {
   socket.on(channelName, store.dispatch); // When action is received, disptach to store
 
   return next => action => {
@@ -27,8 +30,16 @@ const socketsEmit = (socket, channelName = 'action') => store => {
   };
 };
 
-// Create store
-const store = createStore(rootReducer, applyMiddleware(createLogger(), thunkMiddleware, socketsEmit(socket)));
+/* ------------       STORE     ------------------ */
+
+const store = createStore(rootReducer,
+  applyMiddleware(
+    createLogger(),
+    thunkMiddleware,
+    socketsEmit(socket, 'clientStoreAction')
+  )
+);
+
 export default store;
 
 // Set the auth info at start

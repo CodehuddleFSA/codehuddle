@@ -30,11 +30,11 @@ const socketPubSub = io => {
       // Create an action for the socket to emit to the requesting client
       action = setText(initialInterViewData[room].editor.text);
 
-      socket.emit('action', action);
+      socket.emit('clientStoreAction', action);
     });
 
-    
-    socket.on('action', (action) => { // When an action is received, send it out. This acts like a reducer.
+    // Socket sends out a client-side store action
+    socket.on('clientStoreAction', (action) => { // When an action is received, send it out. This acts like a reducer.
       // Set room for action, that was established
       action.room = room;
 
@@ -43,7 +43,7 @@ const socketPubSub = io => {
       }
 
       action.meta.remote = false; // Remove the remote true to prevent continuous back and forth.
-      socket.broadcast.emit('action', action); // Broadcast out to everyone but the sender.
+      socket.broadcast.emit('clientStoreAction', action); // Broadcast out to everyone but the sender.
     });
   });
 };
