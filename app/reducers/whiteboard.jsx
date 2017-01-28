@@ -35,6 +35,7 @@ const initialWhiteboardData = {
 
 export default function reducer (whiteboardData = initialWhiteboardData, action) {
   const newWhiteboardData = Object.assign({}, whiteboardData);
+
   switch (action.type) {
 
     case SET_COORDINATES:
@@ -44,7 +45,7 @@ export default function reducer (whiteboardData = initialWhiteboardData, action)
     case INIT_CANVAS:
       newWhiteboardData.ctx = action.ctx;
       break;
-      
+
     default: return newWhiteboardData;
 
   }
