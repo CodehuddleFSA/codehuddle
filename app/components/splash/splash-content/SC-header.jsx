@@ -1,6 +1,14 @@
 import React from 'react';
 
 export default () => {
+
+
+// $('html, body').animate({
+// 	scrollTop: $("#splash-content-1").offset().top
+// 	}, 2000);
+
+
+
 	return (
 		<div id="splash-header" className="container center-align">
 			<div className="row">
@@ -9,8 +17,8 @@ export default () => {
 					<li id="splash-h1-ul-h1"><h1 className="animated fadeIn col s12 section">Code Huddle</h1></li>
 				</ul>
 			</div>
-			<h5 className="animated fadeIn">Technical Interviews Done Right</h5>
-			<a href="#body-1" id="header-down-arrow-icon" className="animated fadeIn center-align"><i className="medium material-icons">keyboard_arrow_down</i></a>
+			<h4 className="animated fadeIn">Technical Interviews Done Right</h4>
+			<a href="#splash-content-1" id="header-down-arrow-icon" className="animated fadeIn center-align"><i className="medium material-icons">keyboard_arrow_down</i></a>
 		</div>
 	);
 };

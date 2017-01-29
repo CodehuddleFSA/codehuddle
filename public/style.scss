@@ -1,12 +1,14 @@
 /*  Imports */
 
 @import url('https://fonts.googleapis.com/css?family=Aldrich');
+@import url('https://fonts.googleapis.com/css?family=Allura');
 
 /* Variables */
 
 $splash-bg: #FFF;
 $splash-bg-1: #2EACE9;
 $header-font: Aldrich;
+$sub-header-font: Allura;
 
 /* Rules */
 
@@ -29,11 +31,11 @@ main {
 }
 
 /* Helpers */
-.title-svg {
-  background: url('/images/code-outline.svg');
-  background-origin: content-box;
-  background-repeat: no-repeat;
-}
+// .title-svg {
+//   background: url('/images/code-outline.svg');
+//   background-origin: content-box;
+//   background-repeat: no-repeat;
+// }
 
 /* Navigation */
 
@@ -49,17 +51,18 @@ div[role="navigation"] {
 }
 
 
-/* Content */
+/* Splash Content */
 
 #splash-content {
+  display: block;
   background-color: $splash-bg;
   background-size: cover;
-  height: 100vh;
+  height: 90vh;
   justify-content: center;
   #splash-header {
     font-family: $header-font;
-    margin-top: 40vh;
-    height: 100vh;
+    margin-top: 16vh;
+    height: 80vh;
     width: 60%;
     justify-content: center;
     img {
@@ -72,15 +75,24 @@ div[role="navigation"] {
       padding-bottom: 20px;
       animation-delay: .4s;
     }
-    h5 {
+    h4 {
+      font-family: $sub-header-font;
       animation-delay: .8s;
     }
     #header-down-arrow-icon,
     a i.medium.material-icons {
       animation-delay: 1.5s;
-      margin-top: 25vh;
+      margin-top: 15vh;
       justify-content: center;
     }
+  }
+  #splash-content-1 {
+    background-color: $splash-bg-1;
+    font-family: $header-font;
+    height: 70vh;
+    width: 100vw;
+    margin: 0px;
+    padding: 0px;
   }
 }
 
