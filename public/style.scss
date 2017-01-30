@@ -16,9 +16,9 @@ body {
   box-sizing: border-box;
 }
 
-// main {
-//   flex: 1 0 auto;
-// }
+main {
+  flex: 1 0 auto;
+}
 
 .page-flexbox-wrapper {
   display: flex;
@@ -134,5 +134,7 @@ div[role="navigation"] {
 
 /* Footer */
 div[role="footer"] {
+  position: absolute;
   z-index: 10000;
+  width: 100vw;
 }

@@ -11,6 +11,7 @@ export const Splash = () => {
 		<div id="splash-root" className="page-flexbox-wrapper">
 			<SplashNav1/>
 			<SplashContent/>
+			
 		</div>
 	);
 };

@@ -6,6 +6,9 @@
 body {
   box-sizing: border-box; }
 
+main {
+  flex: 1 0 auto; }
+
 .page-flexbox-wrapper {
   display: flex;
   min-height: 100vh;
@@ -92,6 +95,8 @@ div[role="navigation"] ul li {
 
 /* Footer */
 div[role="footer"] {
-  z-index: 10000; }
+  position: absolute;
+  z-index: 10000;
+  width: 100vw; }
 
 /*# sourceMappingURL=style.css.map */
