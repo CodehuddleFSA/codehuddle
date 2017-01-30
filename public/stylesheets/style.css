@@ -62,8 +62,11 @@ div[role="navigation"] ul li {
     width: 100vw;
     margin: 0px;
     padding: 0px; }
+    #splash-content #splash-content-1 #splash-content-1-header {
+      display: flex;
+      align-items: center; }
 
-s
+/* Footer */
 footer.page-footer {
   margin-top: 0px; }
 
