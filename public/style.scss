@@ -16,9 +16,9 @@ body {
   box-sizing: border-box;
 }
 
-main {
-  flex: 1 0 auto;
-}
+// main {
+//   flex: 1 0 auto;
+// }
 
 .page-flexbox-wrapper {
   display: flex;
@@ -91,18 +91,23 @@ div[role="navigation"] {
   #splash-content-1 {
     background-color: $splash-bg-1;
     font-family: $header-font;
-    height: 90vh;
+    min-height: 100vh;
     width: 100vw;
     margin: 0px;
     padding: 0px;
     #splash-content-1-header {
       margin: auto;
+      #splash-1-p1,
+      #splash-1-p2 {
+        margin: 30px;
+      }
     }
   }
   #splash-content-hipster {
     background-Color: $splash-bg;
     font-family: $header-font;
-    height: 60vh;
+    max-height: 60vh;
+    min-height: 10vh;
     width: 100vw;
     margin: 0px;
     padding: 0px;
@@ -114,7 +119,8 @@ div[role="navigation"] {
   #splash-content-hired {
     background-Color: $splash-bg;
     font-family: $header-font;
-    height: 60vh;
+    max-height: 30vh;
+    min-height: 7vh;
     width: 100vw;
     margin: 0px;
     padding: 0px;
@@ -127,7 +133,6 @@ div[role="navigation"] {
 
 
 /* Footer */
-
-footer.page-footer {
-  margin-top: 0px;
+div[role="footer"] {
+  z-index: 10000;
 }
