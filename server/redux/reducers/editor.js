@@ -1,21 +1,27 @@
-import editor from './editor';
 
 /* -----------------    ACTIONS     ------------------ */
+const SET_TEXT = 'SET_TEXT';
 
 /* ------------   ACTION CREATORS     ------------------ */
+const setText = text => ({
+  type: SET_TEXT,
+  text
+}
+);
 
 /* ------------       REDUCER     ------------------ */
 const initialEditorData = {
-  editor: editor(),
-  
+  spongebob: {
+    text: 'default text'
+  }
 };
 
-export default function reducer (intervewData = initialEditorData, action) {
+function reducer (editorData = initialEditorData, action) {
   const newEditorData = Object.assign({}, editorData);
 
   switch (action.type) {
     case SET_TEXT:
-      newEditorData.text = action.text;
+      newEditorData[action.room].text = action.text;
       break;
 
     default: return editorData;
@@ -26,3 +32,8 @@ export default function reducer (intervewData = initialEditorData, action) {
 }
 
 /* ------------       DISPATCHERS     ------------------ */
+
+module.exports = {
+  setText,
+  reducer
+};
