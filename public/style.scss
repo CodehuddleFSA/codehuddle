@@ -60,7 +60,7 @@ div[role="navigation"] {
     font-family: $header-font;
     margin-top: 16vh;
     height: 80vh;
-    width: 60%;
+    width: 70%;
     justify-content: center;
     img {
       height: 64px;
@@ -86,13 +86,12 @@ div[role="navigation"] {
   #splash-content-1 {
     background-color: $splash-bg-1;
     font-family: $header-font;
-    height: 70vh;
+    height: 60vh;
     width: 100vw;
     margin: 0px;
     padding: 0px;
     #splash-content-1-header {
-      display: flex;
-      align-items: center;
+      margin: auto;
     }
   }
 }

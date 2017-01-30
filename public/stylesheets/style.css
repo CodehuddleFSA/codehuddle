@@ -37,7 +37,7 @@ div[role="navigation"] ul li {
     font-family: Aldrich;
     margin-top: 16vh;
     height: 80vh;
-    width: 60%;
+    width: 70%;
     justify-content: center; }
     #splash-content #splash-header img {
       height: 64px;
@@ -58,13 +58,12 @@ div[role="navigation"] ul li {
   #splash-content #splash-content-1 {
     background-color: #2EACE9;
     font-family: Aldrich;
-    height: 70vh;
+    height: 60vh;
     width: 100vw;
     margin: 0px;
     padding: 0px; }
     #splash-content #splash-content-1 #splash-content-1-header {
-      display: flex;
-      align-items: center; }
+      margin: auto; }
 
 /* Footer */
 footer.page-footer {
