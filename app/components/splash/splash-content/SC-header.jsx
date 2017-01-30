@@ -1,3 +1,5 @@
+'use strict';
+
 import React from 'react';
 
 export default () => {
@@ -11,6 +13,11 @@ export default () => {
 				</ul>
 			</div>
 			<h4 className="animated fadeIn">Technical Interviews Done Right</h4>
+			<div className="row">
+				<ul id="get-started-btn">
+					<li><a className="animated fadeIn waves-effect waves-light btn-large"><i className="material-icons right">navigate_next</i>button</a></li>
+				</ul>
+			</div>
 			<a href="#splash-content-1" id="header-down-arrow-icon" className="animated fadeIn center-align"><i className="medium material-icons">keyboard_arrow_down</i></a>
 		</div>
 	);

@@ -74,19 +74,24 @@ div[role="navigation"] {
     }
     h4 {
       font-family: $sub-header-font;
+      padding-bottom: 40px;
       animation-delay: .8s;
+    }
+    #get-started-btn li a {
+      animation-delay: 1s;
+
     }
     #header-down-arrow-icon,
     a i.medium.material-icons {
       animation-delay: 1.5s;
-      margin-top: 15vh;
+      margin-top: 12vh;
       justify-content: center;
     }
   }
   #splash-content-1 {
     background-color: $splash-bg-1;
     font-family: $header-font;
-    height: 60vh;
+    height: 90vh;
     width: 100vw;
     margin: 0px;
     padding: 0px;
@@ -94,6 +99,17 @@ div[role="navigation"] {
       margin: auto;
     }
   }
+  #splash-content-2 {
+    background-Color: $splash-bg;
+    font-family: $header-font;
+    height: 80vh;
+    width: 100vw;
+    margin: 0px;
+    padding: 0px;
+  }
+  #splash-content-2-header {
+      margin: auto;
+    }
 }
 
 
