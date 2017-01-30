@@ -1,6 +1,7 @@
 
 /* -----------------    ACTIONS     ------------------ */
 const SET_TEXT = 'SET_TEXT';
+const SET_OPTIONS = 'SET_OPTIONS';
 
 /* ------------   ACTION CREATORS     ------------------ */
 export const setText = text => ({
@@ -10,9 +11,25 @@ export const setText = text => ({
   },
   text });
 
+export const setOptions = evt => ({
+  type: SET_OPTIONS,
+  meta: {
+    remote: true
+  }
+  setting: {
+    id: evt.target.id,
+    value: evt.target.checked
+  }
+});
+
 /* ------------       REDUCER     ------------------ */
 const initialEditorData = {
-  text: 'default text'
+  text: 'default text',
+  options: { // TODO: immutable map
+    linting: true,
+    showGutter: true,
+    textSize: false
+  }
 };
 
 export default function reducer (editorData = initialEditorData, action) {
@@ -21,6 +38,11 @@ export default function reducer (editorData = initialEditorData, action) {
   switch (action.type) {
     case SET_TEXT:
       newEditorData.text = action.text;
+      break;
+
+    case SET_OPTIONS: // TODO: use immutable here.
+      newEditorData.options = Object.assign({}, editorData.options);
+      newEditorData.options[action.setting.id] = action.setting.value;
       break;
 
     default: return editorData;

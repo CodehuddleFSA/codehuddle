@@ -66,7 +66,7 @@ function reducer (interviewData = initialInterviewData, action) {
       break;
 
     case SET_COORDINATES:
-      newInterviewData[action.room].whiteboard.drawingHistory.push(action.lastDraw);
+      newInterviewData[action.room].whiteboard.drawingHistory.push(action.lastDraw); // TODO: look into immutable / concat
       break;
 
     default: return interviewData;

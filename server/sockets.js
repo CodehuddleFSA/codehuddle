@@ -24,6 +24,7 @@ const socketPubSub = io => {
 
     // Socket just connected, and wants to join a room. Grab the room information and send back to the user.
     socket.on('wantToJoinRoom', (roomName) => {
+      // TODO: put into thunk action creator
       socketLog(socket.id, `has joined room: ${roomName}`);
       room = roomName;
       socket.join(room);
@@ -54,6 +55,7 @@ const socketPubSub = io => {
 
       action.meta.remote = false; // Remove the remote true to prevent continuous back and forth.
       socket.broadcast.emit('clientStoreAction', action); // Broadcast out to everyone but the sender.
+      // TODO: lookup for rooms
     });
   });
 };

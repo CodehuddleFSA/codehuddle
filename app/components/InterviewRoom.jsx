@@ -4,12 +4,14 @@ import React from 'react';
 // Required files
 import Canvas from './Canvas';
 import Editor from './Editor';
+import InterviewRoomOptions from './InterviewRoomOptions';
 
 /* -----------------    COMPONENT     ------------------ */
 
 export const InterviewRoom = ({ AceEditor, onChange, text }) => {
   return (
     <div>
+      <InterviewRoomOptions />
       <Editor />
       <Canvas />
     </div>
