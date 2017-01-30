@@ -2,13 +2,6 @@ import React from 'react';
 
 export default () => {
 
-
-// $('html, body').animate({
-// 	scrollTop: $("#splash-content-1").offset().top
-// 	}, 2000);
-
-
-
 	return (
 		<div id="splash-header" className="container center-align">
 			<div className="row">
