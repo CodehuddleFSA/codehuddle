@@ -10,29 +10,15 @@ import Login from './components/Login';
 import WhoAmI from './components/WhoAmI';
 import Editor from './components/Editor';
 import Canvas from './components/Canvas';
-// import Splash from './components/Splash/Splash';
-
-const ExampleApp = connect(
-  ({ auth }) => ({ user: auth })
-) (
-  ({ user, children }) =>
-    <div>
-      <nav>
-        {user ? <WhoAmI/> : <Login/>}
-      </nav>
-      <Editor />
-      <Canvas />
-    </div>
-)
+import InterviewRoom from './components/InterviewRoom';
 
 render (
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={ExampleApp}>
+      <Route path="/">
         {/*<IndexRedirect to="/jokes" /> */}
         <Route path="/jokes" component={Jokes} />
-        <Route path="/editor" component={Editor} />
-        <Route path="/canvas" component={Canvas} />
+        <Route path="/interviewRoom" component={InterviewRoom} />
       </Route>
     </Router>
   </Provider>,
