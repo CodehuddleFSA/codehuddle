@@ -10,6 +10,7 @@ import Login from './components/Login';
 import WhoAmI from './components/WhoAmI';
 import Editor from './components/Editor';
 import Canvas from './components/Canvas';
+import KonvaLine from './components/Line';
 // import Splash from './components/Splash/Splash';
 
 const ExampleApp = connect(
@@ -21,7 +22,7 @@ const ExampleApp = connect(
         {user ? <WhoAmI/> : <Login/>}
       </nav>
       <Editor />
-      <Canvas />
+      <KonvaLine/>
     </div>
 )
 
@@ -32,7 +33,7 @@ render (
         {/*<IndexRedirect to="/jokes" /> */}
         <Route path="/jokes" component={Jokes} />
         <Route path="/editor" component={Editor} />
-        <Route path="/canvas" component={Canvas} />
+        <Route path="/line" component={KonvaLine} />
       </Route>
     </Router>
   </Provider>,

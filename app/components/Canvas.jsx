@@ -4,19 +4,62 @@ const { Component } = React;
 import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 
+
+/*------------------  DUMB COMPONENT  ---------------*/
+ function Canvas (props) {
+    // On drawing, the props will update and cause a draw
+    // Initiate context and bring in drawing data
+    const { lastPx, currentPx, color } = props.lastDraw;
+    const ctx = props.ctx;
+
+    // Drawing
+    if (!ctx.notReady) { // Only draw if context is initialized
+      ctx.beginPath();
+      ctx.strokeStyle = color;
+      ctx.moveTo(lastPx.x, lastPx.y);
+      ctx.lineTo(currentPx.x, currentPx.y);
+      ctx.closePath();
+      ctx.stroke();
+    }
+  
+  return (
+    <div>
+      <div height="550px" width="500px">
+        <input type="button" id="clear" value="clear the whiteboard"/>
+        <canvas width="500px" id="canvas" height="500px" />
+      </div>
+    </div>
+  );
+};
+
+
 /* -----------------    COMPONENT     ------------------ */
 
-class Canvas extends Component {
+class CanvasContainer extends Component {
+
+  constructor (props) {
+    super(props);
+    this.state = { canvas: '', clear: '', ctx: '' };
+  }
+
   componentDidMount () {
     // Set the canvas context
-    const canvas = findDOMNode(this.refs.canvas);
-    const ctx = canvas.getContext('2d');
-    this.props.initCanvas(ctx);
+    // const canvas = findDOMNode(this.refs.canvas);
+    // const clear = findDOMNode(this.refs.clear);
+
+    this.state.canvas = document.getElementById('canvas');
+    this.state.clear = document.getElementById('clear');
+    this.state.ctx = canvas.getContext('2d');
+    this.props.initCanvas(this.state.ctx);
 
     // Initialize default state for canvas
     const currentMousePosition = { x: 0, y: 0 };
     const lastMousePosition = { x: 0, y: 0 };
     let drawing = false;
+
+    clear.addEventListener('click', function() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }, false);
 
     const self = this; // :(
     canvas.addEventListener('mousedown', function (evt) {
@@ -44,31 +87,19 @@ class Canvas extends Component {
     });
   }
 
-  componentWillUpdate () {
-    // On drawing, the props will update and cause a draw
-    // Initiate context and bring in drawing data
-    const { lastPx, currentPx, color } = this.props.lastDraw;
-    const ctx = this.props.ctx;
-
-    // Drawing
-    if (!ctx.notReady) { // Only draw if context is initialized
-      ctx.beginPath();
-      ctx.strokeStyle = color;
-      ctx.moveTo(lastPx.x, lastPx.y);
-      ctx.lineTo(currentPx.x, currentPx.y);
-      ctx.closePath();
-      ctx.stroke();
-    }
-  }
 
   render () {
     return (
-        <canvas ref="canvas" width="1000px" height="1000px" />
+      <div>
+        <Canvas  
+        {...this.props}
+        />
+      </div>
     );
   }
 }
 
-/* -----------------    CONTAINER     ------------------ */
+/* -----------------    CONNECT CONTAINER     ------------------ */
 
 import { initCanvas, setCoordinates } from '../reducers/whiteboard';
 
@@ -89,4 +120,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Canvas);
+export default connect(mapStateToProps, mapDispatchToProps)(CanvasContainer);

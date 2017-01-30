@@ -5,16 +5,11 @@ const INIT_CANVAS = 'INIT_CANVAS';
 
 /* ------------   ACTION CREATORS     ------------------ */
 export const initCanvas = (ctx) => {
-  return {
-    type: INIT_CANVAS,
-    ctx
-  };
-};
 
 export const setCoordinates = (lastPx, currentPx, color) => {
   return {
     type: SET_COORDINATES,
-    lastDraw: { lastPx, currentPx, color },
+    lastDraw: { lastPx, currentPx, color},
     meta: {
       remote: true
     }
@@ -28,9 +23,9 @@ const initialWhiteboardData = {
     currentPx: { x: null, y: null },
     color: '#000000'
   },
-  ctx: {
-    notReady: true
-  }
+  coordinateHistory: []
+  
+  
 };
 
 export default function reducer (whiteboardData = initialWhiteboardData, action) {
@@ -38,12 +33,13 @@ export default function reducer (whiteboardData = initialWhiteboardData, action)
   switch (action.type) {
 
     case SET_COORDINATES:
-      newWhiteboardData.lastDraw = action.lastDraw;
+      newWhiteboardData.lastDraw.lastPx = action.lastDraw.lastPx;
+      newWhiteboardData.lastDraw.currentPx = action.lastDraw.currentPx;
+      newWhiteboardData.lastDraw.color = action.lastDraw.color;
+      newWhiteboardData.coordinateHistory = newWhiteboardData.coordinateHistory.concat([action.lastDraw.currentPx.x, action.lastDraw.currentPx.y]);
       break;
 
-    case INIT_CANVAS:
-      newWhiteboardData.ctx = action.ctx;
-      break;
+    
       
     default: return newWhiteboardData;
 
