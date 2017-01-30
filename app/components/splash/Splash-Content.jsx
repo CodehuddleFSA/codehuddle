@@ -5,6 +5,8 @@ import React from 'react';
 import SCHeader from './splash-content/SC-header';
 import SCContent1 from './splash-content/SC-content-1.jsx';
 import SCContent2 from './splash-content/SC-content-2.jsx';
+import SCContent3 from './splash-content/SC-content-3.jsx';
+
 
 export default () => {
 	return (
@@ -12,6 +14,7 @@ export default () => {
 			<SCHeader/>
 			<SCContent1/>
 			<SCContent2/>
+			<SCContent3/>
 		</main>
 	);
 };

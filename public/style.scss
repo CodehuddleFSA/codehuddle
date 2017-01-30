@@ -74,7 +74,7 @@ div[role="navigation"] {
     }
     h4 {
       font-family: $sub-header-font;
-      padding-bottom: 40px;
+      padding-bottom: 50px;
       animation-delay: .8s;
     }
     #get-started-btn li a {
@@ -99,17 +99,30 @@ div[role="navigation"] {
       margin: auto;
     }
   }
-  #splash-content-2 {
+  #splash-content-hipster {
     background-Color: $splash-bg;
     font-family: $header-font;
-    height: 80vh;
+    height: 60vh;
     width: 100vw;
     margin: 0px;
     padding: 0px;
-  }
-  #splash-content-2-header {
-      margin: auto;
+    img {
+      background-size: contain;
+      width: 100vw;
     }
+  }
+  #splash-content-hired {
+    background-Color: $splash-bg;
+    font-family: $header-font;
+    height: 60vh;
+    width: 100vw;
+    margin: 0px;
+    padding: 0px;
+    img {
+      background-size: contain;
+      width: 100vw;
+    }
+  }
 }
 
 

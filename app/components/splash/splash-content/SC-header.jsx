@@ -3,7 +3,7 @@
 import React from 'react';
 
 export default () => {
-
+	// use jumbotron or hero instead of header
 	return (
 		<div id="splash-header" className="container center-align">
 			<div className="row">

@@ -5,9 +5,9 @@ import React from 'react';
 export default () => {
 	
 	return (
-		<div id="splash-content-hipster">
+		<div id="splash-content-hired">
 				<div id="splash-content-2-header" className="center-align">
-					<img src="/images/developerpicture.jpg"/>
+					<img src="/images/ur-hired.png"/>
 				</div>
 		</div>
 	);
