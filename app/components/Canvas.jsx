@@ -84,12 +84,11 @@ class Canvas extends Component {
 import { initCanvas, setCoordinates, clearHistory } from '../reducers/whiteboard';
 
 const mapStateToProps = (state) => {
-  const output = {
+  return {
     lastDraw: state.interview.whiteboard.get('lastDraw').toJS(),
     ctx: state.interview.whiteboard.get('ctx'),
     drawingHistory: state.interview.whiteboard.get('drawingHistory')
   };
-  return output;
 };
 
 const mapDispatchToProps = (dispatch) => {
