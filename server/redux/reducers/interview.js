@@ -51,7 +51,8 @@ const defaultRoom = {
     options: {
       linting: true,
       showGutter: true,
-      textSize: false
+      textSize: false,
+      theme: false
     }
   },
   whiteboard: {
@@ -64,7 +65,7 @@ const initialInterviewData = {
 };
 
 function reducer (interviewData = initialInterviewData, action) {
-  const newInterviewData = Object.assign({}, interviewData);
+  const newInterviewData = interviewData;
 
   switch (action.type) {
 

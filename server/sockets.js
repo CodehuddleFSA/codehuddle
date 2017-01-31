@@ -36,11 +36,11 @@ const socketPubSub = io => {
         store.dispatch(addRoom(room));
         initialInterViewData = store.getState().interview; // Reset with updated data
       }
+      socketLog(socket.id, `this is the room: ${room}`);
 
       // Create an action for the socket to emit to the requesting client
       const sendTextHistory = setText(initialInterViewData[room].editor.text);
       const sendTextOptions = setOptions(initialInterViewData[room].editor.options);
-      console.log('These are the text options', sendTextOptions);
       const sendWhiteboardHistory = requestHistory(initialInterViewData[room].whiteboard.drawingHistory);
 
       socket.emit('clientStoreAction', sendTextHistory);
@@ -51,7 +51,6 @@ const socketPubSub = io => {
     // Socket sends out a client-side store action
     socket.on('clientStoreAction', (action) => { // When an action is received, send it out. This acts like a reducer.
       action.room = room; // Set room that the socket is in
-
       const acceptableActionTypes = new Set(
         ['SET_TEXT', 'SET_COORDINATES', 'SET_OPTIONS']
       );
@@ -61,7 +60,7 @@ const socketPubSub = io => {
       }
 
       action.meta.remote = false; // Remove the remote true to prevent continuous back and forth.
-      socket.broadcast.emit('clientStoreAction', action); // Broadcast out to everyone but the sender.
+      socket.broadcast.to(room).emit('clientStoreAction', action); // Broadcast out to everyone but the sender.
       // TODO: lookup for rooms
     });
   });

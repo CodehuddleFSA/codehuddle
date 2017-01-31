@@ -6,7 +6,7 @@ socket.on('connect', () => {
   console.log('Client connected', socket.id);
 
   // On connected, tell the backend what room the client wants to join
-  socket.emit('wantToJoinRoom', 'spongebob'); // Set to 'spongebob', until we have a way of setting a room from the frontend
+  // socket.emit('wantToJoinRoom', 'spongebob'); // Set to 'spongebob', until we have a way of setting a room from the frontend
 });
 
 // Sockets Middleware
@@ -19,4 +19,8 @@ export const socketsEmit = (socket, channelName) => store => {
     }
     return next(action);
   };
+};
+
+export const socketsJoinRoom = roomName => {
+  socket.emit('wantToJoinRoom', roomName);
 };

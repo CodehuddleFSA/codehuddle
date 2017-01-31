@@ -6,16 +6,16 @@ import 'brace/mode/javascript';
 import 'brace/theme/github';
 import 'brace/theme/solarized_dark';
 import 'brace/theme/tomorrow';
+import 'brace/theme/clouds';
 import 'brace/mode/plain_text';
 
 /* -----------------    COMPONENT     ------------------ */
 
 export const Editor = ({ AceEditor, onChange, text, options }) => {
-
   return (
     <AceEditor
       mode={ options.linting ? 'javascript' : 'plain_text' }
-      theme="solarized_dark"
+      theme={ options.theme ? 'solarized_dark' : 'clouds' }
       name="myEditor"
       onChange={ onChange }
       value={ text }

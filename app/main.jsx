@@ -12,13 +12,19 @@ import Editor from './components/Editor';
 import Canvas from './components/Canvas';
 import InterviewRoom from './components/InterviewRoom';
 
+import { socketsJoinRoom } from 'APP/app/sockets';
+
+function interviewOnEnter (nextState) {
+  socketsJoinRoom(nextState.location.query.room);
+}
+
 render (
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/">
         {/*<IndexRedirect to="/jokes" /> */}
         <Route path="/jokes" component={Jokes} />
-        <Route path="/interviewRoom" component={InterviewRoom} />
+        <Route path="/interviewRoom" component={InterviewRoom} onEnter={ interviewOnEnter }/>
       </Route>
     </Router>
   </Provider>,

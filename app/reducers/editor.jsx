@@ -25,7 +25,8 @@ const initialEditorData = {
   options: { // TODO: immutable map
     linting: true,
     showGutter: true,
-    textSize: false
+    textSize: false,
+    theme: false
   }
 };
 

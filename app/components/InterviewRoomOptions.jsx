@@ -37,6 +37,16 @@ export const InterviewRoomOptions = ({ options, setOptions }) => {
             Text Size: Small / Large
           </label>
         </div>
+        <div className="switch">
+          <label>
+            <input type="checkbox" id="theme"
+              checked={ options.theme }
+              onChange={ setOptions }
+            />
+            <span className="lever"></span>
+            Theme: Light / Dark
+          </label>
+        </div>
       </fieldset>
     </form>
   );
@@ -60,9 +70,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     setOptions: (evt) => {
-      const output = parseEvt(evt);
-      console.log('OUTPUT', output);
-      dispatch(setOptions(output));
+      dispatch(setOptions(parseEvt(evt)));
     }
   };
 };
