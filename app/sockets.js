@@ -3,10 +3,7 @@
 export const socket = window && window.io(window.location.origin);
 
 socket.on('connect', () => {
-  console.log('Client connected', socket.id);
-
-  // On connected, tell the backend what room the client wants to join
-  // socket.emit('wantToJoinRoom', 'spongebob'); // Set to 'spongebob', until we have a way of setting a room from the frontend
+  console.log('Client connected:', socket.id);
 });
 
 // Sockets Middleware

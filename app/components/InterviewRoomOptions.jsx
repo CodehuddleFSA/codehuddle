@@ -4,7 +4,6 @@ import React from 'react';
 /* -----------------    COMPONENT     ------------------ */
 
 export const InterviewRoomOptions = ({ options, setOptions }) => {
-  console.log('+++++++ Options', options);
   return (
     <form>
       <fieldset>

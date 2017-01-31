@@ -40,18 +40,6 @@ export const setCoordinates = (lastPx, currentPx, color) => {
 };
 
 /* ------------       REDUCER     ------------------ */
-// const initialWhiteboardData = {
-//   lastDraw: {
-//     lastPx: { x: null, y: null },
-//     currentPx: { x: null, y: null },
-//     color: '#000000'
-//   },
-//   ctx: {
-//     notReady: true
-//   },
-//   drawingHistory: []
-// };
-
 const initialWhiteboardData = Immutable.fromJS(
   {
     lastDraw: {
@@ -67,29 +55,24 @@ const initialWhiteboardData = Immutable.fromJS(
 );
 
 export default function reducer (whiteboardData = initialWhiteboardData, action) {
-  // const newWhiteboardData = Object.assign({}, whiteboardData);
   let newWhiteboardData = whiteboardData;
 
   switch (action.type) {
 
     case SET_COORDINATES:
-      // newWhiteboardData.lastDraw = action.lastDraw;
       const lastDrawImm = Immutable.fromJS(action.lastDraw);
       newWhiteboardData = newWhiteboardData.setIn(['lastDraw'], lastDrawImm);
       break;
 
     case INIT_CANVAS:
-      // newWhiteboardData.ctx = action.ctx;
       newWhiteboardData = newWhiteboardData.setIn(['ctx'], action.ctx);
       break;
 
     case REQUEST_HISTORY:
-      // newWhiteboardData.drawingHistory = action.drawingHistory;
       newWhiteboardData = newWhiteboardData.setIn(['drawingHistory'], action.drawingHistory);
       break;
 
     case CLEAR_HISTORY:
-      // newWhiteboardData.drawingHistory = [];
       newWhiteboardData = newWhiteboardData.setIn(['drawingHistory'], []);
       break;
 

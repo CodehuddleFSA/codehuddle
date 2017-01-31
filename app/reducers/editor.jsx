@@ -35,31 +35,15 @@ const initialEditorData = Immutable.fromJS(
   }
 );
 
-// const initialEditorData = {
-//   text: 'default text',
-//   options: { // TODO: immutable map
-//     linting: true,
-//     showGutter: true,
-//     textSize: false,
-//     theme: false
-//   }
-// };
-
 export default function reducer (editorData = initialEditorData, action) {
-  // const newEditorData = Object.assign({}, editorData);
   let newEditorData = editorData;
 
   switch (action.type) {
     case SET_TEXT:
-      // newEditorData.text = action.text;
       newEditorData = newEditorData.setIn(['text'], action.text);
       break;
 
-    case SET_OPTIONS: // TODO: use immutable here.
-      // newEditorData.options = Object.assign({}, editorData.options, action.options);
-      // const mergeOptions = newEditorData.get('options').merge(action.options);
-      // newEditorData = newEditorData.setIn(['options'], mergeOptions);
-
+    case SET_OPTIONS:
       newEditorData = newEditorData.mergeIn(['options'], action.options);
       break;
 

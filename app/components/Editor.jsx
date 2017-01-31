@@ -49,7 +49,6 @@ const mapDispatch = (dispatch) => {
   return {
     onChange: (text) => {
       dispatch(setText(text));
-      console.log('++++++ FIRED ON CHANGE');
     }
   };
 };

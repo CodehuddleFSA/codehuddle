@@ -1,7 +1,6 @@
 
 // Required libraries
 const chalk = require('chalk');
-const Immutable = require('immutable');
 
 // Required files
 const { addRoom, setText, requestHistory, setOptions } = require('./redux/reducers/interview');
@@ -33,19 +32,16 @@ const socketPubSub = io => {
       let initialInterViewData = store.getState().interview;
 
       // If room doesn't exist, send out an action to create it with default text
-
-      initialInterViewData.keySeq().toArray().some(roomKey => {
-        console.log('+++ Room keys from interviewData', roomKey);
+      const haveRoomAlready = (initialInterViewData.keySeq().toArray().some(roomKey => {
         return roomKey === room;
-      });
-      if (!initialInterViewData.get(room)) {
+      }));
+
+      if (!haveRoomAlready) {
         store.dispatch(addRoom(room));
         initialInterViewData = store.getState().interview; // Reset with updated data
       }
 
-      // console.log(`Store: ${store.getState().interview}`)
       const roomData = initialInterViewData.get(room).toJS();
-      console.log('+++ Text being sent down for room:', roomData);
 
       // Create an action for the socket to emit to the requesting client
       const sendTextHistory = setText(roomData.editor.text);
@@ -70,7 +66,6 @@ const socketPubSub = io => {
 
       action.meta.remote = false; // Remove the remote true to prevent continuous back and forth.
       socket.broadcast.to(room).emit('clientStoreAction', action); // Broadcast out to everyone but the sender.
-      // TODO: lookup for rooms
     });
   });
 };
