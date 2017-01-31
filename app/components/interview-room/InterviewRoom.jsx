@@ -9,13 +9,16 @@ import Editor from '../Editor';
 
 export const InterviewRoom = ({ AceEditor, onChange, text }) => {
   return (
-    <div id="ir-root" className="container">
+    <div id="ir-root">
       <div className="row">
-        <Editor />
-        <Canvas />
+        <div id="ir-editor-col" className="col s12 m6 l6">
+          <Editor />
+        </div>
+        <div id="ir-canvas-col" className="col s12 m6 l6">
+          <Canvas />
+        </div>
       </div>
     </div>
-
   );
 };
 

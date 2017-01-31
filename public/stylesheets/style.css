@@ -1,5 +1,10 @@
 /*  Imports */
 @import url("https://fonts.googleapis.com/css?family=Aldrich");
+/* Interview Room - Root */
+#ir-editor-col,
+#ir-canvas-col {
+  padding: 0px; }
+
 /* Variables */
 /* Rules */
 body {
@@ -48,7 +53,7 @@ div[role="navigation"] ul li {
       margin-top: 25vh;
       justify-content: center; }
 
-s
+/* Footer */
 footer.page-footer {
   margin-top: 0px; }
 
