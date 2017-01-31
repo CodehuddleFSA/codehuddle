@@ -2,8 +2,7 @@ import React from 'react';
 
 export default (props) => {
 	return (
-		<footer className="page-footer purple darken-3">
-      
+		<div role="footer" className="page-footer purple darken-3">
         <div className="row">
           <div className="col l6 s12">
             <h5 className="white-text">Footer Content</h5>
@@ -22,10 +21,10 @@ export default (props) => {
       
       <div className="footer-copyright">
         <div className="container">
-        © 2017 Copyright Amy Paschal, Andrew Garcia, Evan DiGiambattista, Surabhi Nigam
+        © 2017 Copyright Amrom Steinmetz, Amy Paschal, Andrew Garcia, Evan DiGiambattista, Surabhi Nigam
         <a className="grey-text text-lighten-4 right" href="#!">More Links</a>
         </div>
         </div>
-    </footer>
+    </div>
 	);
 };
