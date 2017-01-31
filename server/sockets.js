@@ -36,7 +36,6 @@ const socketPubSub = io => {
         store.dispatch(addRoom(room));
         initialInterViewData = store.getState().interview; // Reset with updated data
       }
-      socketLog(socket.id, `this is the room: ${room}`);
 
       // Create an action for the socket to emit to the requesting client
       const sendTextHistory = setText(initialInterViewData[room].editor.text);
