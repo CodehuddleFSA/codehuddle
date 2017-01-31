@@ -6,8 +6,7 @@ const db = require('APP/db');
 const Problem = db.define('problems', {
   name: {
     type: Sequelize.STRING,
-    allowNull: false, 
-    unique: true
+    allowNull: false
   },
   description: Sequelize.TEXT,
   solution: Sequelize.TEXT,

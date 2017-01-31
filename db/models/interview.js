@@ -10,7 +10,7 @@ const Interview = db.define('interviews', {
   },
   position: Sequelize.STRING,
   status: Sequelize.ENUM('planned', 'done'),
-  candidateRating: {
+  candidateOverallRating: {
     type: Sequelize.INTEGER,
     validate: {
       min: 0,
