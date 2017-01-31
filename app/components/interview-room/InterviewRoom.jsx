@@ -2,16 +2,18 @@
 import React from 'react';
 
 // Required files
-import Canvas from './Canvas';
-import Editor from './Editor';
+import Canvas from '../Canvas';
+import Editor from '../Editor';
 
 /* -----------------    COMPONENT     ------------------ */
 
 export const InterviewRoom = ({ AceEditor, onChange, text }) => {
   return (
-    <div>
-      <Editor />
-      <Canvas />
+    <div id="ir-root" className="container">
+      <div className="row">
+        <Editor />
+        <Canvas />
+      </div>
     </div>
 
   );
