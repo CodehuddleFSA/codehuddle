@@ -32,7 +32,9 @@ main {
 
 
 /* Helpers */
-
+.splash-info-margins {
+  margin: 40px 0px 40px 0px;
+}
 
 /* Navigation */
 
@@ -54,7 +56,7 @@ div[role="navigation"] {
   display: block;
   background-color: $splash-bg;
   background-size: cover;
-  height: 90vh;
+  // height: 90vh;
   justify-content: center;
   #splash-header {
     font-family: $header-font;
@@ -91,7 +93,7 @@ div[role="navigation"] {
   #splash-content-1 {
     background-color: $splash-bg-1;
     font-family: $header-font;
-    min-height: 100vh;
+    // min-height: 100vh;
     width: 100vw;
     margin: 0px;
     padding: 0px;
@@ -106,8 +108,8 @@ div[role="navigation"] {
   #splash-content-hipster {
     background-Color: $splash-bg;
     font-family: $header-font;
-    max-height: 60vh;
-    min-height: 10vh;
+    // max-height: 60vh;
+    // min-height: 10vh;
     width: 100vw;
     margin: 0px;
     padding: 0px;
@@ -119,13 +121,11 @@ div[role="navigation"] {
   #splash-content-hired {
     background-Color: $splash-bg;
     font-family: $header-font;
-    max-height: 30vh;
-    min-height: 7vh;
     width: 100vw;
     margin: 0px;
     padding: 0px;
     img {
-      background-size: contain;
+      background-size: auto;
       width: 100vw;
     }
   }
