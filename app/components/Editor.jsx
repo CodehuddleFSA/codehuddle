@@ -40,8 +40,8 @@ import { setText } from '../reducers/editor';
 const mapState = (state) => {
   return {
     AceEditor,
-    text: state.interview.editor.text,
-    options: state.interview.editor.options
+    text: state.interview.editor.get('text'),
+    options: state.interview.editor.get('options').toJS()
   };
 };
 
@@ -49,6 +49,7 @@ const mapDispatch = (dispatch) => {
   return {
     onChange: (text) => {
       dispatch(setText(text));
+      console.log('++++++ FIRED ON CHANGE');
     }
   };
 };

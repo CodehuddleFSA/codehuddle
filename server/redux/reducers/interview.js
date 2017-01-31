@@ -1,4 +1,7 @@
 
+// Required
+const Immutable = require('Immutable');
+
 /* -----------------    ACTIONS     ------------------ */
 const ADD_ROOM = 'ADD_ROOM';
 
@@ -45,50 +48,81 @@ const setCoordinates = (lastPx, currentPx, color) => {
 };
 
 /* ------------       REDUCER     ------------------ */
-const defaultRoom = {
-  editor: {
-    text: 'default text',
-    options: {
-      linting: true,
-      showGutter: true,
-      textSize: false,
-      theme: false
-    }
-  },
-  whiteboard: {
-    drawingHistory: []
-  }
-};
+// const defaultRoom = {
+//   editor: {
+//     text: 'default text',
+//     options: {
+//       linting: true,
+//       showGutter: true,
+//       textSize: false,
+//       theme: false
+//     }
+//   },
+//   whiteboard: {
+//     drawingHistory: []
+//   }
+// };
 
-const initialInterviewData = {
+const defaultRoom = Immutable.fromJS(
+  {
+    editor: {
+      text: 'default text',
+      options: {
+        linting: true,
+        showGutter: true,
+        textSize: false,
+        theme: false
+      }
+    },
+    whiteboard: {
+      drawingHistory: []
+    }
+  }
+);
+
+// const initialInterviewData = {
+//   squidward: defaultRoom
+// };
+
+const initialInterviewData = Immutable.fromJS({
   squidward: defaultRoom
-};
+});
 
 function reducer (interviewData = initialInterviewData, action) {
-  const newInterviewData = interviewData;
+  // const newInterviewData = interviewData;
+  let newInterviewData = interviewData;
 
   switch (action.type) {
 
     case ADD_ROOM:
-      newInterviewData[action.room] = defaultRoom;
+      // newInterviewData[action.room] = defaultRoom;
+      newInterviewData = newInterviewData.setIn([action.room], defaultRoom);
+      console.log('+++ Adding a new room', action.room);
       break;
 
     case SET_TEXT:
-      newInterviewData[action.room].editor.text = action.text;
+      // newInterviewData[action.room].editor.text = action.text;
+      newInterviewData = newInterviewData.setIn([action.room, 'editor', 'text'], action.text);
+      console.log('+++ This is the text for room', action.room, newInterviewData.getIn([action.room, 'editor', 'text']));
       break;
 
     case SET_COORDINATES:
-      newInterviewData[action.room].whiteboard.drawingHistory.push(action.lastDraw); // TODO: look into immutable / concat
+      // newInterviewData[action.room].whiteboard.drawingHistory.push(action.lastDraw); // TODO: look into immutable / concat
+      newInterviewData = newInterviewData.updateIn(
+        [action.room, 'whiteboard', 'drawingHistory'],
+        drawingHistory => drawingHistory.push(action.lastDraw)
+      );
       break;
 
     case SET_OPTIONS:
-      newInterviewData[action.room].editor.options = Object.assign({}, interviewData[action.room].editor.options, action.options);
+      // newInterviewData[action.room].editor.options = Object.assign({}, interviewData[action.room].editor.options, action.options);
+      newInterviewData = newInterviewData.mergeIn([action.room, 'editor', 'options'], action.options);
       break;
 
     default: return interviewData;
 
   }
-
+  console.log('+++ This is the text for room', action.room, newInterviewData.getIn([action.room, 'editor', 'text']));
   return newInterviewData;
 }
 

@@ -4,6 +4,7 @@ import React from 'react';
 /* -----------------    COMPONENT     ------------------ */
 
 export const InterviewRoomOptions = ({ options, setOptions }) => {
+  console.log('+++++++ Options', options);
   return (
     <form>
       <fieldset>
@@ -14,7 +15,7 @@ export const InterviewRoomOptions = ({ options, setOptions }) => {
               onChange={ setOptions }
             />
             <span className="lever"></span>
-            Auto: Linting / Coloring / Indentation
+            Linting / Coloring / Indentation
           </label>
         </div>
         <div className="switch">
@@ -62,8 +63,8 @@ import { setOptions, parseEvt } from '../reducers/editor';
 
 const mapState = (state) => {
   return {
-    options: state.interview.editor.options
-    // linting: state.interview.editor.options.linting
+    // options: state.interview.editor.options
+    options: state.interview.editor.get('options').toJS()
   };
 };
 

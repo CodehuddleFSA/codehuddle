@@ -1,6 +1,7 @@
 
 // Required libraries
 const chalk = require('chalk');
+const Immutable = require('immutable');
 
 // Required files
 const { addRoom, setText, requestHistory, setOptions } = require('./redux/reducers/interview');
@@ -32,15 +33,24 @@ const socketPubSub = io => {
       let initialInterViewData = store.getState().interview;
 
       // If room doesn't exist, send out an action to create it with default text
-      if (!initialInterViewData[room]) {
+
+      initialInterViewData.keySeq().toArray().some(roomKey => {
+        console.log('+++ Room keys from interviewData', roomKey);
+        return roomKey === room;
+      });
+      if (!initialInterViewData.get(room)) {
         store.dispatch(addRoom(room));
         initialInterViewData = store.getState().interview; // Reset with updated data
       }
 
+      // console.log(`Store: ${store.getState().interview}`)
+      const roomData = initialInterViewData.get(room).toJS();
+      console.log('+++ Text being sent down for room:', roomData);
+
       // Create an action for the socket to emit to the requesting client
-      const sendTextHistory = setText(initialInterViewData[room].editor.text);
-      const sendTextOptions = setOptions(initialInterViewData[room].editor.options);
-      const sendWhiteboardHistory = requestHistory(initialInterViewData[room].whiteboard.drawingHistory);
+      const sendTextHistory = setText(roomData.editor.text);
+      const sendTextOptions = setOptions(roomData.editor.options);
+      const sendWhiteboardHistory = requestHistory(roomData.whiteboard.drawingHistory);
 
       socket.emit('clientStoreAction', sendTextHistory);
       socket.emit('clientStoreAction', sendWhiteboardHistory);
