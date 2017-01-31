@@ -11,15 +11,12 @@ export const setText = text => ({
   },
   text });
 
-export const setOptions = evt => ({
+export const setOptions = options => ({
   type: SET_OPTIONS,
   meta: {
     remote: true
-  }
-  setting: {
-    id: evt.target.id,
-    value: evt.target.checked
-  }
+  },
+  options
 });
 
 /* ------------       REDUCER     ------------------ */
@@ -41,8 +38,8 @@ export default function reducer (editorData = initialEditorData, action) {
       break;
 
     case SET_OPTIONS: // TODO: use immutable here.
-      newEditorData.options = Object.assign({}, editorData.options);
-      newEditorData.options[action.setting.id] = action.setting.value;
+      newEditorData.options = Object.assign({}, editorData.options, action.options);
+      // newEditorData.options[action.options.id] = action.options.value;
       break;
 
     default: return editorData;
@@ -53,3 +50,9 @@ export default function reducer (editorData = initialEditorData, action) {
 }
 
 /* ------------       DISPATCHERS     ------------------ */
+
+export const parseEvt = evt => {
+  const status = {};
+  status[evt.target.id] = evt.target.checked;
+  return status;
+};

@@ -4,6 +4,7 @@ const ADD_ROOM = 'ADD_ROOM';
 
 // Editor
 const SET_TEXT = 'SET_TEXT';
+const SET_OPTIONS = 'SET_OPTIONS';
 
 // Whiteboard
 const REQUEST_HISTORY = 'REQUEST_HISTORY';
@@ -23,6 +24,11 @@ const setText = text => (
   }
 );
 
+const setOptions = options => ({
+  type: SET_OPTIONS,
+  options
+});
+
 // Whiteboard
 const requestHistory = drawingHistory => {
   return {
@@ -41,7 +47,12 @@ const setCoordinates = (lastPx, currentPx, color) => {
 /* ------------       REDUCER     ------------------ */
 const defaultRoom = {
   editor: {
-    text: 'default text'
+    text: 'default text',
+    options: {
+      linting: true,
+      showGutter: true,
+      textSize: false
+    }
   },
   whiteboard: {
     drawingHistory: []
@@ -69,6 +80,10 @@ function reducer (interviewData = initialInterviewData, action) {
       newInterviewData[action.room].whiteboard.drawingHistory.push(action.lastDraw); // TODO: look into immutable / concat
       break;
 
+    case SET_OPTIONS:
+      newInterviewData[action.room].editor.options = Object.assign({}, interviewData[action.room].editor.options, action.options);
+      break;
+
     default: return interviewData;
 
   }
@@ -81,6 +96,7 @@ function reducer (interviewData = initialInterviewData, action) {
 module.exports = {
   addRoom,
   setText,
+  setOptions,
   setCoordinates,
   requestHistory,
   reducer

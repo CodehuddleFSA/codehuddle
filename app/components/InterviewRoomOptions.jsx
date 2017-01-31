@@ -48,7 +48,7 @@ export const InterviewRoomOptions = ({ options, setOptions }) => {
 import { connect } from 'react-redux';
 
 // Required files
-import { setOptions } from '../reducers/editor';
+import { setOptions, parseEvt } from '../reducers/editor';
 
 const mapState = (state) => {
   return {
@@ -60,7 +60,9 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     setOptions: (evt) => {
-      dispatch(setOptions(evt));
+      const output = parseEvt(evt);
+      console.log('OUTPUT', output);
+      dispatch(setOptions(output));
     }
   };
 };
