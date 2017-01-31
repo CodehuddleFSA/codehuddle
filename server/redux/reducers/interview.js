@@ -1,6 +1,6 @@
 
 // Required
-const Immutable = require('Immutable');
+const Immutable = require('immutable');
 
 /* -----------------    ACTIONS     ------------------ */
 const ADD_ROOM = 'ADD_ROOM';
