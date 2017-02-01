@@ -38,7 +38,7 @@ function commit_build_artifacts() {
   git add -f "${build_paths}"
 
   # Commit the build artifacts on the branch.
-  git commit -a -m "Built ${version} on $(date)."  
+  git commit -a -m "Built ${version} on $(date)."
 
   # Always succeed.
   return 0
@@ -54,13 +54,13 @@ if [[ -z $(type -t deploy) ]]; then
 fi
 
 (
-  create_build_branch &&  
+  create_build_branch &&
   echoed yarn &&
   echoed npm run build &&
   commit_build_artifacts &&
   deploy
- 
+
   # Regardless of whether we succeeded or failed, go back to
   # the previous branch.
-  git checkout -
+  git checkout --
 )
