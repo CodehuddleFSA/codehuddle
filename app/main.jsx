@@ -8,8 +8,7 @@ import store from './store';
 import Login from './components/Login';
 import WhoAmI from './components/WhoAmI';
 import Splash from './components/Splash/Splash';
-import InterviewRoom from './components/InterviewRoom';
-
+import InterviewRoom from './components/interview-room/InterviewRoom';
 import { socketsJoinRoom } from 'APP/app/sockets';
 
 function interviewOnEnter (nextState) {

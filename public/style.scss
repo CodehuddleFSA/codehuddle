@@ -3,6 +3,8 @@
 @import url('https://fonts.googleapis.com/css?family=Aldrich');
 @import url('https://fonts.googleapis.com/css?family=Allura');
 
+@import '_ir-style';
+
 /* Variables */
 
 $splash-bg: #FFF;
@@ -131,6 +133,9 @@ div[role="navigation"] {
   }
 }
 
+#whiteboard {
+  border: solid black 1px;
+}
 
 /* Footer */
 div[role="footer"] {
