@@ -3,6 +3,8 @@ const db = require('APP/db');
 const Interview = db.model('interviews');
 const InterviewProblem = db.model('interviewProblems');
 
+// TODO: check authorizations where necessary. Can we do it in router.param?
+
 router.param('interviewId', (req, res, next, id) => {
   Interview.findById(id)
   .then(interview => {
@@ -27,7 +29,7 @@ router.post('/', (req, res, next) => {
 
 router.put('/:interviewId', (req, res, next) => {
   req.interview.update(req.body)
-  .then(interview => res.status(200).send(interview))
+  .then(interview => res.send(interview))
   .catch(next);
 });
 
@@ -49,7 +51,7 @@ router.post('/:interviewId/problems', (req, res, next) => {
   .catch(next);
 });
 
-// We need to check authorization based on fields being changed
+// We need to check authorization based on fields being changed. Probably in class method.
 router.put('/:interviewId/problems/:problemId', (req, res, next) => {
   InterviewProblem.update(req.body, {
     where: {
