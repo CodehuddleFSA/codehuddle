@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const db = require('APP/db');
 const Interview = db.model('interviews');
-const InterviewProblems = db.model('interviewProblems');
+const InterviewProblem = db.model('interviewProblems');
 
 router.param('interviewId', (req, res, next, id) => {
   Interview.findById(id)
@@ -46,6 +46,18 @@ router.get('/:interviewId/problems', (req, res, next) => {
 router.post('/:interviewId/problems', (req, res, next) => {
   req.interview.addProblem(req.body.problemId)
   .then(problem => res.status(201).send(problem))
+  .catch(next);
+});
+
+// We need to check authorization based on fields being changed
+router.put('/:interviewId/problems/:problemId', (req, res, next) => {
+  InterviewProblem.update(req.body, {
+    where: {
+      interview_id: req.params.interviewId,
+      problem_id: req.params.problemId
+    }
+  })
+  .then(_ => res.send(_))
   .catch(next);
 });
 
