@@ -52,7 +52,7 @@ const setCoordinates = (lastPx, currentPx, color) => {
 const defaultRoom = Immutable.fromJS(
   {
     editor: {
-      text: `const CodeHuddle = 'built with love';`,
+      text: `const CodeHuddle = 'built with <3';`,
       options: {
         linting: true,
         showGutter: true,

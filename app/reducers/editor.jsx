@@ -25,7 +25,7 @@ export const setOptions = options => ({
 /* ------------       REDUCER     ------------------ */
 const initialEditorData = Immutable.fromJS(
   {
-    text: 'default text frontend',
+    text: `const CodeHuddle = 'built with <3';`,
     options: {
       linting: true,
       showGutter: true,
