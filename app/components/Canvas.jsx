@@ -85,9 +85,9 @@ import { initCanvas, setCoordinates, clearHistory } from '../reducers/whiteboard
 
 const mapStateToProps = (state) => {
   return {
-    lastDraw: state.interview.whiteboard.lastDraw,
-    ctx: state.interview.whiteboard.ctx,
-    drawingHistory: state.interview.whiteboard.drawingHistory
+    lastDraw: state.interview.whiteboard.get('lastDraw').toJS(),
+    ctx: state.interview.whiteboard.get('ctx'),
+    drawingHistory: state.interview.whiteboard.get('drawingHistory')
   };
 };
 

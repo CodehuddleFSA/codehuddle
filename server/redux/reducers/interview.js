@@ -1,9 +1,13 @@
 
+// Required
+const Immutable = require('immutable');
+
 /* -----------------    ACTIONS     ------------------ */
 const ADD_ROOM = 'ADD_ROOM';
 
 // Editor
 const SET_TEXT = 'SET_TEXT';
+const SET_OPTIONS = 'SET_OPTIONS';
 
 // Whiteboard
 const REQUEST_HISTORY = 'REQUEST_HISTORY';
@@ -23,6 +27,11 @@ const setText = text => (
   }
 );
 
+const setOptions = options => ({
+  type: SET_OPTIONS,
+  options
+});
+
 // Whiteboard
 const requestHistory = drawingHistory => {
   return {
@@ -39,34 +48,50 @@ const setCoordinates = (lastPx, currentPx, color) => {
 };
 
 /* ------------       REDUCER     ------------------ */
-const defaultRoom = {
-  editor: {
-    text: 'default text'
-  },
-  whiteboard: {
-    drawingHistory: []
-  }
-};
 
-const initialInterviewData = {
+const defaultRoom = Immutable.fromJS(
+  {
+    editor: {
+      text: `const CodeHuddle = 'built with <3';`,
+      options: {
+        linting: true,
+        showGutter: true,
+        textSize: false,
+        theme: false
+      }
+    },
+    whiteboard: {
+      drawingHistory: []
+    }
+  }
+);
+
+const initialInterviewData = Immutable.fromJS({
   squidward: defaultRoom
-};
+});
 
 function reducer (interviewData = initialInterviewData, action) {
-  const newInterviewData = Object.assign({}, interviewData);
+  let newInterviewData = interviewData;
 
   switch (action.type) {
 
     case ADD_ROOM:
-      newInterviewData[action.room] = defaultRoom;
+      newInterviewData = newInterviewData.setIn([action.room], defaultRoom);
       break;
 
     case SET_TEXT:
-      newInterviewData[action.room].editor.text = action.text;
+      newInterviewData = newInterviewData.setIn([action.room, 'editor', 'text'], action.text);
       break;
 
     case SET_COORDINATES:
-      newInterviewData[action.room].whiteboard.drawingHistory.push(action.lastDraw);
+      newInterviewData = newInterviewData.updateIn(
+        [action.room, 'whiteboard', 'drawingHistory'],
+        drawingHistory => drawingHistory.push(action.lastDraw)
+      );
+      break;
+
+    case SET_OPTIONS:
+      newInterviewData = newInterviewData.mergeIn([action.room, 'editor', 'options'], action.options);
       break;
 
     default: return interviewData;
@@ -81,6 +106,7 @@ function reducer (interviewData = initialInterviewData, action) {
 module.exports = {
   addRoom,
   setText,
+  setOptions,
   setCoordinates,
   requestHistory,
   reducer

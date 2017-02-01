@@ -7,18 +7,20 @@ import { Provider } from 'react-redux';
 import store from './store';
 import Login from './components/Login';
 import WhoAmI from './components/WhoAmI';
-import Editor from './components/Editor';
 import Splash from './components/Splash/Splash';
-import Canvas from './components/Canvas';
 import InterviewRoom from './components/InterviewRoom';
+
+import { socketsJoinRoom } from 'APP/app/sockets';
+
+function interviewOnEnter (nextState) {
+  socketsJoinRoom(nextState.location.query.room);
+}
 
 render (
   <Provider store={ store }>
     <Router history={ browserHistory }>
-      <Route path="/" component={ Splash }>
-        <Route path="/editor" component={ Editor } />
-        <Route path="/interviewRoom" component={ InterviewRoom } />
-      </Route>
+      <Route path="/" component={ Splash } />
+      <Route path="/interviewRoom" component={InterviewRoom} onEnter={ interviewOnEnter }/>
     </Router>
   </Provider>,
   document.getElementById('main')
