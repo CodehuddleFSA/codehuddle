@@ -2,8 +2,8 @@
 import React from 'react';
 
 // Required files
-import Canvas from './Canvas';
-import Editor from './Editor';
+import Canvas from '../Canvas';
+import Editor from '../Editor';
 import InterviewRoomOptions from '../InterviewRoomOptions';
 
 
@@ -13,10 +13,13 @@ export const InterviewRoom = ({ AceEditor, onChange, text }) => {
   return (
     <div id="ir-root" className="animated fadeIn">
       <div className="row">
-        <div id="ir-editor-col" className="col s12 m6 l6">
+        <div id="ir-opts-col" className="col s12 l2">
+          <InterviewRoomOptions/>
+        </div>
+        <div id="ir-editor-col" className="col s12 l5">
           <Editor />
         </div>
-        <div id="ir-canvas-col" className="col s12 m6 l6">
+        <div id="ir-canvas-col" className="col s12 l5">
           <Canvas />
         </div>
       </div>

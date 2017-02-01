@@ -74,7 +74,7 @@ class Canvas extends Component {
 
   render () {
     return (
-        <canvas ref="canvas" width="1000px" height="1000px" />
+        <canvas id="whiteboard" ref="canvas" width="500" height="500px" />
     );
   }
 }

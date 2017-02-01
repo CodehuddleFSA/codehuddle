@@ -95,6 +95,9 @@ div[role="navigation"] ul li {
       background-size: auto;
       width: 100vw; }
 
+#whiteboard {
+  border: solid black 1px; }
+
 /* Footer */
 div[role="footer"] {
   position: absolute;
