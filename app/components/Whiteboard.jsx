@@ -1,90 +1,92 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {Layer, Rect, Stage, Group, Line} from 'react-konva';
-
-/*----------Line Component-----------*/
+import {connect} from 'react-redux';
+import {Layer, Rect, Stage, Line} from 'react-konva';
 
 
-/*----------------Whiteboard Container--------------*/
+// ----------------Whiteboard Container-------------- //
 
-export default class WhiteboardContainer extends React.Component {
-    constructor(props) {
-      super(props);
+export class Whiteboard extends React.Component {
+  constructor (props) {
+    super(props);
+    this.drawing = false;
+    this.lastPx = this.props.lastDraw.lastPx;
+    this.currentPx = this.props.lastDraw.currentPx;
+    this.color = this.props.lastDraw.color;
 
-      this.state = {
-        drawing: false,
-        currentPx: {
-          x: '',
-          y: ''
-        }
-      }
+    this.handleMouseDown = this.handleMouseDown.bind(this);
+    this.handleMouseUp = this.handleMouseUp.bind(this);
+    this.handleMouseMove = this.handleMouseMove.bind(this);
+  }
 
-      this.handleMouseDown = this.handleMouseDown.bind(this);
-      this.handleMouseUp = this.handleMouseUp.bind(this);
-      this.handleMouseMove = this.handleMouseMove.bind(this);
-    }
+  handleMouseDown (event) {
+    this.drawing = true;
+    // Update current mouse position
+    this.drawing = true;
+    this.currentPx.x = event.evt.offsetX;
+    this.currentPx.y = event.evt.offsetY;
+  }
 
-    handleMouseDown(evt) {
-      this.state.drawing = true;
-      // Update current mouse position
-      currentMousePosition.x = evt.pageX - evt.target.offsetLeft;
-      currentMousePosition.y = evt.pageY - this.offsetTop;
-    });
+  handleMouseMove (event) {
+    if (!this.drawing) return; // Short circuit if mouse button isn't down
+    // Update last and current mouse positions
+    this.lastPx = {x: this.currentPx.x, y: this.currentPx.y};
+    this.currentPx = {x: event.evt.offsetX, y: event.evt.offsetY};
 
-    handleMouseMove() {
-      if (!drawing) return; // Short circuit if mouse button isn't down
+    // Send dispatch out for new coordinates
+    this.props.setCoordinates(this.lastPx, this.currentPx, this.color);
+  }
 
-      // Update last and current mouse positions
-      lastMousePosition.x = currentMousePosition.x;
-      lastMousePosition.y = currentMousePosition.y;
-      currentMousePosition.x = evt.pageX - this.offsetLeft;
-      currentMousePosition.y = evt.pageY - this.offsetTop;
+  handleMouseUp () {
+    this.drawing = false;
+  }
 
-      // Send dispatch out for new coordinates
-      self.props.setCoordinates(lastMousePosition, currentMousePosition, '#000000');
-    });
-
-    handleMouseUp() {
-      this.state.drawing = false;
-    });
-
-    render() {
-        return (
-             <Stage width={700} height={700}>
-                    <Layer>
-                        <Line points = {[props.lastPx.x, props.lastPx.y, props.currentPx.x, props.currentPx.y]}
-                          stroke = 'red'
-                          strokeWidth = {15}
-                          lineCap = 'round'
-                          lineJoin = 'round'
-                          onMouseUp= {this.handleMouseUp}
-                          onMouseDown = {this.handleMouseDown}
-                          onMouseMove = {this.handleMouseMove}
-                          />
-                    </Layer>
-                  </Stage>
-        );
-    }
+  render () {
+    let history = this.props.drawingHistory;
+    let show = (history.length !== 0);
+    console.log('in render, drawing history is ', history);
+    return (
+      <Stage width={'100%'} height={700} onContentMouseUp = {this.handleMouseUp}
+            onContentMouseDown = {this.handleMouseDown}
+            onContentMouseMove = {this.handleMouseMove} >
+        <Layer >
+          {show && history.map(drawEvent => {
+            console.log('in line control, drawEvent is ', drawEvent);
+            return (
+              <Line stroke = {drawEvent.color}
+                points = {[drawEvent.lastPx.x, drawEvent.lastPx.y,
+                  drawEvent.currentPx.x, drawEvent.currentPx.y]}
+                strokeWidth = {8}
+                lineCap = 'round'
+                lineJoin = 'round'
+              />
+            );
+          })
+          }
+        </Layer>
+      </Stage>
+    );
+  }
 }
 
 /* -----------------    CONNECT CONTAINER     ------------------ */
 
-import { initCanvas, setCoordinates } from '../reducers/whiteboard';
+import { setCoordinates, clearHistory } from '../reducers/whiteboard';
 
 const mapStateToProps = (state) => {
   return {
-    lastDraw: state.interview.whiteboard.lastDraw
+    lastDraw: state.interview.whiteboard.get('lastDraw').toJS(),
+    drawingHistory: state.interview.whiteboard.get('drawingHistory').toJS()
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    initCanvas: (ctx) => {
-      dispatch(initCanvas(ctx));
-    },
     setCoordinates: (lastPx, currentPx, color) => {
       dispatch(setCoordinates(lastPx, currentPx, color));
+    },
+    clearHistory: () => {
+      dispatch(clearHistory());
     }
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(WhiteboardContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(Whiteboard);

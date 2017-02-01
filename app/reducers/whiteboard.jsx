@@ -1,15 +1,37 @@
+// Required libraries
+import Immutable from 'immutable';
 
 /* -----------------    ACTIONS     ------------------ */
-const SET_COORDINATES = 'SET_COORDINATES';
+const REQUEST_HISTORY = 'REQUEST_HISTORY';
+const CLEAR_HISTORY = 'CLEAR_HISTORY';
 const INIT_CANVAS = 'INIT_CANVAS';
+const SET_COORDINATES = 'SET_COORDINATES';
 
 /* ------------   ACTION CREATORS     ------------------ */
+
+export const requestHistory = () => {
+  return {
+    type: REQUEST_HISTORY
+  };
+};
+
+export const clearHistory = () => {
+  return {
+    type: CLEAR_HISTORY
+  };
+};
+
 export const initCanvas = (ctx) => {
+  return {
+    type: INIT_CANVAS,
+    ctx
+  };
+};
 
 export const setCoordinates = (lastPx, currentPx, color) => {
   return {
     type: SET_COORDINATES,
-    lastDraw: { lastPx, currentPx, color},
+    lastDraw: {lastPx, currentPx, color},
     meta: {
       remote: true
     }
@@ -17,35 +39,25 @@ export const setCoordinates = (lastPx, currentPx, color) => {
 };
 
 /* ------------       REDUCER     ------------------ */
-const initialWhiteboardData = {
+const initialWhiteboardData = Immutable.fromJS({
   lastDraw: {
     lastPx: { x: null, y: null },
     currentPx: { x: null, y: null },
     color: '#000000'
   },
-  coordinateHistory: []
-  
-  
-};
+  drawingHistory: []
+});
 
 export default function reducer (whiteboardData = initialWhiteboardData, action) {
-  const newWhiteboardData = Object.assign({}, whiteboardData);
   switch (action.type) {
-
     case SET_COORDINATES:
-      newWhiteboardData.lastDraw.lastPx = action.lastDraw.lastPx;
-      newWhiteboardData.lastDraw.currentPx = action.lastDraw.currentPx;
-      newWhiteboardData.lastDraw.color = action.lastDraw.color;
-      newWhiteboardData.coordinateHistory = newWhiteboardData.coordinateHistory.concat([action.lastDraw.currentPx.x, action.lastDraw.currentPx.y]);
-      break;
-
-    
-      
-    default: return newWhiteboardData;
-
+      const lastDrawImm = Immutable.fromJS(action.lastDraw);
+      const newWhiteboardData = whiteboardData.setIn(['lastDraw'], lastDrawImm);
+      const history = newWhiteboardData.getIn(['drawingHistory']);
+      const newHistory = history.push(lastDrawImm);
+      return newWhiteboardData.setIn(['drawingHistory'], newHistory);
+    default: return whiteboardData;
   }
-
-  return newWhiteboardData;
 }
 
 /* ------------       DISPATCHERS     ------------------ */
