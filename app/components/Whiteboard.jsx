@@ -45,7 +45,7 @@ export class Whiteboard extends React.Component {
     let show = (history.length !== 0);
     console.log('in render, drawing history is ', history);
     return (
-      <Stage width={'100%'} height={700} onContentMouseUp = {this.handleMouseUp}
+      <Stage width={700} height={700} onContentMouseUp = {this.handleMouseUp}
             onContentMouseDown = {this.handleMouseDown}
             onContentMouseMove = {this.handleMouseMove} >
         <Layer >
@@ -55,7 +55,7 @@ export class Whiteboard extends React.Component {
               <Line stroke = {drawEvent.color}
                 points = {[drawEvent.lastPx.x, drawEvent.lastPx.y,
                   drawEvent.currentPx.x, drawEvent.currentPx.y]}
-                strokeWidth = {8}
+                strokeWidth = {4}
                 lineCap = 'round'
                 lineJoin = 'round'
               />
