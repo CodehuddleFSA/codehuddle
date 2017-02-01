@@ -1,6 +1,6 @@
 
 // Required libraries
-const { createStore, combineReducers } = require('redux');
+const { createStore, combineReducers, applyMiddleware } = require('redux');
 
 // Required files
 const interview = require('./reducers/interview').reducer;

@@ -9,12 +9,17 @@ import Login from './components/Login';
 import WhoAmI from './components/WhoAmI';
 import Splash from './components/Splash/Splash';
 import InterviewRoom from './components/interview-room/InterviewRoom';
+import { socketsJoinRoom } from 'APP/app/sockets';
+
+function interviewOnEnter (nextState) {
+  socketsJoinRoom(nextState.location.query.room);
+}
 
 render (
   <Provider store={ store }>
     <Router history={ browserHistory }>
       <Route path="/" component={ Splash } />
-      <Route path="/interviewRoom" component={ InterviewRoom } />
+      <Route path="/interviewRoom" component={InterviewRoom} onEnter={ interviewOnEnter }/>
     </Router>
   </Provider>,
   document.getElementById('main')

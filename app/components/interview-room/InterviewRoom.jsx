@@ -2,8 +2,10 @@
 import React from 'react';
 
 // Required files
-import Canvas from '../Canvas';
-import Editor from '../Editor';
+import Canvas from './Canvas';
+import Editor from './Editor';
+import InterviewRoomOptions from '../InterviewRoomOptions';
+
 
 /* -----------------    COMPONENT     ------------------ */
 
