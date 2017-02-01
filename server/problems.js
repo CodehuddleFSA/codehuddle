@@ -2,9 +2,9 @@ const router = require('express').Router();
 const db = require('APP/db');
 const Problem = db.model('problems');
 
-router.get('/:organization', (req, res, next) => {
+// router.get('/:organization', (req, res, next) => {
 
-});
+// });
 
 router.get('/:userId', (req, res, next) => {
 

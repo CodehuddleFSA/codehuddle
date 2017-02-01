@@ -14,4 +14,8 @@ router.get('/:organizationName/problems', (req, res, next) => {
   
 });
 
+router.get('/:organizationName/interviews', (req, res, next) => {
+  
+});
+
 module.exports = router;

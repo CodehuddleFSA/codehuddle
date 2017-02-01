@@ -16,6 +16,7 @@ User.belongsTo(Organization);
 Problem.belongsTo(Organization);
 Problem.belongsTo(User, {as: 'author'});
 Problem.belongsToMany(Interview, {through: InterviewProblem});
+Interview.belongsToMany(Problem, {through: InterviewProblem});
 
 module.exports = {
   User,

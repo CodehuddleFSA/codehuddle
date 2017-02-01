@@ -3,10 +3,6 @@ const db = require('APP/db');
 const Interview = db.model('interviews');
 const InterviewProblems = db.model('interviewProblems');
 
-// router.get('/:organization', (req, res, next) => {
-
-// });
-
 router.param('interviewId', (req, res, next, id) => {
   Interview.findById(id)
   .then(interview => {
@@ -30,15 +26,33 @@ router.post('/', (req, res, next) => {
 });
 
 router.put('/:interviewId', (req, res, next) => {
-
-});
-
-router.post('/:interviewId/problems', (req, res, next) => {
-
+  req.interview.update(req.body)
+  .then(interview => res.status(200).send(interview))
+  .catch(next);
 });
 
 router.delete('/:interviewId', (req, res, next) => {
+  req.interview.destroy()
+  .then(() => res.sendStatus(204))
+  .catch(next);
+});
 
+router.get('/:interviewId/problems', (req, res, next) => {
+  req.interview.getProblems()
+  .then(problems => res.send(problems))
+  .catch(next);
+});
+
+router.post('/:interviewId/problems', (req, res, next) => {
+  req.interview.addProblem(req.body.problemId)
+  .then(problem => res.status(201).send(problem))
+  .catch(next);
+});
+
+router.delete('/:interviewId/problems/:problemId', (req, res, next) => {
+  req.interview.removeProblem(req.params.problemId)
+  .then(() => res.sendStatus(204))
+  .catch(next);
 });
 
 module.exports = router;
