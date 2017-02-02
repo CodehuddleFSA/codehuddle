@@ -26,10 +26,13 @@ export class InterviewRoom extends React.Component {
       marginTop: 10
     };
     this.state = {
-      open: false
+      open: false,
+      WBOpen: false
     };
     this.handleTouch = this.handleTouch.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleWBOpen = this.handleWBOpen.bind(this);
+    this.handleWBClose = this.handleWBClose.bind(this);
   }
 
   handleTouch() {
@@ -38,6 +41,12 @@ export class InterviewRoom extends React.Component {
   handleClose() {
     this.setState({ open: false });
   }
+  handleWBOpen() {
+    this.setState({ WBOpen: !this.state.WBOpen });
+  }
+  handleWBClose() {
+    this.setState({ WBOpen: false });
+  }
   
   render() {
     return (
@@ -45,23 +54,25 @@ export class InterviewRoom extends React.Component {
         <AppBar
           title={ <a href="/">CodeHuddle</a> }
           iconElementLeft={ <IconButton><Menu onTouchTap={ this.handleTouch }/></IconButton> }
-          iconElementRight={ <IconButton><Gesture onTouchTap={ this.handleTouch } style={ this.iconStyles }/></IconButton> }
-          />
+          iconElementRight={ <IconButton><Gesture onTouchTap={ this.handleWBOpen } style={ this.iconStyles }/></IconButton> }/>
+        {/* Left Side Drawer */}
         <Drawer open={ this.state.open }
                 width={ 200 }
                 docked={ false }
-                onRequestChange={(open) => this.setState({open})}
-                >
+                onRequestChange={(open) => this.setState({open})}>
           <IconButton><Close onTouchTap={ this.handleClose }/></IconButton>
           <InterviewRoomOptions/>
         </Drawer>
+        {/* Right Side Drawer */}
         <Drawer
-          width={ 400 }
+          open={ this.state.WBOpen }
+          width={ 700 }
           openSecondary={ true }
-        >
+          docked={ true }>
+          <IconButton><Close onTouchTap={ this.handleWBClose }/></IconButton>
           <Whiteboard/>
         </Drawer>
-
+        {/* Page Content */}
         <div id="ir-content">
           <Editor/>
         </div>
