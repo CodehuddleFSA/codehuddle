@@ -1,11 +1,16 @@
 /*  Imports */
 
 @import url('https://fonts.googleapis.com/css?family=Aldrich');
+@import url('https://fonts.googleapis.com/css?family=Allura');
+
+@import '_ir-style';
 
 /* Variables */
 
 $splash-bg: #FFF;
+$splash-bg-1: #2EACE9;
 $header-font: Aldrich;
+$sub-header-font: Allura;
 
 /* Rules */
 
@@ -28,6 +33,11 @@ main {
 }
 
 
+/* Helpers */
+.splash-info-margins {
+  margin: 40px 0px 40px 0px;
+}
+
 /* Navigation */
 
 div[role="navigation"] {
@@ -42,39 +52,94 @@ div[role="navigation"] {
 }
 
 
-/* Content */
+/* Splash Content */
 
 #splash-content {
+  display: block;
   background-color: $splash-bg;
   background-size: cover;
-  height: 100vh;
+  // height: 90vh;
   justify-content: center;
   #splash-header {
     font-family: $header-font;
-    margin-top: 50vh;
-    height: 100vh;
+    margin-top: 16vh;
+    height: 80vh;
+    width: 70%;
     justify-content: center;
+    img {
+      height: 64px;
+      width: 64px;
+      animation-delay: .3s;
+    }
     h1 {
       padding-top: 20px;
       padding-bottom: 20px;
       animation-delay: .4s;
     }
-    h5 {
-      margin-left: 40px;
+    h4 {
+      font-family: $sub-header-font;
+      padding-bottom: 50px;
       animation-delay: .8s;
+    }
+    #get-started-btn li a {
+      animation-delay: 1s;
+
     }
     #header-down-arrow-icon,
     a i.medium.material-icons {
       animation-delay: 1.5s;
-      margin-top: 25vh;
+      margin-top: 12vh;
       justify-content: center;
+    }
+  }
+  #splash-content-1 {
+    background-color: $splash-bg-1;
+    font-family: $header-font;
+    // min-height: 100vh;
+    width: 100vw;
+    margin: 0px;
+    padding: 0px;
+    #splash-content-1-header {
+      margin: auto;
+      #splash-1-p1,
+      #splash-1-p2 {
+        margin: 30px;
+      }
+    }
+  }
+  #splash-content-hipster {
+    background-Color: $splash-bg;
+    font-family: $header-font;
+    // max-height: 60vh;
+    // min-height: 10vh;
+    width: 100vw;
+    margin: 0px;
+    padding: 0px;
+    img {
+      background-size: contain;
+      width: 100vw;
+    }
+  }
+  #splash-content-hired {
+    background-Color: $splash-bg;
+    font-family: $header-font;
+    width: 100vw;
+    margin: 0px;
+    padding: 0px;
+    img {
+      background-size: auto;
+      width: 100vw;
     }
   }
 }
 
-s
-/* Footer */
+#whiteboard {
+  border: solid black 1px;
+}
 
-footer.page-footer {
-  margin-top: 0px;
+/* Footer */
+div[role="footer"] {
+  position: absolute;
+  z-index: 10000;
+  width: 100vw;
 }

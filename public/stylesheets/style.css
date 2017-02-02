@@ -1,5 +1,11 @@
 /*  Imports */
 @import url("https://fonts.googleapis.com/css?family=Aldrich");
+@import url("https://fonts.googleapis.com/css?family=Allura");
+/* Interview Room - Root */
+#ir-editor-col,
+#ir-canvas-col {
+  padding: 0px; }
+
 /* Variables */
 /* Rules */
 body {
@@ -16,6 +22,10 @@ main {
 .row {
   margin: 0px; }
 
+/* Helpers */
+.splash-info-margins {
+  margin: 40px 0px 40px 0px; }
+
 /* Navigation */
 div[role="navigation"] ul {
   margin-right: 10px; }
@@ -24,32 +34,74 @@ div[role="navigation"] ul li {
   padding-left: 14px;
   padding-right: 14px; }
 
-/* Content */
+/* Splash Content */
 #splash-content {
+  display: block;
   background-color: #FFF;
   background-size: cover;
-  height: 100vh;
   justify-content: center; }
   #splash-content #splash-header {
     font-family: Aldrich;
-    margin-top: 50vh;
-    height: 100vh;
+    margin-top: 16vh;
+    height: 80vh;
+    width: 70%;
     justify-content: center; }
+    #splash-content #splash-header img {
+      height: 64px;
+      width: 64px;
+      animation-delay: .3s; }
     #splash-content #splash-header h1 {
       padding-top: 20px;
       padding-bottom: 20px;
       animation-delay: .4s; }
-    #splash-content #splash-header h5 {
-      margin-left: 40px;
+    #splash-content #splash-header h4 {
+      font-family: Allura;
+      padding-bottom: 50px;
       animation-delay: .8s; }
+    #splash-content #splash-header #get-started-btn li a {
+      animation-delay: 1s; }
     #splash-content #splash-header #header-down-arrow-icon,
     #splash-content #splash-header a i.medium.material-icons {
       animation-delay: 1.5s;
-      margin-top: 25vh;
+      margin-top: 12vh;
       justify-content: center; }
+  #splash-content #splash-content-1 {
+    background-color: #2EACE9;
+    font-family: Aldrich;
+    width: 100vw;
+    margin: 0px;
+    padding: 0px; }
+    #splash-content #splash-content-1 #splash-content-1-header {
+      margin: auto; }
+      #splash-content #splash-content-1 #splash-content-1-header #splash-1-p1,
+      #splash-content #splash-content-1 #splash-content-1-header #splash-1-p2 {
+        margin: 30px; }
+  #splash-content #splash-content-hipster {
+    background-Color: #FFF;
+    font-family: Aldrich;
+    width: 100vw;
+    margin: 0px;
+    padding: 0px; }
+    #splash-content #splash-content-hipster img {
+      background-size: contain;
+      width: 100vw; }
+  #splash-content #splash-content-hired {
+    background-Color: #FFF;
+    font-family: Aldrich;
+    width: 100vw;
+    margin: 0px;
+    padding: 0px; }
+    #splash-content #splash-content-hired img {
+      background-size: auto;
+      width: 100vw; }
 
-s
-footer.page-footer {
-  margin-top: 0px; }
+#whiteboard {
+  border: solid black 1px; }
+
+/* Footer */
+div[role="footer"] {
+  position: absolute;
+  z-index: 10000;
+  width: 100vw; }
 
 /*# sourceMappingURL=style.css.map */

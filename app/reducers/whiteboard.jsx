@@ -56,6 +56,13 @@ export default function reducer (whiteboardData = initialWhiteboardData, action)
       const history = newWhiteboardData.getIn(['drawingHistory']);
       const newHistory = history.push(lastDrawImm);
       return newWhiteboardData.setIn(['drawingHistory'], newHistory);
+
+    case REQUEST_HISTORY:
+      return whiteboardData.setIn(['drawingHistory'], Immutable.fromJS(action.drawingHistory));
+
+    case CLEAR_HISTORY:
+      return whiteboardData.setIn(['drawingHistory'], []);
+
     default: return whiteboardData;
   }
 }

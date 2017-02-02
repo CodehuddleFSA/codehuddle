@@ -1,34 +1,23 @@
-import { createStore, applyMiddleware } from 'redux';
-import rootReducer from './reducers';
-import createLogger from 'redux-logger';
+
+// Required libraries
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 
-import {whoami} from './reducers/auth';
+// Required files
+import rootReducer from './reducers';
+import { whoami } from './reducers/auth';
+import { socket, socketsEmit } from 'APP/app/sockets';
 
-/* ------------       SOCKETS     ------------------ */
-const socket = window && window.io(window.location.origin);
-window.socket = socket; // Place socket reference on window
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-socket.on('connect', () => {
-  console.log('Client connected', socket.id);
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(
+    thunkMiddleware,
+    socketsEmit(socket, 'clientStoreAction')
+  ))
+);
 
-  socket.emit('wantToJoinRoom', 'spongebob');
-});
-
-// Sockets Middleware
-const socketsEmit = (socket, channelName = 'action') => store => {
-  socket.on(channelName, store.dispatch); // When action is received, disptach to store
-
-  return next => action => {
-    if (action.meta && action.meta.remote) {
-      socket.emit(channelName, action); // If action has meta.remote = true, this emit to server;
-    }
-    return next(action);
-  };
-};
-
-// Create store
-const store = createStore(rootReducer, applyMiddleware(createLogger(), thunkMiddleware, socketsEmit(socket)));
 export default store;
 
 // Set the auth info at start

@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Layer, Rect, Stage, Line} from 'react-konva';
+import Immutable from 'immutable';
 
 
 // ----------------Whiteboard Container-------------- //
@@ -43,16 +44,15 @@ export class Whiteboard extends React.Component {
   render () {
     let history = this.props.drawingHistory;
     let show = (history.length !== 0);
-    console.log('in render, drawing history is ', history);
     return (
       <Stage width={700} height={700} onContentMouseUp = {this.handleMouseUp}
             onContentMouseDown = {this.handleMouseDown}
             onContentMouseMove = {this.handleMouseMove} >
         <Layer >
-          {show && history.map(drawEvent => {
-            console.log('in line control, drawEvent is ', drawEvent);
+          {show && history.map((drawEvent, i) => {
             return (
               <Line stroke = {drawEvent.color}
+                key = {i}
                 points = {[drawEvent.lastPx.x, drawEvent.lastPx.y,
                   drawEvent.currentPx.x, drawEvent.currentPx.y]}
                 strokeWidth = {4}
