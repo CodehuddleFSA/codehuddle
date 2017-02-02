@@ -17,7 +17,10 @@ export const requestHistory = () => {
 
 export const clearHistory = () => {
   return {
-    type: CLEAR_HISTORY
+    type: CLEAR_HISTORY,
+    meta: {
+      remote: true
+    }
   };
 };
 
@@ -28,10 +31,10 @@ export const initCanvas = (ctx) => {
   };
 };
 
-export const setCoordinates = (lastPx, currentPx, color) => {
+export const setCoordinates = (lastPx, currentPx, color, strokeWidth) => {
   return {
     type: SET_COORDINATES,
-    lastDraw: {lastPx, currentPx, color},
+    lastDraw: {lastPx, currentPx, color, strokeWidth},
     meta: {
       remote: true
     }
@@ -43,7 +46,8 @@ const initialWhiteboardData = Immutable.fromJS({
   lastDraw: {
     lastPx: { x: null, y: null },
     currentPx: { x: null, y: null },
-    color: '#000000'
+    color: '#000000',
+    strokeWidth: 4
   },
   drawingHistory: []
 });
@@ -61,7 +65,7 @@ export default function reducer (whiteboardData = initialWhiteboardData, action)
       return whiteboardData.setIn(['drawingHistory'], Immutable.fromJS(action.drawingHistory));
 
     case CLEAR_HISTORY:
-      return whiteboardData.setIn(['drawingHistory'], []);
+      return whiteboardData.setIn(['drawingHistory'], Immutable.fromJS([]));
 
     default: return whiteboardData;
   }
