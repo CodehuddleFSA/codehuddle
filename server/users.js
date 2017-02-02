@@ -43,13 +43,9 @@ router.delete('/:userId', (req, res, next) => {
   .catch(next);
 });
 
-router.get('/:organizationName', (req, res, next) => {
-  User.findAll({
-    where: {
-      orgnaization_name: req.params.organizationName
-    }
-  })
-  .then(users => res.send(users))
+router.get('/:userId/problems', (req, res, next) => {
+  req.user.getProblems()
+  .then(problems => res.send(problems))
   .catch(next);
 });
 
