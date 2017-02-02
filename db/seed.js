@@ -28,6 +28,8 @@ const uniqueRand = max => {
   };
 };
 
+const seedOrganizations = () => db.Promise.map(organizations, organization => db.model('organizations').create(organization));
+
 const seedCandidates = () => db.Promise.map(Array(...Array(50)).map(_ => ({
   name: faker.name.findName(),
   email: faker.internet.email(),
@@ -39,10 +41,9 @@ const seedInterviewers = () => db.Promise.map(Array(...Array(50)).map(_ => ({
   name: faker.name.findName(),
   email: faker.internet.email(),
   password: '1234',
-  role: 'interviewer'
+  role: 'interviewer',
+  organization_name: organizations[rand(organizations.length - 1)].name
 })), user => db.model('users').create(user));
-
-const seedCompanies = () => db.Promise.map(organizations, organization => db.model('organizations').create(organization));
 
 const seedProblems = () => db.Promise.map(Array(...Array(200)).map(_ => ({
   name: faker.lorem.words(),
@@ -73,12 +74,12 @@ const seedInterviewProblems = () => db.Promise.map(Array(...Array(200)).map((_, 
 
 db.didSync
   .then(() => db.sync({force: true}))
+  .then(seedOrganizations)
+  .then(organizations => console.log(`Seeded ${organizations.length} organizations OK`))
   .then(seedCandidates)
   .then(candidates => console.log(`Seeded ${candidates.length} candidates OK`))
   .then(seedInterviewers)
   .then(interviewers => console.log(`Seeded ${interviewers.length} interviewers OK`))
-  .then(seedCompanies)
-  .then(organizations => console.log(`Seeded ${organizations.length} organizations OK`))
   .then(seedProblems)
   .then(problems => console.log(`Seeded ${problems.length} problems OK`))
   .then(seedInterviews)
