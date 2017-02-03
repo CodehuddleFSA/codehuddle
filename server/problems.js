@@ -21,6 +21,10 @@ router.param('problemId', (req, res, next, id) => {
   .catch(next);
 });
 
+router.get('/:problemId', (req, res, next) => {
+  res.send(req.problem);
+});
+
 router.put('/:problemId', (req, res, next) => {
   req.problem.update(req.body)
   .then(problem => res.send(problem))
