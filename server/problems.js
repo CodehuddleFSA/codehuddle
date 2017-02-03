@@ -1,18 +1,9 @@
 const router = require('express').Router();
 const db = require('APP/db');
 const Problem = db.model('problems');
+const {mustBeInterviewer} = require('./auth.filters');
 
-router.get('/:userId', (req, res, next) => {
-  Problem.findAll({
-    where: {
-      author_id: req.params.userId
-    }
-  })
-  .then(problems => res.send(problems))
-  .catch(next);
-});
-
-router.post('/', (req, res, next) => {
+router.post('/', mustBeInterviewer, (req, res, next) => {
   Problem.create(req.body)
   .then(createdProblem => res.status(201).send(createdProblem))
   .catch(next);
