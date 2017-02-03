@@ -35,6 +35,7 @@ passport.use(new LocalStrategy((email, password, done) => {
 
 router.post('/login', passport.authenticate('local'), (req, res, next) => {
   res.send(req.user); // change to redirect once front end is implemented.
+  res.redirect('/interviewRoom');
 });
 
 module.exports = router;
