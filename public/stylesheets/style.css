@@ -58,7 +58,7 @@ div[role="navigation"] ul li {
       font-family: Allura;
       padding-bottom: 50px;
       animation-delay: .8s; }
-    #splash-content #splash-header #get-started-btn li a {
+    #splash-content #splash-header #get-started-btn {
       animation-delay: 1s; }
     #splash-content #splash-header #header-down-arrow-icon,
     #splash-content #splash-header a i.medium.material-icons {
