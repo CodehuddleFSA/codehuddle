@@ -115,7 +115,8 @@ xl: 1600px,
     font-size: 2rem;
   }
 
-  height: 850px;
+  min-height: 850px;
+  height: 100vh;
 }
 
 #hipster {

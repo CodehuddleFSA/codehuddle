@@ -66,7 +66,7 @@ export default () => {
 
       <footer className="row">
         <div className="container">
-          Created by
+          © 2017 Copyright Amrom Steinmetz, Amy Paschal, Andrew Garcia, Evan DiGiambattista, Surabhi Nigam
         </div>
       </footer>
     </div>

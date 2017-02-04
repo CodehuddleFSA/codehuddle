@@ -233,7 +233,8 @@ body {
   .col-xl-12 {
     width: 100%; } }
 #header {
-  height: 850px; }
+  min-height: 850px;
+  height: 100vh; }
   #header #header-icon {
     height: 64px;
     width: 64px;
