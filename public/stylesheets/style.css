@@ -234,6 +234,7 @@ body {
     width: 100%; } }
 /* Splash specific pages */
 #header {
+  /* Splash Content */
   min-height: 850px;
   height: 100vh; }
   #header #header-icon {

@@ -104,6 +104,44 @@ xl: 1600px,
     animation-delay: .3s;
     margin-top: 250px;
   }
+/* Splash Content */
+
+// #splash-content {
+//   display: block;
+//   background-color: $splash-bg;
+//   background-size: cover;
+//   // height: 90vh;
+//   justify-content: center;
+//   #splash-header {
+//     font-family: $header-font;
+//     margin-top: 16vh;
+//     height: 80vh;
+//     width: 70%;
+//     justify-content: center;
+//     img {
+//       height: 64px;
+//       width: 64px;
+//       animation-delay: .3s;
+//     }
+//     h1 {
+//       padding-top: 20px;
+//       padding-bottom: 20px;
+//       animation-delay: .4s;
+//     }
+//     h4 {
+//       font-family: $sub-header-font;
+//       padding-bottom: 50px;
+//       animation-delay: .8s;
+//     }
+//     #get-started-btn {
+//       animation-delay: 1s;
+//     }
+//     #header-down-arrow-icon,
+//     a i.medium.material-icons {
+//       animation-delay: 1.5s;
+//       margin-top: 12vh;
+//       justify-content: center;
+//     }
 
   h1 {
     font-family: $header-font;

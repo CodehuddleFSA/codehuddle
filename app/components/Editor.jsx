@@ -20,7 +20,7 @@ export const Editor = ({ AceEditor, onChange, text, options }) => {
       onChange={ onChange }
       value={ text }
       width="100%"
-      height="500px"
+      height="100vh"
       setOptions={{
         showGutter: options.showGutter,
         fontSize: options.textSize ? 24 : 18
