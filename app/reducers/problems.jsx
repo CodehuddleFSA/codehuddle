@@ -44,3 +44,9 @@ export const fetchProblems = interviewID => {
     .catch(console.error);
   };
 };
+
+export const setCandidateRating = (interviewID, problemID, rating) => {
+  axios.put(`/api/interviews/${interviewID}/problems/${problemID}`, {
+    candidateRating: +rating
+  });
+};

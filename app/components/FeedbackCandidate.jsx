@@ -1,9 +1,9 @@
 // Required libraries
 import React from 'react';
-import AceEditor from 'react-ace';
 import Rating from 'react-rating';
 
 // Required files
+import RateProblem from './RateProblem';
 
 const handleRate = rating => {
   console.log(rating);
@@ -11,11 +11,22 @@ const handleRate = rating => {
 
 /* -----------------    COMPONENT     ------------------ */
 
-export const FeedbackCandidate = () => {
+export const FeedbackCandidate = ({ problems }) => {
   return (
     <div>
       <h1>In candidate feedback</h1>
-      <Rating onChange={ handleRate } />
+      {
+        problems.map((problem, idx) => {
+          const { problem_id, interview_id } = problem.interviewProblems;
+          return (
+              <RateProblem
+                problemID={ +problem_id }
+                interviewID={ +interview_id }
+                key={ idx }
+                />
+          );
+        })
+      }
     </div>
   );
 };
@@ -29,6 +40,7 @@ import { connect } from 'react-redux';
 
 const mapState = (state) => {
   return {
+    problems: state.interview.problems.toJS()
   };
 };
 
