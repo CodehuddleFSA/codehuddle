@@ -21,7 +21,8 @@ import InterviewRoom from './components/interview-room/InterviewRoom';
 import { socketsJoinRoom } from 'APP/app/sockets';
 
 function interviewOnEnter (nextState) {
-  socketsJoinRoom(nextState.location.query.room);
+  const requestedRoom = nextState.params.room;
+  socketsJoinRoom(requestedRoom);
 }
 
 render (
@@ -30,7 +31,7 @@ render (
       <Router history={ browserHistory }>
         <Route path="/" component={ Splash } />
         <Route path="/new" component={ Root } />
-        <Route path="/interviewRoom" component={InterviewRoom} onEnter={ interviewOnEnter }/>
+        <Route path="/interviewRoom/:room" component={InterviewRoom} onEnter={ interviewOnEnter }/>
       </Router>
     </Provider>
   </MuiThemeProvider>,
