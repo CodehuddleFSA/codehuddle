@@ -4,9 +4,9 @@ const db = require('APP/db')
 const User = require('APP/db/models/user')
 const app = require('./start')
 
-xdescribe('/api/users', () => {
-  describe('when not logged in', () => {
-    xit('GET /:id fails 401 (Unauthorized)', () =>
+describe('/api/users', () => {
+  xdescribe('when not logged in', () => {
+    it('GET /:id fails 401 (Unauthorized)', () =>
       request(app)
         .get(`/api/users/1`)
         .expect(401)
@@ -27,7 +27,7 @@ xdescribe('/api/users', () => {
         .post('/api/users')
         .send({
           email: 'eve@interloper.com',
-          password: '23456',
+          password: '23456'
         })
         .redirects(1)
         .then(res => expect(res.body).to.contain({
