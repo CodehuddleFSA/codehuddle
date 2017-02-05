@@ -23,12 +23,13 @@ function interviewOnEnter (nextState) {
   socketsJoinRoom(nextState.location.query.room);
 }
 
-render (
+render(
   <MuiThemeProvider>
     <Provider store={ store }>
       <Router history={ browserHistory }>
         <Route path="/" component={ Splash } />
         <Route path="/interviewRoom" component={InterviewRoom} onEnter={ interviewOnEnter }/>
+        <Route path="/login" component={Login}/>
       </Router>
     </Provider>
   </MuiThemeProvider>,
