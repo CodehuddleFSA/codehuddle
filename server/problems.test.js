@@ -1,4 +1,4 @@
-const request = require('supertest-as-promised');
+const request = require('supertest');
 const {expect} = require('chai');
 const Problem = require('APP/db/models/problem');
 const User = require('APP/db/models/user');
