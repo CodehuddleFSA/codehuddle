@@ -5,23 +5,18 @@ import Rating from 'react-rating';
 // Required files
 import RateProblem from './RateProblem';
 
-const handleRate = rating => {
-  console.log(rating);
-};
-
 /* -----------------    COMPONENT     ------------------ */
 
 export const FeedbackCandidate = ({ problems }) => {
   return (
     <div>
-      <h1>In candidate feedback</h1>
+      <p>We strive to deliver the best queality interviews. Please give us some feedback on our problems.</p>
       {
         problems.map((problem, idx) => {
-          const { problem_id, interview_id } = problem.interviewProblems;
+          // const { problem_id, interview_id } = problem.interviewProblems;
           return (
               <RateProblem
-                problemID={ +problem_id }
-                interviewID={ +interview_id }
+                problem={ problem }
                 key={ idx }
                 />
           );

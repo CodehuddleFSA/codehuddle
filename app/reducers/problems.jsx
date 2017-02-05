@@ -34,11 +34,9 @@ export default function reducer (problemData = initialProblemData, action) {
 /* ------------       DISPATCHERS     ------------------ */
 
 export const fetchProblems = interviewID => {
-  console.log('+++ In fetch problems', interviewID)
   return dispatch => {
     return axios.get(`/api/interviews/${interviewID}/problems`)
     .then(response => {
-      console.log('+++ API response', response.data);
       return dispatch(setProblems(response.data));
     })
     .catch(console.error);

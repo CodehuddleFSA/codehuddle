@@ -32,7 +32,6 @@ const mapProps = (state) => ({
 
 const mapDispatch = dispatch => ({
   feedbackCandidateOnEnter: (nextState) => {
-    console.log('+++ In feedbackEnter ');
     dispatch(fetchProblems(nextState.params.interviewID));
   },
   interviewOnEnter: (nextState) => {

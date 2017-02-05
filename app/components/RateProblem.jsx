@@ -4,17 +4,13 @@ import Rating from 'react-rating';
 
 // Required files
 
-const handleRate = rating => {
-  console.log(rating);
-};
-
 /* -----------------    COMPONENT     ------------------ */
 
-export const RateProblem = ({ problemID, interviewID, handleRate }) => {
+export const RateProblem = ({ problem, handleRate, candidateRating }) => {
   return (
     <div>
-      <h4>{ problemID }, { interviewID}</h4>
-      <Rating onChange={ handleRate } />
+      <p>Problem: <strong>{ problem.name }</strong></p>
+      <Rating onChange={ handleRate } initialRate={ candidateRating || 0 }/>
     </div>
   );
 };
@@ -28,14 +24,17 @@ import { connect } from 'react-redux';
 import { setCandidateRating } from 'APP/app/reducers/problems';
 
 const mapState = (state, ownProps) => {
+  const { candidateRating } = ownProps.problem.interviewProblems;
   return {
+    candidateRating
   };
 };
 
 const mapDispatch = (dispatch, ownProps) => {
+  const { problem_id, interview_id } = ownProps.problem.interviewProblems;
   return {
     handleRate: rating => {
-      setCandidateRating(ownProps.interviewID, ownProps.problemID, rating);
+      setCandidateRating(interview_id, problem_id, rating);
     }
   };
 };
