@@ -18,8 +18,10 @@ describe('organizations router', () => {
       {name: 'Evan', email: 'evan@test.com', password: '1234', organization_name: 'Google'}
     ];
 
-    Organization.bulkCreate(organizations);
-    User.bulkCreate(users);
+    Organization.bulkCreate(organizations)
+    .then(() => {
+      User.bulkCreate(users);
+    });
 
     User.create({
       name: 'Mike',

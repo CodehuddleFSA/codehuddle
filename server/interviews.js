@@ -5,6 +5,12 @@ const InterviewProblem = db.model('interviewProblems');
 
 // TODO: check authorizations where necessary. Can we do it in router.param?
 
+router.post('/', (req, res, next) => {
+  Interview.create(req.body)
+  .then(createdInterview => res.status(201).send(createdInterview))
+  .catch(next);
+});
+
 router.param('interviewId', (req, res, next, id) => {
   Interview.findById(id)
   .then(interview => {
@@ -19,12 +25,6 @@ router.param('interviewId', (req, res, next, id) => {
 
 router.get('/:interviewId', (req, res, next) => {
   res.send(req.interview);
-});
-
-router.post('/', (req, res, next) => {
-  Interview.create(req.body)
-  .then(createdInterview => res.status(201).send(createdInterview))
-  .catch(next);
 });
 
 router.put('/:interviewId', (req, res, next) => {
@@ -52,16 +52,17 @@ router.post('/:interviewId/problems', (req, res, next) => {
 });
 
 // We need to check authorization based on fields being changed. Probably in class method.
-router.put('/:interviewId/problems/:problemId', (req, res, next) => {
-  InterviewProblem.update(req.body, {
-    where: {
-      interview_id: req.params.interviewId,
-      problem_id: req.params.problemId
-    }
-  })
-  .then(_ => res.send(_))
-  .catch(next);
-});
+// I don't think this route is necessary
+// router.put('/:interviewId/problems/:problemId', (req, res, next) => {
+//   InterviewProblem.update(req.body, {
+//     where: {
+//       interview_id: req.params.interviewId,
+//       problem_id: req.params.problemId
+//     }
+//   })
+//   .then(_ => res.send(_))
+//   .catch(next);
+// });
 
 router.delete('/:interviewId/problems/:problemId', (req, res, next) => {
   req.interview.removeProblem(req.params.problemId)
