@@ -36,7 +36,7 @@ describe('<Login />', () => {
       preventDefault: spy(),
       target: {
         username: {value: 'bones@example.com'},
-        password: {value: '12345'},
+        password: {value: '12345'}
       }
     }
 
