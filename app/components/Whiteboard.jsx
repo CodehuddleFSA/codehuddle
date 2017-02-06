@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 //import {Layer, Rect, Stage, Line, Group, Image} from 'react-konva';
-import Konva from 'react-Konva';
+import Konva from 'react-konva';
 import Immutable from 'immutable';
 
 const DEFAULT_STROKE_SIZE = 4;
