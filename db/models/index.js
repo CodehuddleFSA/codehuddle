@@ -11,7 +11,6 @@ const Problem = require('./problem');
 const InterviewProblem = require('./interviewProblem');
 
 Interview.belongsTo(User, {as: 'interviewer'});
-Interview.belongsTo(User, {as: 'candidate'});
 User.belongsTo(Organization);
 User.hasMany(Problem, {foreignKey: 'author_id'});
 Problem.belongsTo(Organization);
