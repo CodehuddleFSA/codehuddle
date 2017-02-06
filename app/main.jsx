@@ -1,26 +1,27 @@
 'use strict';
+
+// Required libraries
 import React from 'react';
 import { Router, Route, IndexRedirect, browserHistory } from 'react-router';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 
+// Required files
 import store from './store';
-import Login from './components/Login';
-import WhoAmI from './components/WhoAmI';
-import Splash from './components/splash/Splash';
-import InterviewRoom from './components/interview-room/InterviewRoom';
-import { socketsJoinRoom } from 'APP/app/sockets';
+import Routes from './Routes';
 
-function interviewOnEnter (nextState) {
-  socketsJoinRoom(nextState.location.query.room);
-}
+// For Material-UI: Provides `onTouchTap()` event; Much like an `onClick()` for touch devices.
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
-render (
-  <Provider store={ store }>
-    <Router history={ browserHistory }>
-      <Route path="/" component={ Splash } />
-      <Route path="/interviewRoom" component={InterviewRoom} onEnter={ interviewOnEnter }/>
-    </Router>
-  </Provider>,
+// Material Theme Provider. Wraps everything in `render()` method below
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+render(
+  <MuiThemeProvider>
+    <Provider store={ store }>
+      <Routes />
+    </Provider>
+  </MuiThemeProvider>,
   document.getElementById('main')
 );
