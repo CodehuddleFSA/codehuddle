@@ -52,17 +52,16 @@ router.post('/:interviewId/problems', (req, res, next) => {
 });
 
 // We need to check authorization based on fields being changed. Probably in class method.
-// I don't think this route is necessary
-// router.put('/:interviewId/problems/:problemId', (req, res, next) => {
-//   InterviewProblem.update(req.body, {
-//     where: {
-//       interview_id: req.params.interviewId,
-//       problem_id: req.params.problemId
-//     }
-//   })
-//   .then(_ => res.send(_))
-//   .catch(next);
-// });
+router.put('/:interviewId/problems/:problemId', (req, res, next) => {
+  InterviewProblem.update(req.body, {
+    where: {
+      interview_id: req.params.interviewId,
+      problem_id: req.params.problemId
+    }
+  })
+  .then(_ => res.send(_))
+  .catch(next);
+});
 
 router.delete('/:interviewId/problems/:problemId', (req, res, next) => {
   req.interview.removeProblem(req.params.problemId)
