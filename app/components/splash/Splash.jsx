@@ -7,13 +7,13 @@ import SplashContent from './Splash-Content';
 
 export const Splash = () => {
 
-	return (
-		<div id="splash-root" className="page-flexbox-wrapper">
-			<SplashNav1/>
-			<SplashContent/>
-			
-		</div>
-	);
+  return (
+    <div id="splash-root" className="page-flexbox-wrapper">
+      <SplashNav1/>
+      <SplashContent/>
+
+    </div>
+  );
 };
 
 import { connect } from 'react-redux';

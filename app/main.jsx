@@ -16,19 +16,21 @@ import store from './store';
 import Login from './components/Login';
 import WhoAmI from './components/WhoAmI';
 import Splash from './components/splash/Splash';
+import Home from './components/splash/Home';
 import InterviewRoom from './components/interview-room/InterviewRoom';
 import { socketsJoinRoom } from 'APP/app/sockets';
 
 function interviewOnEnter (nextState) {
-  socketsJoinRoom(nextState.location.query.room);
+  const requestedRoom = nextState.params.room;
+  socketsJoinRoom(requestedRoom);
 }
 
 render(
   <MuiThemeProvider>
     <Provider store={ store }>
       <Router history={ browserHistory }>
-        <Route path="/" component={ Splash } />
-        <Route path="/interviewRoom" component={InterviewRoom} onEnter={ interviewOnEnter }/>
+        <Route path="/" component={ Home } />
+        <Route path="/interviewRoom/:room" component={InterviewRoom} onEnter={ interviewOnEnter }/>
         <Route path="/login" component={Login}/>
       </Router>
     </Provider>
