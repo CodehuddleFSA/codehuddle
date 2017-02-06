@@ -13,6 +13,7 @@ import Splash from './components/splash/Splash';
 import InterviewRoom from './components/interview-room/InterviewRoom';
 import FeedbackCandidate from './components/FeedbackCandidate';
 
+// Helper functions
 import { socketsJoinRoom } from 'APP/app/sockets';
 import { fetchProblems } from 'APP/app/reducers/problems';
 
@@ -20,7 +21,7 @@ import { fetchProblems } from 'APP/app/reducers/problems';
 const Routes = ({ interviewOnEnter, feedbackCandidateOnEnter }) => (
   <Router history={ browserHistory }>
     <Route path="/" component={ Splash } />
-    <Route path="/interviewRoom" component={ InterviewRoom } onEnter={ interviewOnEnter }/>
+    <Route path="/interviewRoom/:room" component={ InterviewRoom } onEnter={ interviewOnEnter }/>
     <Route path="/feedbackCandidate/:interviewID" component={ FeedbackCandidate } onEnter={ feedbackCandidateOnEnter } />
   </Router>
 );
@@ -35,7 +36,7 @@ const mapDispatch = dispatch => ({
     dispatch(fetchProblems(nextState.params.interviewID));
   },
   interviewOnEnter: (nextState) => {
-    socketsJoinRoom(nextState.location.query.room);
+    socketsJoinRoom(nextState.params.room);
   }
 });
 
