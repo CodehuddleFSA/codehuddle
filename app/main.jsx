@@ -18,11 +18,17 @@ import WhoAmI from './components/WhoAmI';
 import Splash from './components/splash/Splash';
 import Home from './components/splash/Home';
 import InterviewRoom from './components/interview-room/InterviewRoom';
+import InterviewPlanning from './components/InterviewPlanning';
 import { socketsJoinRoom } from 'APP/app/sockets';
 
 function interviewOnEnter (nextState) {
   const requestedRoom = nextState.params.room;
   socketsJoinRoom(requestedRoom);
+}
+
+function interviewPlanningOnEnter (nextState) {
+  console.log("inside interviewPlanningOnEnter, the nextState is: ", nextState);
+  //const loggedInUser = nextState.params.room;
 }
 
 render(
@@ -31,6 +37,7 @@ render(
       <Router history={ browserHistory }>
         <Route path="/" component={ Home } />
         <Route path="/interviewRoom/:room" component={InterviewRoom} onEnter={ interviewOnEnter }/>
+        <Route path="/interviewPlanning" component={InterviewPlanning} onEnter={ interviewPlanningOnEnter }/>
         <Route path="/login" component={Login}/>
       </Router>
     </Provider>
