@@ -29,7 +29,7 @@ export default () => {
 
             <div>
               <RaisedButton
-                href="/interviewRoom?room=default"
+                href="/interviewRoom/publicRoom"
                 className="animated fadeIn"
                 label="Get Started"
                 labelPosition="before"
