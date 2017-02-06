@@ -16,7 +16,7 @@ import store from './store';
 import Login from './components/Login';
 import WhoAmI from './components/WhoAmI';
 import Splash from './components/splash/Splash';
-import Root from './components/splash/Root';
+import Home from './components/splash/Home';
 import InterviewRoom from './components/interview-room/InterviewRoom';
 import { socketsJoinRoom } from 'APP/app/sockets';
 
@@ -29,8 +29,7 @@ render (
   <MuiThemeProvider>
     <Provider store={ store }>
       <Router history={ browserHistory }>
-        <Route path="/" component={ Splash } />
-        <Route path="/new" component={ Root } />
+        <Route path="/" component={ Home } />
         <Route path="/interviewRoom/:room" component={InterviewRoom} onEnter={ interviewOnEnter }/>
       </Router>
     </Provider>
