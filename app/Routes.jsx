@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import store from './store';
 import Login from './components/Login';
 import WhoAmI from './components/WhoAmI';
-import Splash from './components/splash/Splash';
+import Home from './components/splash/Home';
 import InterviewRoom from './components/interview-room/InterviewRoom';
 import FeedbackCandidate from './components/FeedbackCandidate';
 
@@ -20,9 +20,10 @@ import { fetchProblems } from 'APP/app/reducers/problems';
 /* -----------------    COMPONENT     ------------------ */
 const Routes = ({ interviewOnEnter, feedbackCandidateOnEnter }) => (
   <Router history={ browserHistory }>
-    <Route path="/" component={ Splash } />
+    <Route path="/" component={ Home } />
     <Route path="/interviewRoom/:room" component={ InterviewRoom } onEnter={ interviewOnEnter }/>
     <Route path="/feedbackCandidate/:interviewID" component={ FeedbackCandidate } onEnter={ feedbackCandidateOnEnter } />
+    <Route path="/login" component={ Login }/>
   </Router>
 );
 

@@ -10,6 +10,12 @@ router.get('/', (req, res, next) => {
   .catch(next);
 });
 
+router.post('/', (req, res, next) => {
+  Organization.create(req.body)
+  .then(() => res.sendStatus(201))
+  .catch(next);
+});
+
 router.delete('/:organizationName', (req, res, next) => {
   Organization.destroy({
     where: {
