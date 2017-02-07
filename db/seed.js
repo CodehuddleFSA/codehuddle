@@ -54,7 +54,8 @@ const seedProblems = () => db.Promise.map(Array(...Array(200)).map(_ => ({
 
 const seedSolutions = () => db.Promise.map(Array(...Array(400)).map(_ => ({
   code: faker.lorem.paragraph(),
-  bigO: bigOs[rand(bigOs.length - 1)]
+  bigO: bigOs[rand(bigOs.length - 1)],
+  problem_id: rand(1, 200)
 })), solution => db.model('solutions').create(solution));
 
 const seedInterviews = () => db.Promise.map(Array(...Array(50)).map(_ => ({
