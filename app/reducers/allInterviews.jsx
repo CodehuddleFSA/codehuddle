@@ -7,44 +7,38 @@ import axios from 'axios';
 const SET_INTERVIEWS = 'SET_INTERVIEWS';
 
 /* ------------   ACTION CREATORS     ------------------ */
-export const setProblems = interviews => ({
+export const setInterviews = interviews => ({
   type: SET_INTERVIEWS,
   interviews
 });
 
 /* ------------       REDUCER     ------------------ */
-const initialProblemData = Immutable.fromJS(
+const initialInterviewsData = Immutable.fromJS(
   []
 );
 
-export default function reducer (problemData = initialProblemData, action) {
-  let newProblemData;
+export default function reducer (interviewsData = initialInterviewsData, action) {
+  let newInterviewsData;
   switch (action.type) {
-    case SET_PROBLEMS:
-      newProblemData = Immutable.fromJS(action.problems);
+    case SET_INTERVIEWS:
+      newInterviewsData = Immutable.fromJS(action.interviews);
       break;
 
-    default: return problemData;
+    default: return interviewsData;
 
   }
 
-  return newProblemData;
+  return newInterviewsData;
 }
 
 /* ------------       DISPATCHERS     ------------------ */
 
-export const fetchProblems = interviewID => {
+export const fetchAllInterviews = userID => {
   return dispatch => {
-    return axios.get(`/api/interviews/${interviewID}/problems`)
+    return axios.get(`/api/users/${userID}/interviews`)
     .then(response => {
-      return dispatch(setProblems(response.data));
+      return dispatch(setInterviews(response.data));
     })
     .catch(console.error);
   };
-};
-
-export const setCandidateRating = (interviewID, problemID, rating) => {
-  axios.put(`/api/interviews/${interviewID}/problems/${problemID}`, {
-    candidateRating: +rating
-  });
 };
