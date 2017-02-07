@@ -1,5 +1,6 @@
 // Required libraries
 import React from 'react';
+import RoomSelectBtn from '../RoomSelectBtn';
 
 // Required files
 import RaisedButton from 'material-ui/RaisedButton';
@@ -31,12 +32,6 @@ export default class Home extends React.Component {
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleClose}
-      />,
-      <FlatButton
-        label="Submit"
-        primary={true}
-
         onTouchTap={this.handleClose}
       />
     ];
@@ -75,8 +70,13 @@ export default class Home extends React.Component {
                     title="TITLE"
                     actions={ actions }
                     modal={ true }
+                    style={{ textAlign: 'center' }}
                     open={ this.state.open }>
                     <Login/>
+                    <br/>
+                    <hr/>
+                    <br/>
+                    <RoomSelectBtn/>
                   </Dialog>
                 </RaisedButton>
               </div>
