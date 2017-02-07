@@ -16,9 +16,13 @@ function objToArray (obj) {
   })
   return output;
 }
+// TODO: Object.values
 
 /* -----------------    COMPONENT     ------------------ */
 
+// TODO: Put editor props up here
+
+// TODO: remove AceEditor
 export const Editor = ({ AceEditor, onChange, text, options, ranges }) => {
   return (
     <AceEditor
