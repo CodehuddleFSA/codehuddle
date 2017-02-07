@@ -1,6 +1,6 @@
 // Required libraries
 import React from 'react';
-import AceEditor from 'react-ace';
+import AceEditor from './AceEditor';
 
 import 'brace/mode/javascript';
 import 'brace/theme/github';
@@ -9,9 +9,17 @@ import 'brace/theme/tomorrow';
 import 'brace/theme/clouds';
 import 'brace/mode/plain_text';
 
+function objToArray (obj) {
+  const output = [];
+  Object.keys(obj).forEach(key => {
+    output.push(obj[key]);
+  })
+  return output;
+}
+
 /* -----------------    COMPONENT     ------------------ */
 
-export const Editor = ({ AceEditor, onChange, text, options }) => {
+export const Editor = ({ AceEditor, onChange, text, options, ranges }) => {
   return (
     <AceEditor
       mode={ options.linting ? 'javascript' : 'plain_text' }
@@ -29,6 +37,7 @@ export const Editor = ({ AceEditor, onChange, text, options }) => {
         autoScrollEditorIntoView: false,
         $blockScrolling: Infinity
       }}
+      markers={objToArray(ranges)}
     />
   );
 };
@@ -45,7 +54,8 @@ const mapState = (state) => {
   return {
     AceEditor,
     text: state.interview.editor.get('text'),
-    options: state.interview.editor.get('options').toJS()
+    options: state.interview.editor.get('options').toJS(),
+    ranges: state.interview.editor.get('ranges').toJS()
   };
 };
 

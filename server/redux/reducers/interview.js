@@ -8,6 +8,7 @@ const ADD_ROOM = 'ADD_ROOM';
 // Editor
 const SET_TEXT = 'SET_TEXT';
 const SET_OPTIONS = 'SET_OPTIONS';
+const SET_RANGE = 'SET_RANGE';
 
 // Whiteboard
 const REQUEST_HISTORY = 'REQUEST_HISTORY';
@@ -58,7 +59,8 @@ const defaultRoom = Immutable.fromJS(
         showGutter: true,
         textSize: false,
         theme: false
-      }
+      },
+      ranges: {}
     },
     whiteboard: {
       drawingHistory: []
@@ -93,6 +95,11 @@ function reducer (interviewData = initialInterviewData, action) {
     case SET_OPTIONS:
       newInterviewData = newInterviewData.mergeIn([action.room, 'editor', 'options'], action.options);
       break;
+
+    case SET_RANGE:
+      const newRange = {};
+      newRange[action.id] = action.range;
+      newInterviewData = newInterviewData.mergeIn([action.room, 'editor', 'ranges'], newRange);
 
     default: return interviewData;
 

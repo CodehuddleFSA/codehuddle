@@ -50,7 +50,7 @@ export class InterviewRoom extends React.Component {
   handleWBClose() {
     this.setState({ open: false, WBOpen: false });
   }
-  
+
   render() {
     return (
       <div id="ir-root" className="animated fadeIn">
@@ -65,7 +65,7 @@ export class InterviewRoom extends React.Component {
           docked={ false }
           onRequestChange={(open) => this.setState({open})}>
           <IconButton><Close onTouchTap={ this.handleClose }/></IconButton>
-          <InterviewRoomOptions/>
+          <InterviewRoomOptions />
         </Drawer>
       {/* Right Side Drawer */}
         <Drawer

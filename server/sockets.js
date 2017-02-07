@@ -56,8 +56,9 @@ const socketPubSub = io => {
     // Socket sends out a client-side store action
     socket.on('clientStoreAction', (action) => { // When an action is received, send it out. This acts like a reducer.
       action.room = room; // Set room that the socket is in
+
       const acceptableActionTypes = new Set(
-        ['SET_TEXT', 'SET_COORDINATES', 'SET_OPTIONS']
+        ['SET_TEXT', 'SET_COORDINATES', 'SET_OPTIONS', 'SET_RANGE']
       );
 
       if (acceptableActionTypes.has(action.type)) {
