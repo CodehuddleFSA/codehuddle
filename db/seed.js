@@ -47,12 +47,15 @@ const seedUsers = () => db.Promise.map(Array(...Array(50)).map(_ => ({
 const seedProblems = () => db.Promise.map(Array(...Array(200)).map(_ => ({
   name: faker.lorem.words(),
   description: faker.lorem.sentence(),
-  solution: faker.lorem.paragraph(),
   difficulty: ['easy', 'medium', 'hard'][rand(2)],
-  bigO: bigOs[rand(bigOs.length - 1)],
   organization_name: organizations[rand(organizations.length - 1)].name,
   author_id: rand(11, 60)
 })), problem => db.model('problems').create(problem));
+
+const seedSolutions = () => db.Promise.map(Array(...Array(400)).map(_ => ({
+  code: faker.lorem.paragraph(),
+  bigO: bigOs[rand(bigOs.length - 1)]
+})), solution => db.model('solutions').create(solution));
 
 const seedInterviews = () => db.Promise.map(Array(...Array(50)).map(_ => ({
   candidateName: faker.name.findName(),
@@ -81,6 +84,8 @@ db.didSync
   .then(users => console.log(`Seeded ${users.length} users OK`))
   .then(seedProblems)
   .then(problems => console.log(`Seeded ${problems.length} problems OK`))
+  .then(seedSolutions)
+  .then(solutions => console.log(`Seeded ${solutions.length} solutions OK`))
   .then(seedInterviews)
   .then(interviews => console.log(`Seeded ${interviews.length} interviews OK`))
   .then(seedInterviewProblems)
