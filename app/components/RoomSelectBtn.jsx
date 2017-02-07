@@ -28,7 +28,7 @@ export default () => {
 			<RaisedButton
 				label="Go!"
 				labelPosition="before"
-				primary={true}
+				secondary={true}
 				icon={<ArrowRight />}
 				style={styles.button}
 				href={ `/interviewRoom/${ roomName }` }

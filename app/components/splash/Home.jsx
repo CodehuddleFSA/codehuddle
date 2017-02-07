@@ -62,6 +62,7 @@ export default class Home extends React.Component {
                   onTouchTap={ this.handleOpen }
                   backgroundColor="#2bbbad"
                   labelColor="white"
+                  primary={ true }
                   style={{
                     animationDelay: '1s'
                   }}
@@ -70,7 +71,7 @@ export default class Home extends React.Component {
                     actions={ actions }
                     modal={ false }
                     style={{ textAlign: 'center' }}
-                    contentStyle={{ width: '30%' }}
+                    contentStyle={{ width: '37%' }}
                     open={ this.state.open }>
                     <h2>Create Random Room</h2>
                     <RoomSelectBtn/>
