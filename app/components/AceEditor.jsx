@@ -230,7 +230,6 @@ class ReactAce extends PureComponent {
     if (this.props.onCopy) {
       this.props.onCopy(text);
     }
-    console.log('copying text', this.editor.selection.getRange(), 'after');
   }
 
   onPaste(text) {
