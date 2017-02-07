@@ -10,7 +10,8 @@ const rootReducer = combineReducers({
   interview: combineReducers({
     editor,
     whiteboard
-  })
+  }),
+  problems: require('./problems').default
 });
 
 export default rootReducer;
