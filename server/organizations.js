@@ -16,14 +16,15 @@ router.post('/', (req, res, next) => {
   .catch(next);
 });
 
+// add class method to sanitize name
 router.delete('/:organizationName', (req, res, next) => {
   Organization.destroy({
     where: {
       name: req.params.organizationName
     }
   })
-  .then(r => {
-    if (r === 0) res.sendStatus(404);
+  .then(response => {
+    if (response === 0) res.sendStatus(404);
     else res.sendStatus(204);
   })
   .catch(next);

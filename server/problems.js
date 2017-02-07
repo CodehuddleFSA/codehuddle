@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const db = require('APP/db');
 const Problem = db.model('problems');
-const {mustBeInterviewer} = require('./auth.filters');
 
 router.post('/', (req, res, next) => {
   Problem.create(req.body)

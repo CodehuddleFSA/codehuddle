@@ -20,7 +20,7 @@ router.param('userId', (req, res, next, id) => {
   .then(user => {
     if (!user) res.send(404);
     else {
-      req.user = user;
+      req.foundUser = user;
       next();
     }
   })
@@ -28,25 +28,23 @@ router.param('userId', (req, res, next, id) => {
 });
 
 router.get('/:userId', (req, res, next) => {
-  res.send(req.user);
+  res.send(req.foundUser);
 });
 
 router.put('/:userId', (req, res, next) => {
-  req.user.update(req.body)
+  req.foundUser.update(req.body)
   .then(user => res.send(user))
   .catch(next);
 });
 
 router.delete('/:userId', (req, res, next) => {
-  req.user.destroy()
+  req.foundUser.destroy()
   .then(() => res.sendStatus(204))
   .catch(next);
 });
 
-// :userId/interviews
-
 router.get('/:userId/problems', (req, res, next) => {
-  req.user.getProblems()
+  req.foundUser.getProblems()
   .then(problems => res.send(problems))
   .catch(next);
 });

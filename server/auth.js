@@ -39,6 +39,7 @@ router.get('/whoami', (req, res) => res.send(req.user));
 
 router.post('/logout', (req, res, next) => {
   req.logout();
+  // not necessary
   res.redirect('/api/auth/whoami');
 });
 

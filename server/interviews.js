@@ -52,6 +52,7 @@ router.post('/:interviewId/problems', (req, res, next) => {
 });
 
 // We need to check authorization based on fields being changed. Probably in class method.
+// move to  new router '/interviewProblems'
 router.put('/:interviewId/problems/:problemId', (req, res, next) => {
   InterviewProblem.update(req.body, {
     where: {

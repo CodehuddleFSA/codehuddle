@@ -18,10 +18,10 @@ describe('organizations router', () => {
       {name: 'Evan', email: 'evan@test.com', password: '1234', organization_name: 'Google'}
     ];
 
+    // promise.all or separate before blocks
     Organization.bulkCreate(organizations)
-    .then(() => {
-      User.bulkCreate(users);
-    });
+    .then(() => 
+      User.bulkCreate(users));
 
     User.create({
       name: 'Mike',
