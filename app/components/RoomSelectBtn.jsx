@@ -4,7 +4,7 @@ import Faker from 'faker';
 import RaisedButton from 'material-ui/RaisedButton';
 import ArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 
-const roomName = Faker.fake("{{random.number}}{{name.prefix}}{{hacker.adjective}}{{hacker.noun}}{{random.word}}");
+const roomName = Faker.fake("{{name.prefix}}{{hacker.adjective}}{{hacker.noun}}{{random.word}}{{random.number}}");
 
 const styles = {
   button: {
@@ -26,7 +26,7 @@ export default () => {
 	return (
 		<div id="join-room-btns">
 			<RaisedButton
-				label="Create Room"
+				label="Go!"
 				labelPosition="before"
 				primary={true}
 				icon={<ArrowRight />}

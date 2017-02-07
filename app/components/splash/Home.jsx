@@ -67,16 +67,18 @@ export default class Home extends React.Component {
                   }}
                   >
                   <Dialog
-                    title="TITLE"
                     actions={ actions }
-                    modal={ true }
+                    modal={ false }
                     style={{ textAlign: 'center' }}
+                    contentStyle={{ width: '30%' }}
                     open={ this.state.open }>
-                    <Login/>
+                    <h2>Create Random Room</h2>
+                    <RoomSelectBtn/>
                     <br/>
                     <hr/>
                     <br/>
-                    <RoomSelectBtn/>
+                    <h2>Interviewer Login</h2>
+                    <Login/>
                   </Dialog>
                 </RaisedButton>
               </div>

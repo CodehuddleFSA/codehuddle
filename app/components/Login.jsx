@@ -4,6 +4,10 @@ import WhoAmI from './WhoAmI';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
+const styles = {
+  margin: '10px'
+};
+
 export const Login = ({ login }) => (
   <div>
     <form onSubmit={evt => {
@@ -11,25 +15,28 @@ export const Login = ({ login }) => (
       login(evt.target.username.value, evt.target.password.value);
     } }>
     <div>
-      <label>Username
-        <TextField name="username"/>
-      </label>
+      <TextField 
+        name="username"
+        floatingLabelText="UserName"/>
     </div>
     <div>
-      <label>Password
-        <TextField name="password" type="password"/>
-      </label>
+      <TextField
+        name="password"
+        type="password"
+        floatingLabelText="Password"/>
     </div>
       <br/>
-      <RaisedButton
-        label="Login"
-        primary={ true }
-        type="submit"
-        />
       <RaisedButton
         label="Sign Up"
         primary={ true }
         type="submit"
+        style={ styles }
+        />
+        <RaisedButton
+        label="Login"
+        primary={ true }
+        type="submit"
+        style={ styles }
         />
       <br/>
     </form>
