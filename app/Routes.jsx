@@ -15,7 +15,7 @@ import FeedbackCandidate from './components/FeedbackCandidate';
 
 // Helper functions
 import { socketsJoinRoom } from 'APP/app/sockets';
-import { fetchProblems } from 'APP/app/reducers/problems';
+import { fetchProblems } from 'APP/app/reducers/interviewProblems';
 
 /* -----------------    COMPONENT     ------------------ */
 const Routes = ({ interviewOnEnter, feedbackCandidateOnEnter }) => (
