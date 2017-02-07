@@ -2,6 +2,7 @@ import React from 'react';
 import WhoAmI from './WhoAmI';
 
 import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 export const Login = ({ login }) => (
   <div>
@@ -19,7 +20,18 @@ export const Login = ({ login }) => (
         <TextField name="password" type="password"/>
       </label>
     </div>
-      <input type="submit" value="Login" />
+      <br/>
+      <RaisedButton
+        label="Login"
+        primary={ true }
+        type="submit"
+        />
+      <RaisedButton
+        label="Sign Up"
+        primary={ true }
+        type="submit"
+        />
+      <br/>
     </form>
   </div>
 );
