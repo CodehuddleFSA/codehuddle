@@ -14,7 +14,7 @@ const editorOptions = [
   'tabSize',
   'enableBasicAutocompletion',
   'enableLiveAutocompletion',
-  'enableSnippets',
+  'enableSnippets'
 ];
 
 export default class ReactAce extends PureComponent {
@@ -27,7 +27,8 @@ export default class ReactAce extends PureComponent {
       'onCopy',
       'onPaste',
       'onScroll',
-      'handleOptions'
+      'handleOptions',
+      'onChangeSelection'
     ]
     .forEach(method => {
       this[method] = this[method].bind(this);
@@ -84,21 +85,7 @@ export default class ReactAce extends PureComponent {
     this.editor.getSession().setAnnotations(annotations || []);
     this.handleMarkers(markers || []);
 
-    this.editor.selection.on('changeSelection', this.onChangeSelection.bind(this));
-
-    // this.editor.selection.on('changeSelection', () => {
-    //   if (this.editor.$mouseHandler.isMousePressed) {
-    //     const setRangeFn = this.props.setRange;
-    //     const currentRange = this.editor.selection.getRange();
-    //
-    //     const parsedRange = {
-    //       start: currentRange.start,
-    //       end: currentRange.end
-    //     };
-    //
-    //     setRangeFn(parsedRange);
-    //   }
-    // });
+    this.editor.selection.on('changeSelection', this.onChangeSelection);
 
     // get a list of possible options to avoid 'misspelled option errors'
     const availableOptions = this.editor.$options;
