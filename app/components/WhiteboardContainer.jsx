@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import Konva from 'react-Konva';
+import Konva from 'react-konva';
 import Immutable from 'immutable';
 import {WhiteboardToolbar} from './WhiteboardToolbar';
 import {DEFAULT_STROKE_SIZE, ERASER_STROKE_SIZE, BOARD_COLOR} from './WhiteboardConstants';
