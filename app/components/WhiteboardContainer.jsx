@@ -3,12 +3,7 @@ import {connect} from 'react-redux';
 import Konva from 'react-Konva';
 import Immutable from 'immutable';
 import {WhiteboardToolbar} from './WhiteboardToolbar';
-
-const DEFAULT_STROKE_SIZE = 4;
-const ERASER_STROKE_SIZE = 50;
-const SQUARE_SIDE_SIZE = 30;
-const DEFAULT_COLOR = 'black';
-const palette = ['green', 'red', 'blue', 'purple', 'black', 'yellow'];
+import {DEFAULT_STROKE_SIZE, ERASER_STROKE_SIZE, BOARD_COLOR} from './WhiteboardConstants';
 
 // ------------------------ Whiteboard Dumb Component ------------------------ //
 export const Whiteboard = (props) => {
@@ -42,11 +37,15 @@ export const Whiteboard = (props) => {
 export class WhiteboardContainer extends React.Component {
   constructor (props) {
     super(props);
-    this.drawing = this.props.drawing;
-    this.lastPx = this.props.lastDraw.lastPx;
-    this.currentPx = this.props.lastDraw.currentPx;
-    this.color = this.props.lastDraw.color;
-    this.strokeWidth = this.props.lastDraw.strokeWidth;
+    this.state = {
+      drawing: this.props.drawing,
+      lastX: this.props.lastDraw.lastPx.x,
+      lastY: this.props.lastDraw.lastPx.y,
+      currentX: this.props.lastDraw.currentPx.x,
+      currentY: this.props.lastDraw.currentPx.y,
+      color: this.props.lastDraw.color,
+      strokeWidth: this.props.lastDraw.strokeWidth
+    };
 
     this.handleMouseDown = this.handleMouseDown.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
@@ -57,15 +56,19 @@ export class WhiteboardContainer extends React.Component {
   }
 
   handleMouseDown (event) {
-    this.drawing = true;
-    this.currentPx = {x: event.evt.offsetX, y: event.evt.offsetY};
+    this.setState({
+      drawing: true,
+      currentX: event.evt.offsetX,
+      currentY: event.evt.offsetY
+    });
   }
 
-  handleColorChange (event) {
+  handleColorChange (color) {
     // Update current mouse position
-    console.log('in change event with color ', event.target.attrs.fill);
-    this.color = event.target.attrs.fill;
-    this.strokeWidth = DEFAULT_STROKE_SIZE;
+    this.setState({
+      color: color.hex,
+      strokeWidth: DEFAULT_STROKE_SIZE
+    });
   }
 
   handleClear () {
@@ -73,30 +76,41 @@ export class WhiteboardContainer extends React.Component {
   }
 
   handleErase () {
-    this.color = 'white';
-    this.strokeWidth = ERASER_STROKE_SIZE;
+    this.setState({
+      color: BOARD_COLOR,
+      strokeWidth: ERASER_STROKE_SIZE
+    });
   }
 
   handleMouseMove (event) {
-    if (!this.drawing) return; // Short circuit if mouse button isn't down
+    if (!this.state.drawing) return; // Short circuit if mouse button isn't down
     // Update last and current mouse positions
-    this.lastPx = {x: this.currentPx.x, y: this.currentPx.y};
-    this.currentPx = {x: event.evt.offsetX, y: event.evt.offsetY};
+    this.setState({
+      lastX: this.state.currentX,
+      lastY: this.state.currentY,
+      currentX: event.evt.offsetX,
+      currentY: event.evt.offsetY
+    });
 
     // Send dispatch out for new coordinates (end of stroke)
-    this.props.setCoordinates(this.lastPx, this.currentPx, this.color, this.strokeWidth);
+    this.props.setCoordinates(
+      {x: this.state.lastX, y: this.state.lastY},
+      {x: this.state.currentX, y: this.state.currentY},
+      this.state.color,
+      this.state.strokeWidth
+      );
   }
 
   handleMouseUp () {
-    this.drawing = false;
-    // document.body.style.cursor = 'default';
+    this.setState({drawing: false});
   }
 
   render () {
-    console.log('handleColorChange ', this.handleColorChange);
     return (
       <div>
         <WhiteboardToolbar
+          color = {this.state.color}
+          handleClose = {this.props.handleClose}
           handleColorChange = {this.handleColorChange}
           handleClear = {this.handleClear}
           handleErase = {this.handleErase}
@@ -108,48 +122,6 @@ export class WhiteboardContainer extends React.Component {
           handleMouseMove = {this.handleMouseMove}
         />
       </div>
-/*
-          <Konva.Group>
-            {palette.map((color, i) => {
-              return (
-                <Konva.Rect
-                  key = {i}
-                  stroke = {color}
-                  ref="rect"
-                  x={0 + (i % 2) * SQUARE_SIDE_SIZE}
-                  y={0 + Math.floor(i / 2) * SQUARE_SIDE_SIZE}
-                  width={SQUARE_SIDE_SIZE}
-                  height={SQUARE_SIDE_SIZE}
-                  fill={color}
-                  onClick={this.handleColorChange}
-                />
-              );
-            })}
-            <Konva.Text
-                ref="clear"
-                x={40}
-                y={110}
-                width="35"
-                height="10"
-                text="Clear"
-                fontSize={12}
-                fontFamily="Calibri"
-                onClick={this.handleClear}
-            />
-            <Konva.Text
-                ref="eraser"
-                x={0}
-                y={110}
-                width="35"
-                height="10"
-                text="Eraser"
-                fontSize={12}
-                fontFamily="Calibri"
-                onClick={this.handleErase}
-            />
-          </Konva.Group>
-        </Konva.Layer>
-      </Konva.Stage>*/
     );
   }
 }
@@ -158,10 +130,11 @@ export class WhiteboardContainer extends React.Component {
 
 import { setCoordinates, clearHistory } from '../reducers/whiteboard';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     lastDraw: state.interview.whiteboard.get('lastDraw').toJS(),
-    drawingHistory: state.interview.whiteboard.get('drawingHistory').toJS()
+    drawingHistory: state.interview.whiteboard.get('drawingHistory').toJS(),
+    handleClose: ownProps.handleClose
   };
 };
 const mapDispatchToProps = (dispatch) => {

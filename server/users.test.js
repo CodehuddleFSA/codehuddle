@@ -1,38 +1,83 @@
-const request = require('supertest-as-promised')
-const {expect} = require('chai')
-const db = require('APP/db')
-const User = require('APP/db/models/user')
-const app = require('./start')
+const request = require('supertest');
+const {expect} = require('chai');
+const User = require('APP/db/models/user');
+const Problem = require('APP/db/models/problem');
+const app = require('./start');
 
-describe('/api/users', () => {
-  describe('when not logged in', () => {
-    // it('GET /:id fails 401 (Unauthorized)', () =>
-    //   request(app)
-    //     .get(`/api/users/1`)
-    //     .expect(401)
-    // )    
+describe('users router', () => {
+  let userWithProblems;
+  before(() => {
+    let problems = [
+      {name: 'Subset Sum', difficulty: 'hard'},
+      {name: 'Intersection of Array', difficulty: 'medium'}
+    ];
+    return User.create({
+      name: 'Dan',
+      email: 'dan@test.com',
+      password: '1234',
+      company_name: 'Facebook',
+      problems: problems
+    }, {
+      include: [Problem]
+    })
+    .then(user => {
+      userWithProblems = user;
+    });
+  });
 
-    it('POST creates a user', () =>
+  const alice = {name: 'Alice', email: 'alice@test.org', password: '12345', company_name: 'Google'};
+
+  let createdUser;
+
+  describe('POST /api/users', () => {
+    it('creates a new user', () =>
       request(app)
-        .post('/api/users')
-        .send({
-          email: 'beth@secrets.org',
-          password: '12345'
-        })
-        .expect(201)
-    )
+      .post('/api/users')
+      .send(alice)
+      .expect(201)
+      .then(res => {
+        createdUser = res.body
+      })
+    );
+  });
 
-    it('POST redirects to the user it just made', () =>
+  describe('GET /api/users/:userId', () => {
+    it('returns user by ID', () =>
       request(app)
-        .post('/api/users')
-        .send({
-          email: 'eve@interloper.com',
-          password: '23456',
-        })
-        .redirects(1)
-        .then(res => expect(res.body).to.contain({
-          email: 'eve@interloper.com'
-        }))        
-    )
-  })
-})
+      .get(`/api/users/${createdUser.id}`)
+      .expect(200)
+      .then(res => {
+        expect(res.body.name).to.equal(createdUser.name)
+      })
+    );
+  });
+
+  describe('PUT /api/users/:userId', () => {
+    it('updates user', () => 
+      request(app)
+      .put(`/api/users/${createdUser.id}`)
+      .send({name: 'Jane'})
+      .expect(200)
+      .then(res => expect(res.body.name).to.equal('Jane'))
+    );
+  });
+
+  describe('DELETE /api/users/:userId', () => {
+    it('deletes user', () => 
+      request(app)
+      .delete(`/api/users/${createdUser.id}`)
+      .expect(204)
+    );
+  });
+
+  describe('GET /api/users/:userId/problems', () => {
+    it('get all problems for given user', () => 
+      request(app)
+      .get(`/api/users/${userWithProblems.id}/problems`)
+      .expect(200)
+      .then(res => {
+        expect(res.body).to.have.lengthOf(2);
+      })
+    );
+  });
+});

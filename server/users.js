@@ -43,9 +43,17 @@ router.delete('/:userId', (req, res, next) => {
   .catch(next);
 });
 
+// :userId/interviews
+
 router.get('/:userId/problems', (req, res, next) => {
   req.user.getProblems()
   .then(problems => res.send(problems))
+  .catch(next);
+});
+
+router.get('/:userId/interviews', (req, res, next) => {
+  req.user.getInterviews()
+  .then(interviews => res.send(interviews))
   .catch(next);
 });
 
