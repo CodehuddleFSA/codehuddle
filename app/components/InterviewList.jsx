@@ -35,7 +35,7 @@ export const InterviewList = ({ allInterviews }) => {
               <TableRow key={ interview.id }>
                 <TableRowColumn>{ interview.id }</TableRowColumn>
                 <TableRowColumn>{ new Date(interview.date).toLocaleDateString() }</TableRowColumn>
-                <TableRowColumn>Bob Interviewee</TableRowColumn> // TODO: change this to candidate name
+                <TableRowColumn>{ interview.candidateName }</TableRowColumn> // TODO: change this to candidate name
                   <TableRowColumn>{ interview.position }</TableRowColumn>
                   <TableRowColumn>{ interview.status }</TableRowColumn>
                   <TableRowColumn>
@@ -62,6 +62,7 @@ import { connect } from 'react-redux';
 
 // Required files
 
+// TODO: look for Immutable method instead of handing down a normal method
 const mapState = (state) => {
   return {
     allInterviews: state.allInterviews.toJS()
