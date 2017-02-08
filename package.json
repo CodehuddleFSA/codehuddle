@@ -65,7 +65,7 @@
     "pg": "^6.1.0",
     "pretty-error": "^2.0.2",
     "react": "^15.3.2",
-    "react-ace": "^4.1.1",
+    "react-ace": "github:runandrew/react-ace",
     "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.3.2",
     "react-konva": "^1.1.1",

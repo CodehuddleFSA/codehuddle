@@ -1,6 +1,6 @@
 // Required libraries
 import React from 'react';
-import AceEditor from './AceEditor';
+import AceEditor from 'react-ace';
 
 import 'brace/mode/javascript';
 import 'brace/theme/github';
@@ -8,6 +8,9 @@ import 'brace/theme/solarized_dark';
 import 'brace/theme/tomorrow';
 import 'brace/theme/clouds';
 import 'brace/mode/plain_text';
+
+// Required files
+import { parseToMarker } from 'APP/app/utils';
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -32,14 +35,14 @@ export const Editor = ({ onChange, text, options, ranges, setRange, onChangeSele
       }}
       editorProps={ editorProps }
       onChangeSelection={ onChangeSelection }
-      markers={Object.values(ranges)}
+      markers={ Object.values(ranges).map(parseToMarker) }
     />
   );
 };
 
 /* -----------------    CONTAINER     ------------------ */
 
-// Required libraries 
+// Required libraries
 import {connect} from 'react-redux';
 
 // Required files
@@ -65,7 +68,6 @@ const mapDispatch = (dispatch) => {
     onChangeSelection: editor => {
       if (editor.$mouseHandler.isMousePressed) {
         const currentRange = editor.selection.getRange();
-
         const parsedRange = {
           start: currentRange.start,
           end: currentRange.end
