@@ -20,6 +20,8 @@ Problem.belongsTo(User, {as: 'author'});
 Problem.belongsToMany(Interview, {through: InterviewProblem});
 Solution.belongsTo(Problem);
 Interview.belongsToMany(Problem, {through: InterviewProblem});
+Organization.hasMany(Problem);
+Organization.hasMany(User);
 
 module.exports = {
   User,
