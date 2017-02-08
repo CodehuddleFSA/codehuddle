@@ -5,6 +5,15 @@ const InterviewProblem = db.model('interviewProblems');
 
 // TODO: check authorizations where necessary. Can we do it in router.param?
 
+router.get('/', (req, res, next) => {
+  req.user.getInterviews()
+  .then(response => {
+    if (response) res.json(response);
+    else res.sendStatus(404);
+  })
+  .catch(next);
+});
+
 router.post('/', (req, res, next) => {
   Interview.create(req.body)
   .then(createdInterview => res.status(201).send(createdInterview))
