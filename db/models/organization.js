@@ -16,9 +16,9 @@ const Organization = db.define('organizations', {
   }
 });
 
-function generateSlug(org) {
-  const name = org.name.toLowerCase();
-  org.slug = slug(name, '_');
+function generateSlug(organization) {
+  const name = organization.name.toLowerCase();
+  organization.slug = slug(name, '_');
 } 
 
 module.exports = Organization;
