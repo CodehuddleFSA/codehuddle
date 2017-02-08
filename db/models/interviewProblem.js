@@ -18,8 +18,10 @@ const InterviewProblem = db.define('interviewProblems', {
       max: 5
     }
   },
-  // add default planned
-  status: Sequelize.ENUM('planned', 'used', 'not used')
+  status: {
+    type: Sequelize.ENUM('planned', 'used', 'not used'),
+    defaultValue: 'planned'
+  }
 });
 
 module.exports = InterviewProblem;
