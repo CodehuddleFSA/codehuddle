@@ -1,6 +1,5 @@
-
-// Grab socket reference from window
-export const socket = window && window.io(window.location.origin);
+import io from 'socket.io-client';
+export const socket = io(window.location.origin);
 
 socket.on('connect', () => {
   console.log('Client connected:', socket.id);
