@@ -9,21 +9,12 @@ import 'brace/theme/tomorrow';
 import 'brace/theme/clouds';
 import 'brace/mode/plain_text';
 
-function objToArray (obj) {
-  const output = [];
-  Object.keys(obj).forEach(key => {
-    output.push(obj[key]);
-  })
-  return output;
-}
-// TODO: Object.values
-
 /* -----------------    COMPONENT     ------------------ */
 
 // TODO: Put editor props up here
 
 // TODO: remove AceEditor
-export const Editor = ({ AceEditor, onChange, text, options, ranges }) => {
+export const Editor = ({ AceEditor, onChange, text, options, ranges, setRange, onChangeSelection }) => {
   return (
     <AceEditor
       mode={ options.linting ? 'javascript' : 'plain_text' }
@@ -41,7 +32,8 @@ export const Editor = ({ AceEditor, onChange, text, options, ranges }) => {
         autoScrollEditorIntoView: false,
         $blockScrolling: Infinity
       }}
-      markers={objToArray(ranges)}
+      onChangeSelection={ onChangeSelection }
+      markers={Object.values(ranges)}
     />
   );
 };
@@ -53,6 +45,7 @@ import {connect} from 'react-redux';
 
 // Required files
 import { setText } from '../reducers/editor';
+import { setRange } from 'APP/app/reducers/editor';
 
 const mapState = (state) => {
   return {
@@ -65,8 +58,23 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    onChange: (text) => {
+    onChange: text => {
       dispatch(setText(text));
+    },
+    setRange: range => {
+      dispatch(setRange(range));
+    },
+    onChangeSelection: editor => {
+      if (editor.$mouseHandler.isMousePressed) {
+        const currentRange = editor.selection.getRange();
+
+        const parsedRange = {
+          start: currentRange.start,
+          end: currentRange.end
+        };
+
+        dispatch(setRange(parsedRange));
+      }
     }
   };
 };

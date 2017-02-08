@@ -17,7 +17,7 @@ const editorOptions = [
   'enableSnippets',
 ];
 
-class ReactAce extends PureComponent {
+export default class ReactAce extends PureComponent {
   constructor(props) {
     super(props);
     [
@@ -27,7 +27,7 @@ class ReactAce extends PureComponent {
       'onCopy',
       'onPaste',
       'onScroll',
-      'handleOptions',
+      'handleOptions'
     ]
     .forEach(method => {
       this[method] = this[method].bind(this);
@@ -84,19 +84,21 @@ class ReactAce extends PureComponent {
     this.editor.getSession().setAnnotations(annotations || []);
     this.handleMarkers(markers || []);
 
-    this.editor.selection.on('changeSelection', () => {
-      if (this.editor.$mouseHandler.isMousePressed) {
-        const setRangeFn = this.props.setRange;
-        const currentRange = this.editor.selection.getRange();
+    this.editor.selection.on('changeSelection', this.onChangeSelection.bind(this));
 
-        const parsedRange = {
-          start: currentRange.start,
-          end: currentRange.end
-        };
-
-        setRangeFn(parsedRange);
-      }
-    });
+    // this.editor.selection.on('changeSelection', () => {
+    //   if (this.editor.$mouseHandler.isMousePressed) {
+    //     const setRangeFn = this.props.setRange;
+    //     const currentRange = this.editor.selection.getRange();
+    //
+    //     const parsedRange = {
+    //       start: currentRange.start,
+    //       end: currentRange.end
+    //     };
+    //
+    //     setRangeFn(parsedRange);
+    //   }
+    // });
 
     // get a list of possible options to avoid 'misspelled option errors'
     const availableOptions = this.editor.$options;
@@ -244,6 +246,12 @@ class ReactAce extends PureComponent {
     }
   }
 
+  onChangeSelection() {
+    if (this.props.onChangeSelection) {
+      this.props.onChangeSelection(this.editor);
+    }
+  }
+
   handleOptions(props) {
     const setOptions = Object.keys(props.setOptions);
     for (let y = 0; y < setOptions.length; y++) {
@@ -310,6 +318,7 @@ ReactAce.propTypes = {
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
   onScroll: PropTypes.func,
+  onChangeSelection: PropTypes.func,
   value: PropTypes.string,
   defaultValue: PropTypes.string,
   onLoad: PropTypes.func,
@@ -352,6 +361,7 @@ ReactAce.defaultProps = {
   onPaste: null,
   onLoad: null,
   onScroll: null,
+  onChangeSelection: null,
   minLines: null,
   maxLines: null,
   readOnly: false,
@@ -365,20 +375,3 @@ ReactAce.defaultProps = {
   enableBasicAutocompletion: false,
   enableLiveAutocompletion: false,
 };
-
-/* -----------------    CONTAINER     ------------------ */
-
-// Required files
-import { setRange } from 'APP/app/reducers/editor';
-
-const mapProps = (state, ownProps) => ({
-  props: ownProps
-});
-
-const mapDispatch = dispatch => ({
-  setRange: range => {
-    dispatch(setRange(range));
-  }
-});
-
-export default connect(mapProps, mapDispatch)(ReactAce);
