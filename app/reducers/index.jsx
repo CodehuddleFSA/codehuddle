@@ -5,14 +5,20 @@ import { combineReducers } from 'redux';
 import editor from './editor';
 import whiteboard from './whiteboard';
 import interviewPlanning from './interviewPlanning';
+import interviewProblems from './interviewProblems';
+import allInterviews from './allInterviews';
+import interviewInfo from './interviewInfo';
 
 const rootReducer = combineReducers({
   auth: require('./auth').default,
   interviewPlanning,
   interview: combineReducers({
     editor,
-    whiteboard
-  })
+    whiteboard,
+    interviewProblems,
+    interviewInfo
+  }),
+  allInterviews
 });
 
 export default rootReducer;
