@@ -52,7 +52,6 @@ export class InterviewRoom extends React.Component {
   }
 
   render() {
-    console.log('in interview room');
     return (
       <div id="ir-root" className="animated fadeIn">
         <AppBar
