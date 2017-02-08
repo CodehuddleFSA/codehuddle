@@ -34,7 +34,7 @@ export const InterviewList = ({ allInterviews }) => {
             return (
               <TableRow key={ interview.id }>
                 <TableRowColumn>{ interview.id }</TableRowColumn>
-                <TableRowColumn>{ new Date(interview.date).toLocaleDateString() }</TableRowColumn>
+                <TableRowColumn>{ interview.date && new Date(interview.date).toLocaleDateString() }</TableRowColumn>
                 <TableRowColumn>{ interview.candidateName }</TableRowColumn> // TODO: change this to candidate name
                   <TableRowColumn>{ interview.position }</TableRowColumn>
                   <TableRowColumn>{ interview.status }</TableRowColumn>
