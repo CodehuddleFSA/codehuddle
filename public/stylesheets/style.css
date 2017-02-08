@@ -296,4 +296,8 @@ nav {
 #whiteboard {
   border: solid black 1px; }
 
+.editor-highlight {
+  background-color: pink;
+  position: absolute; }
+
 /*# sourceMappingURL=style.css.map */

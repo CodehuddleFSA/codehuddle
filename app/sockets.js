@@ -14,6 +14,7 @@ export const socketsEmit = (socket, channelName) => store => {
     if (action.meta && action.meta.remote) {
       socket.emit(channelName, action); // If action has meta.remote = true, this emit to server;
     }
+
     return next(action);
   };
 };

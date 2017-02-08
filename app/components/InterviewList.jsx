@@ -61,6 +61,7 @@ export const InterviewList = ({ allInterviews }) => {
 import { connect } from 'react-redux';
 
 // Required files
+
 // TODO: look for Immutable method instead of handing down a normal method
 const mapState = (state) => {
   return {

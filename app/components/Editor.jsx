@@ -9,9 +9,17 @@ import 'brace/theme/tomorrow';
 import 'brace/theme/clouds';
 import 'brace/mode/plain_text';
 
+// Required files
+import { parseToMarker } from 'APP/app/utils';
+
 /* -----------------    COMPONENT     ------------------ */
 
-export const Editor = ({ AceEditor, onChange, text, options }) => {
+const editorProps = {
+  autoScrollEditorIntoView: false,
+  $blockScrolling: Infinity
+}
+
+export const Editor = ({ onChange, text, options, ranges, setRange, onChangeSelection }) => {
   return (
     <AceEditor
       mode={ options.linting ? 'javascript' : 'plain_text' }
@@ -25,10 +33,9 @@ export const Editor = ({ AceEditor, onChange, text, options }) => {
         showGutter: options.showGutter,
         fontSize: options.textSize ? 24 : 18
       }}
-      editorProps={{
-        autoScrollEditorIntoView: false,
-        $blockScrolling: Infinity
-      }}
+      editorProps={ editorProps }
+      onChangeSelection={ onChangeSelection }
+      markers={ Object.values(ranges).map(parseToMarker) }
     />
   );
 };
@@ -40,19 +47,34 @@ import {connect} from 'react-redux';
 
 // Required files
 import { setText } from '../reducers/editor';
+import { setRange } from 'APP/app/reducers/editor';
 
 const mapState = (state) => {
   return {
-    AceEditor,
     text: state.interview.editor.get('text'),
-    options: state.interview.editor.get('options').toJS()
+    options: state.interview.editor.get('options').toJS(),
+    ranges: state.interview.editor.get('ranges').toJS()
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
-    onChange: (text) => {
+    onChange: text => {
       dispatch(setText(text));
+    },
+    setRange: range => {
+      dispatch(setRange(range));
+    },
+    onChangeSelection: editor => {
+      if (editor.$mouseHandler.isMousePressed) {
+        const currentRange = editor.selection.getRange();
+        const parsedRange = {
+          start: currentRange.start,
+          end: currentRange.end
+        };
+
+        dispatch(setRange(parsedRange));
+      }
     }
   };
 };
