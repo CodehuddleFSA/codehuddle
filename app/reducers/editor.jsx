@@ -7,6 +7,7 @@ import { socket } from 'APP/app/sockets';
 const SET_TEXT = 'SET_TEXT';
 const SET_OPTIONS = 'SET_OPTIONS';
 const SET_RANGE = 'SET_RANGE';
+const SET_RANGE_HISTORY = 'SET_RANGE_HISTORY';
 
 /* ------------   ACTION CREATORS     ------------------ */
 export const setText = text => ({
@@ -34,6 +35,22 @@ export const setRange = range => ({
 });
 
 /* ------------       REDUCER     ------------------ */
+
+const defaultRange = Immutable.fromJS(
+  {
+    default: {
+      start: {
+        column: 0,
+        row: 0
+      },
+      end: {
+        column: 0,
+        row: 0
+      }
+    }
+  }
+);
+
 const initialEditorData = Immutable.fromJS(
   {
     text: `const CodeHuddle = 'built with <3';`,
@@ -43,7 +60,7 @@ const initialEditorData = Immutable.fromJS(
       textSize: false,
       theme: false
     },
-    ranges: {}
+    ranges: defaultRange
   }
 );
 
@@ -63,6 +80,10 @@ export default function reducer (editorData = initialEditorData, action) {
       const newRange = {};
       newRange[action.id] = action.range;
       newEditorData = newEditorData.mergeIn(['ranges'], newRange);
+      break;
+
+    case SET_RANGE_HISTORY:
+      newEditorData = newEditorData.setIn(['ranges'], Immutable.fromJS(action.ranges));
       break;
 
     default: return editorData;

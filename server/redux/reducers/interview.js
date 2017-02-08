@@ -8,7 +8,9 @@ const ADD_ROOM = 'ADD_ROOM';
 // Editor
 const SET_TEXT = 'SET_TEXT';
 const SET_OPTIONS = 'SET_OPTIONS';
-const SET_RANGE = 'SET_RANGE';
+const SET_RANGE = 'SET_RANGE'
+const SET_RANGE_HISTORY = 'SET_RANGE_HISTORY';
+const REMOVE_USER = 'REMOVE_USER';
 
 // Whiteboard
 const REQUEST_HISTORY = 'REQUEST_HISTORY';
@@ -33,6 +35,16 @@ const setOptions = options => ({
   options
 });
 
+const setRangeHistory = ranges => ({
+  type: SET_RANGE_HISTORY,
+  ranges
+});
+
+const removeUser = userID => ({
+  type: REMOVE_USER,
+  userID
+});
+
 // Whiteboard
 const requestHistory = drawingHistory => {
   return {
@@ -50,6 +62,21 @@ const setCoordinates = (lastPx, currentPx, color) => {
 
 /* ------------       REDUCER     ------------------ */
 
+const defaultRange = Immutable.fromJS(
+  {
+    default: {
+      start: {
+        column: 0,
+        row: 0
+      },
+      end: {
+        column: 0,
+        row: 0
+      }
+    }
+  }
+);
+
 const defaultRoom = Immutable.fromJS(
   {
     editor: {
@@ -60,7 +87,7 @@ const defaultRoom = Immutable.fromJS(
         textSize: false,
         theme: false
       },
-      ranges: {}
+      ranges: defaultRange
     },
     whiteboard: {
       drawingHistory: []
@@ -78,28 +105,33 @@ function reducer (interviewData = initialInterviewData, action) {
   switch (action.type) {
 
     case ADD_ROOM:
-      newInterviewData = newInterviewData.setIn([action.room], defaultRoom);
-      break;
+    newInterviewData = newInterviewData.setIn([action.room], defaultRoom);
+    break;
 
     case SET_TEXT:
-      newInterviewData = newInterviewData.setIn([action.room, 'editor', 'text'], action.text);
-      break;
+    newInterviewData = newInterviewData.setIn([action.room, 'editor', 'text'], action.text);
+    break;
 
     case SET_COORDINATES:
-      newInterviewData = newInterviewData.updateIn(
-        [action.room, 'whiteboard', 'drawingHistory'],
-        drawingHistory => drawingHistory.push(action.lastDraw)
-      );
-      break;
+    newInterviewData = newInterviewData.updateIn(
+      [action.room, 'whiteboard', 'drawingHistory'],
+      drawingHistory => drawingHistory.push(action.lastDraw)
+    );
+    break;
 
     case SET_OPTIONS:
-      newInterviewData = newInterviewData.mergeIn([action.room, 'editor', 'options'], action.options);
-      break;
+    newInterviewData = newInterviewData.mergeIn([action.room, 'editor', 'options'], action.options);
+    break;
 
     case SET_RANGE:
-      const newRange = {};
-      newRange[action.id] = action.range;
-      newInterviewData = newInterviewData.mergeIn([action.room, 'editor', 'ranges'], newRange);
+    const newRange = {};
+    newRange[action.id] = action.range;
+    newInterviewData = newInterviewData.mergeIn([action.room, 'editor', 'ranges'], newRange);
+    break;
+
+    case REMOVE_USER:
+    newInterviewData = newInterviewData.deleteIn([action.room, 'editor', 'ranges', action.userID])
+    break;
 
     default: return interviewData;
 
@@ -114,6 +146,8 @@ module.exports = {
   addRoom,
   setText,
   setOptions,
+  setRangeHistory,
+  removeUser,
   setCoordinates,
   requestHistory,
   reducer

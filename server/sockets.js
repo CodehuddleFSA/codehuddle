@@ -3,7 +3,7 @@
 const chalk = require('chalk');
 
 // Required files
-const { addRoom, setText, requestHistory, setOptions } = require('./redux/reducers/interview');
+const { addRoom, setText, requestHistory, setOptions, removeUser, setRangeHistory } = require('./redux/reducers/interview');
 const { store } = require('./redux/store');
 
 // Util chalk logger for backend socket messages
@@ -46,11 +46,13 @@ const socketPubSub = io => {
       // Create an action for the socket to emit to the requesting client
       const sendTextHistory = setText(roomData.editor.text);
       const sendTextOptions = setOptions(roomData.editor.options);
+      const sendMarkerHistory = setRangeHistory(roomData.editor.ranges);
       const sendWhiteboardHistory = requestHistory(roomData.whiteboard.drawingHistory);
 
       socket.emit('clientStoreAction', sendTextHistory);
-      socket.emit('clientStoreAction', sendWhiteboardHistory);
       socket.emit('clientStoreAction', sendTextOptions);
+      socket.emit('clientStoreAction', sendMarkerHistory);
+      socket.emit('clientStoreAction', sendWhiteboardHistory);
     });
 
     // Socket sends out a client-side store action
@@ -68,6 +70,21 @@ const socketPubSub = io => {
       action.meta.remote = false; // Remove the remote true to prevent continuous back and forth.
       socket.broadcast.to(room).emit('clientStoreAction', action); // Broadcast out to everyone but the sender.
     });
+
+    socket.on('disconnect', () => {
+      const removeUserHistory = removeUser(socket.id);
+      removeUserHistory.room = room;
+      store.dispatch(removeUserHistory);
+
+      const interviewData = store.getState().interview.get(room);
+      if (interviewData) {
+        const roomData = interviewData.toJS();
+        const sendMarkerHistory = setRangeHistory(roomData.editor.ranges);
+        socket.broadcast.to(room).emit('clientStoreAction', sendMarkerHistory);
+      }
+
+      socketLog(socket.id, `has disconnected`);
+    })
   });
 };
 

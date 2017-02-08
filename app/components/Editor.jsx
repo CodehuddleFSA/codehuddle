@@ -50,6 +50,7 @@ import { setText } from '../reducers/editor';
 import { setRange } from 'APP/app/reducers/editor';
 
 const mapState = (state) => {
+  console.log('+++ ranges in Editor', state.interview.editor.get('ranges'))
   return {
     text: state.interview.editor.get('text'),
     options: state.interview.editor.get('options').toJS(),
