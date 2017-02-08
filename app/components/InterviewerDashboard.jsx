@@ -1,6 +1,7 @@
 // Required libraries
 import React from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 // Required files
 import InterviewList from './InterviewList';
@@ -12,12 +13,9 @@ export const InterviewerDashboard = ({ interviewProblems, user, createInterviewA
     <div>
       <h3>Welcome, { user && user.name }</h3>
       <InterviewList />
-        <RaisedButton
-          onClick={ createInterviewAndRedirect }
-          label="Details"
-          backgroundColor="#2bbbad"
-          labelColor="white"
-          />
+      <FloatingActionButton onClick={ createInterviewAndRedirect }>
+        <ContentAdd />
+      </FloatingActionButton>
     </div>
   );
 };
