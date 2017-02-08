@@ -30,7 +30,6 @@ const Routes = ({ interviewOnEnter, feedbackCandidateOnEnter, interviewDashboard
     <Route path="/feedbackCandidate/:interviewID" component={ FeedbackCandidate } onEnter={ feedbackCandidateOnEnter } />
     <Route path="/interviewPlanning/:interviewID" component={ InterviewerDashboard } onEnter={ interviewPlanningOnEnter } />
     <Route path="/login" component={ Login }/>
-    <Route path="/problems/:organization" component={ProblemsContainer} onEnter={problemsOnEnter}/>
   </Router>
 );
 
