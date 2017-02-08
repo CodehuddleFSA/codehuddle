@@ -26,7 +26,7 @@ const Routes = ({ interviewOnEnter, feedbackCandidateOnEnter, interviewDashboard
   <Router history={ browserHistory }>
     <Route path="/" component={ Home } />
     <Route path="/interviewRoom/:room" component={ InterviewRoom } onEnter={ interviewOnEnter }/>
-    <Route path="/interviewerDashboard/:userID" component={ InterviewerDashboard } onEnter={ interviewDashboardOnEnter }/>
+    <Route path="/interviewerDashboard" component={ InterviewerDashboard } onEnter={ interviewDashboardOnEnter }/>
     <Route path="/feedbackCandidate/:interviewID" component={ FeedbackCandidate } onEnter={ feedbackCandidateOnEnter } />
     <Route path="/interviewPlanning/:interviewID" component={ InterviewerDashboard } onEnter={ interviewPlanningOnEnter } />
     <Route path="/login" component={ Login }/>

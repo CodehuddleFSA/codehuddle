@@ -47,6 +47,6 @@ export const fetchInterview = interviewID => {
 export const createInterviewAndRedirect = (userID) => {
   axios.post(`/api/interviews`, { interviewer_id: userID })
   .then(response => response.data)
-  .then(data => browserHistory.push(`/InterviewerDashboard/${data.id}`))
+  .then(data => browserHistory.push(`/interviewPlanning/${data.id}`))
   .catch(console.error);
 }

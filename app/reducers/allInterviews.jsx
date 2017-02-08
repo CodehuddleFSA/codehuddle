@@ -35,7 +35,7 @@ export default function reducer (interviewsData = initialInterviewsData, action)
 
 export const fetchAllInterviews = userID => {
   return dispatch => {
-    return axios.get(`/api/users/${userID}/interviews`)
+    return axios.get(`/api/interviews`)
     .then(response => {
       return dispatch(setInterviews(response.data));
     })
