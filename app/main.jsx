@@ -20,6 +20,7 @@ import Home from './components/splash/Home';
 import InterviewRoom from './components/interview-room/InterviewRoom';
 import InterviewPlanning from './components/InterviewPlanning';
 import { socketsJoinRoom } from 'APP/app/sockets';
+import {receiveProblems} from './reducers/InterviewPlanning';
 
 function interviewOnEnter (nextState) {
   const requestedRoom = nextState.params.room;
@@ -27,8 +28,8 @@ function interviewOnEnter (nextState) {
 }
 
 function interviewPlanningOnEnter (nextState) {
-  console.log("inside interviewPlanningOnEnter, the nextState is: ", nextState);
-  //const loggedInUser = nextState.params.room;
+  console.log("inside interviewPlanningOnEnter, the nextState is: ");
+  store.dispatch(receiveProblems());
 }
 
 render(
@@ -37,7 +38,7 @@ render(
       <Router history={ browserHistory }>
         <Route path="/" component={ Home } />
         <Route path="/interviewRoom/:room" component={InterviewRoom} onEnter={ interviewOnEnter }/>
-        <Route path="/interviewPlanning" component={InterviewPlanning} onEnter={ interviewPlanningOnEnter }/>
+        <Route path="/interviewPlanning" component={InterviewPlanning}/>
         <Route path="/login" component={Login}/>
       </Router>
     </Provider>
