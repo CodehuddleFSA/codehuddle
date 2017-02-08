@@ -9,38 +9,47 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 const style = {
-  margin: 12,
+  margin: 12
 };
-
 
 // ----------------InterviewPlanning Container-------------- //
 
 export class InterviewPlanning extends React.Component {
-  constructor (props) { 
+  constructor (props) {
     super(props);
-    console.log("props in interviewPlanning constructor : ", props);
-    // var interviewDateTimeArray = this.props.selectedInterviewInfo.Date.split('T');
-    // var interviewTimeArray = interviewDateTimeArray[1].split('.');
+    const {candidateName, candidateEmail, date, time, position} = props.selectedInterviewInfo;
     this.state = {
-      salutation: '',
-      firstName: '',
-      lastName: '',
-      interviewDate: props.selectedInterviewInfo.Date || null,
-      interviewTime: null,
-      position: '',
-      selectedProblems: [],
+      candidateName,
+      candidateEmail,
+      interviewDate: date,
+      interviewTime: time,
+      position: position,
+      selectedProblems: props.selectedInterviewProblems,
       showProblemSet: false
     };
 
     this.handleDateChange = this.handleDateChange.bind(this);
-    this.handleChangeTimePicker24  = this.handleChangeTimePicker24.bind(this);
+    this.handleChangeTimePicker24 = this.handleChangeTimePicker24.bind(this);
     this.handlePositionChange = this.handlePositionChange.bind(this);
     this.handleAddProblems = this.handleAddProblems.bind(this);
     this.handleOnLoad = this.handleOnLoad.bind(this);
   }
 
-  handleOnLoad(data){
-    console.log("props in handleOnLoad : ", data);
+  componentWillReceiveProps(nextProps) {
+    if (this.props !== nextProps) {
+      this.setState({
+        candidateName: nextProps.selectedInterviewInfo.candidateName,
+        candidateEmail: nextProps.selectedInterviewInfo.candidateEmail,
+        interviewDate: new Date(nextProps.selectedInterviewInfo.date),
+        interviewTime: new Date(nextProps.selectedInterviewInfo.date),
+        position: nextProps.selectedInterviewInfo.position,
+        selectedProblems: nextProps.selectedInterviewProblems,
+        showProblemSet: false
+      });
+    }
+  }
+
+  handleOnLoad(data) {
     var interviewDateTimeArray = '';
     var interviewTimeArray = '';
     // if(this.props){
@@ -55,15 +64,15 @@ export class InterviewPlanning extends React.Component {
     this.setState({
       interviewDate: date
     });
-  };
+  }
 
-  handleChangeTimePicker24 (event, time){
+  handleChangeTimePicker24 (event, time) {
     this.setState({interviewTime: time});
-  };
+  }
 
   handlePositionChange (event, position) {
     this.setState({position: position});
-  };
+  }
 
   handleAddProblems (evt) {
     evt.preventDefault();
@@ -79,14 +88,13 @@ export class InterviewPlanning extends React.Component {
   }
 
   render () {
-    console.log("props inside render method: ", this.props);
     this.handleOnLoad(this.props);
     return (
       <div>
         <AppBar title="Codehuddle"/> 
         <form>
           <label>Candidate Name: </label> 
-          <TextField value={this.props.selectedInterviewInfo.candidateName}/>
+          <TextField value={this.state.candidateName}/>
           <br />
           <label>Date: </label>
           <DatePicker hintText="Controlled Date Input" value={this.state.interviewDate} onChange={this.handleDateChange} />
@@ -131,7 +139,7 @@ export class InterviewPlanning extends React.Component {
                     </TableRow>
                     )}
                   </TableBody>
-                </Table> 
+                </Table>
         </form>
       </div>
     );
@@ -151,9 +159,9 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    receiveProblems: (organization) => {
+    receiveProblems: organization => {
       dispatch(receiveProblems(organization));
     },
     addInterview: () => {
@@ -161,6 +169,5 @@ const mapDispatchToProps = (dispatch) => {
     }
   };
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(InterviewPlanning);

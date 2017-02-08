@@ -15,7 +15,6 @@ import Whiteboard from '../Whiteboard';
 import Editor from '../Editor';
 import InterviewRoomOptions from '../InterviewRoomOptions';
 
-
 /* -----------------    COMPONENT     ------------------ */
 
 export class InterviewRoom extends React.Component {

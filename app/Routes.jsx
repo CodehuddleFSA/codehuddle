@@ -21,7 +21,6 @@ import { fetchProblems } from 'APP/app/reducers/interviewProblems';
 import { fetchAllInterviews } from 'APP/app/reducers/allInterviews';
 import { fetchInterview } from 'APP/app/reducers/interviewInfo';
 
-
 /* -----------------    COMPONENT     ------------------ */
 const Routes = ({ interviewOnEnter, feedbackCandidateOnEnter, interviewDashboardOnEnter, interviewPlanningOnEnter }) => (
   <Router history={ browserHistory }>

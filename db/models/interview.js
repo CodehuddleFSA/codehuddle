@@ -4,10 +4,7 @@ const Sequelize = require('sequelize');
 const db = require('APP/db');
 
 const Interview = db.define('interviews', {
-  date: {
-    type: Sequelize.DATE,
-    allowNull: false
-  },
+  date: Sequelize.DATE,
   candidateName: Sequelize.STRING,
   position: Sequelize.STRING,
   status: Sequelize.ENUM('planned', 'done'),
