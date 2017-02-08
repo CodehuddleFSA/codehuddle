@@ -5,7 +5,7 @@ export const parseToMarker = (rangeObj) => {
     startCol: rangeObj.start.column,
     endRow: rangeObj.end.row,
     endCol: rangeObj.end.column,
-    className: 'error-marker',
+    className: 'editor-highlight',
     type: 'background',
     inFront: false
   }
