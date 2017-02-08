@@ -22,7 +22,10 @@ export class InterviewPlanning extends React.Component {
     // var interviewDateTimeArray = this.props.selectedInterviewInfo.Date.split('T');
     // var interviewTimeArray = interviewDateTimeArray[1].split('.');
     this.state = {
-      interviewDate: null,
+      salutation: '',
+      firstName: '',
+      lastName: '',
+      interviewDate: props.selectedInterviewInfo.Date || null,
       interviewTime: null,
       position: '',
       selectedProblems: [],
@@ -36,16 +39,16 @@ export class InterviewPlanning extends React.Component {
     this.handleOnLoad = this.handleOnLoad.bind(this);
   }
 
-  componentDidMount () {
-    console.log("props in interviewPlanning componentDidMount : ", props);
-    //var interviewDateTimeArray = this.props.selectedInterviewInfo.Date.split('T');
-    //var interviewTimeArray = interviewDateTimeArray[1].split('.');
-  }
-
   handleOnLoad(data){
     console.log("props in handleOnLoad : ", data);
-    var interviewDateTimeArray = data.selectedInterviewInfo.Date.split('T');
-    var interviewTimeArray = interviewDateTimeArray[1].split('.');
+    var interviewDateTimeArray = '';
+    var interviewTimeArray = '';
+    // if(this.props){
+    // interviewDateTimeArray = this.props.selectedInterviewInfo.Date.split('T');
+    // interviewTimeArray = interviewDateTimeArray[1].split('.');
+    // interviewDate = interviewDateTimeArray[0];
+    // interviewTime = interviewTimeArray[0];
+    // }
   }
 
   handleDateChange(event, date) {
@@ -84,7 +87,6 @@ export class InterviewPlanning extends React.Component {
         <form>
           <label>Candidate Name: </label> 
           <TextField value={this.props.selectedInterviewInfo.candidateName}/>
-          <TextField hintText="Last Name"/>
           <br />
           <label>Date: </label>
           <DatePicker hintText="Controlled Date Input" value={this.state.interviewDate} onChange={this.handleDateChange} />
@@ -92,6 +94,24 @@ export class InterviewPlanning extends React.Component {
           <TimePicker format="24hr" hintText="24hr Format" value={this.state.interviewTime} onChange={this.handleChangeTimePicker24} />
           <label>Position: </label>
           <TextField hintText="Position" value={this.state.position} onChange={this.handlePositionChange}/>
+          <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHeaderColumn>Name</TableHeaderColumn>
+                      <TableHeaderColumn>Description</TableHeaderColumn>
+                      <TableHeaderColumn>Difficulty</TableHeaderColumn>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                     {this.props.selectedInterviewProblems.map((p, i) =>
+                    <TableRow>
+                      <TableRowColumn>{p.name}</TableRowColumn>
+                      <TableRowColumn>{p.description}</TableRowColumn>
+                      <TableRowColumn>{p.difficulty}</TableRowColumn>
+                    </TableRow>
+                    )}
+                  </TableBody>
+                </Table> 
           <RaisedButton label="Add Problems" primary={true} style={style} onClick={this.handleAddProblems}/> 
           <RaisedButton label="Save Interview" primary={true} style={style} onClick={this.handleSaveInterview}/>
                 <Table>
