@@ -87,20 +87,3 @@ export class WhiteboardToolbar extends React.Component {
     );
   }
 }
-
-/* {PALETTE.map((color, i) => {
-          return (
-            <RaisedButton
-            key = {i}
-            label='x'
-            labelColor = {color}
-            backgroundColor = {color}
-            buttonStyle = {buttonStyle}
-            onClick = {(event) => {
-              console.log('in click handler');
-              props.handleChangeColor(event);
-            }
-            }
-            />
-          );
-        })}*/
