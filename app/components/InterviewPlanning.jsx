@@ -18,6 +18,9 @@ const style = {
 export class InterviewPlanning extends React.Component {
   constructor (props) { 
     super(props);
+    console.log("props in interviewPlanning constructor : ", props);
+    // var interviewDateTimeArray = this.props.selectedInterviewInfo.Date.split('T');
+    // var interviewTimeArray = interviewDateTimeArray[1].split('.');
     this.state = {
       interviewDate: null,
       interviewTime: null,
@@ -30,6 +33,19 @@ export class InterviewPlanning extends React.Component {
     this.handleChangeTimePicker24  = this.handleChangeTimePicker24.bind(this);
     this.handlePositionChange = this.handlePositionChange.bind(this);
     this.handleAddProblems = this.handleAddProblems.bind(this);
+    this.handleOnLoad = this.handleOnLoad.bind(this);
+  }
+
+  componentDidMount () {
+    console.log("props in interviewPlanning componentDidMount : ", props);
+    //var interviewDateTimeArray = this.props.selectedInterviewInfo.Date.split('T');
+    //var interviewTimeArray = interviewDateTimeArray[1].split('.');
+  }
+
+  handleOnLoad(data){
+    console.log("props in handleOnLoad : ", data);
+    var interviewDateTimeArray = data.selectedInterviewInfo.Date.split('T');
+    var interviewTimeArray = interviewDateTimeArray[1].split('.');
   }
 
   handleDateChange(event, date) {
@@ -60,12 +76,14 @@ export class InterviewPlanning extends React.Component {
   }
 
   render () {
+    console.log("props inside render method: ", this.props);
+    this.handleOnLoad(this.props);
     return (
       <div>
         <AppBar title="Codehuddle"/> 
         <form>
           <label>Candidate Name: </label> 
-          <TextField hintText="First Name"/>
+          <TextField value={this.props.selectedInterviewInfo.candidateName}/>
           <TextField hintText="Last Name"/>
           <br />
           <label>Date: </label>
@@ -107,6 +125,8 @@ import { receiveProblems, addInterview } from '../reducers/InterviewPlanning';
 const mapStateToProps = state => {
   return {
     user: state.auth,
+    selectedInterviewInfo: state.interview.interviewInfo.toJS(),
+    selectedInterviewProblems: state.interview.interviewProblems.toJS(),
     problems: state.interviewPlanning.problems
   };
 };
