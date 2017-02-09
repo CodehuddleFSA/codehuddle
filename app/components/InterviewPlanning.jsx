@@ -32,7 +32,7 @@ export class InterviewPlanning extends React.Component {
     this.handleChangeTimePicker24 = this.handleChangeTimePicker24.bind(this);
     this.handlePositionChange = this.handlePositionChange.bind(this);
     this.handleAddProblems = this.handleAddProblems.bind(this);
-    this.handleOnLoad = this.handleOnLoad.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -44,20 +44,20 @@ export class InterviewPlanning extends React.Component {
         interviewTime: new Date(nextProps.selectedInterviewInfo.date),
         position: nextProps.selectedInterviewInfo.position,
         selectedProblems: nextProps.selectedInterviewProblems,
+        height: '150px',
+        fixedHeader: true,
+        fixedFooter: true,
+        selectable: true,
+        multiSelectable: false,
         showProblemSet: false
       });
     }
   }
 
-  handleOnLoad(data) {
-    var interviewDateTimeArray = '';
-    var interviewTimeArray = '';
-    // if(this.props){
-    // interviewDateTimeArray = this.props.selectedInterviewInfo.Date.split('T');
-    // interviewTimeArray = interviewDateTimeArray[1].split('.');
-    // interviewDate = interviewDateTimeArray[0];
-    // interviewTime = interviewTimeArray[0];
-    // }
+  handleNameChange(event, name) {
+    this.setState({
+      candidateName: name
+    });
   }
 
   handleDateChange(event, date) {
@@ -88,21 +88,21 @@ export class InterviewPlanning extends React.Component {
   }
 
   render () {
-    this.handleOnLoad(this.props);
+    console.log("props inside render: ", this.props);
     return (
       <div>
-        <AppBar title="Codehuddle"/> 
+        <AppBar title={`Welcome ${this.props} to Codehuddle`}/> 
         <form>
           <label>Candidate Name: </label> 
-          <TextField name="candidate_name" value={this.state.candidateName}/>
+          <TextField hintText="Controlled Text Input" value={this.state.candidateName} onChange={this.handleNameChange}/>
           <br />
           <label>Date: </label>
           <DatePicker hintText="Controlled Date Input" value={this.state.interviewDate} onChange={this.handleDateChange} />
           <label>Time: </label>
           <TimePicker format="24hr" hintText="24hr Format" value={this.state.interviewTime} onChange={this.handleChangeTimePicker24} />
           <label>Position: </label>
-          <TextField name="position" hintText="Position" value={this.state.position} onChange={this.handlePositionChange}/>
-          <Table>
+          <TextField hintText="Position" value={this.state.position} onChange={this.handlePositionChange}/>
+          <Table height={this.state.height} fixedHeader={this.state.fixedHeader} fixedFooter={this.state.fixedFooter} selectable={this.state.selectable} multiSelectable={this.state.multiSelectable}>
                   <TableHeader>
                     <TableRow>
                       <TableHeaderColumn>Name</TableHeaderColumn>
