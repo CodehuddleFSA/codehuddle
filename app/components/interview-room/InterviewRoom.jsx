@@ -5,7 +5,7 @@ import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import IconButton from 'material-ui/IconButton';
-import Menu from 'material-ui/svg-icons/navigation/menu';
+import Menu from 'material-ui/svg-icons/action/settings';
 // import Refresh from 'material-ui/svg-icons/navigation/refresh';
 import Close from 'material-ui/svg-icons/navigation/close';
 import AlertError from 'material-ui/svg-icons/alert/error';
