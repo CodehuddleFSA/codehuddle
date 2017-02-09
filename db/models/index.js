@@ -18,7 +18,7 @@ User.hasMany(Interview, {foreignKey: 'interviewer_id'});
 Problem.belongsTo(Organization);
 Problem.belongsTo(User, {as: 'author'});
 Problem.belongsToMany(Interview, {through: InterviewProblem});
-Solution.belongsTo(Problem);
+Problem.hasMany(Solution);
 Interview.belongsToMany(Problem, {through: InterviewProblem});
 Organization.hasMany(Problem);
 Organization.hasMany(User);
