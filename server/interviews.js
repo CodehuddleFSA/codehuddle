@@ -2,6 +2,7 @@ const router = require('express').Router();
 const db = require('APP/db');
 const Interview = db.model('interviews');
 const InterviewProblem = db.model('interviewProblems');
+const Solution = db.model('solutions');
 
 // TODO: check authorizations where necessary. Can we do it in router.param?
 
@@ -49,7 +50,7 @@ router.delete('/:interviewId', (req, res, next) => {
 });
 
 router.get('/:interviewId/problems', (req, res, next) => {
-  req.interview.getProblems()
+  req.interview.getProblems({include: [Solution]})
   .then(problems => res.send(problems))
   .catch(next);
 });
