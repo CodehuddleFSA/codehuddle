@@ -94,14 +94,14 @@ export class InterviewPlanning extends React.Component {
         <AppBar title="Codehuddle"/> 
         <form>
           <label>Candidate Name: </label> 
-          <TextField value={this.state.candidateName}/>
+          <TextField name="candidate_name" value={this.state.candidateName}/>
           <br />
           <label>Date: </label>
           <DatePicker hintText="Controlled Date Input" value={this.state.interviewDate} onChange={this.handleDateChange} />
           <label>Time: </label>
           <TimePicker format="24hr" hintText="24hr Format" value={this.state.interviewTime} onChange={this.handleChangeTimePicker24} />
           <label>Position: </label>
-          <TextField hintText="Position" value={this.state.position} onChange={this.handlePositionChange}/>
+          <TextField name="position" hintText="Position" value={this.state.position} onChange={this.handlePositionChange}/>
           <Table>
                   <TableHeader>
                     <TableRow>

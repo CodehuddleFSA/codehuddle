@@ -6,7 +6,6 @@ import { browserHistory, Router, Route } from 'react-router';
 import { connect } from 'react-redux';
 
 // Required files
-import store from './store';
 import Login from './components/Login';
 import WhoAmI from './components/WhoAmI';
 import Home from './components/splash/Home';
@@ -51,6 +50,7 @@ const mapDispatch = (dispatch, ownProps) => ({
   },
   interviewPlanningOnEnter: (nextState) => {
     dispatch(fetchInterview(nextState.params.interviewID));
+    dispatch(fetchProblems(nextState.params.interviewID));
   }
 });
 
