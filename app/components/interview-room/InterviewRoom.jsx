@@ -14,7 +14,7 @@ import { blueGrey500 } from 'material-ui/styles/colors';
 
 import WhiteboardContainer from '../WhiteboardContainer';
 import Editor from '../Editor';
-import InterviewRoomOptions from '../InterviewRoomOptions';
+import iro2 from '../iro2';
 
 
 /* -----------------    COMPONENT     ------------------ */
@@ -69,7 +69,7 @@ export class InterviewRoom extends React.Component {
           docked={ false }
           onRequestChange={(open) => this.setState({open})}>
           <IconButton><Close onTouchTap={ this.handleClose }/></IconButton>
-          <InterviewRoomOptions />
+          <iro2 />
         </Drawer>
       {/* Right Side Drawer */}
         <Drawer
