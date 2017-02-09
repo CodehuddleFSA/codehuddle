@@ -10,6 +10,7 @@ import Menu from 'material-ui/svg-icons/action/settings';
 import Close from 'material-ui/svg-icons/navigation/close';
 import AlertError from 'material-ui/svg-icons/alert/error';
 import Gesture from 'material-ui/svg-icons/content/gesture';
+import { blueGrey500 } from 'material-ui/styles/colors';
 
 import WhiteboardContainer from '../WhiteboardContainer';
 import Editor from '../Editor';
@@ -23,7 +24,8 @@ export class InterviewRoom extends React.Component {
     super(props);
     this.iconStyles = {
       marginRight: 24,
-      marginTop: 10
+      marginTop: 10,
+      backgroundColor: blueGrey500
     };
     this.WBStyles = {
       width: "50%"
@@ -57,7 +59,9 @@ export class InterviewRoom extends React.Component {
         <AppBar
           title={ <a href="/">CodeHuddle</a> }
           iconElementLeft={ <IconButton><Menu onTouchTap={ this.handleOpen }/></IconButton> }
-          iconElementRight={ <IconButton><Gesture onTouchTap={ this.handleWBOpen } style={ this.iconStyles }/></IconButton> }/>
+          iconElementRight={ <IconButton><Gesture onTouchTap={ this.handleWBOpen } style={ this.iconStyles }/></IconButton> }
+          titleStyle={{ fontFamily: 'Aldrich', textAlign: 'center' }}
+          style={{ backgroundColor: blueGrey500 }}/>
       {/* Left Side Drawer */}
         <Drawer
           open={ this.state.open }
