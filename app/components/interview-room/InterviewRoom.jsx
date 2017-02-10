@@ -14,19 +14,20 @@ import Gesture from 'material-ui/svg-icons/content/gesture';
 import WhiteboardContainer from '../WhiteboardContainer';
 import Editor from '../Editor';
 import InterviewRoomOptions from '../InterviewRoomOptions';
+import ProblemContainer from '../ShowProblemSet';
 
 
 /* -----------------    COMPONENT     ------------------ */
 
 export class InterviewRoom extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.iconStyles = {
       marginRight: 24,
       marginTop: 10
     };
     this.WBStyles = {
-      width: "50%"
+      width: '50%'
     };
     this.state = {
       open: false,
@@ -36,22 +37,32 @@ export class InterviewRoom extends React.Component {
     this.handleClose = this.handleClose.bind(this);
     this.handleWBOpen = this.handleWBOpen.bind(this);
     this.handleWBClose = this.handleWBClose.bind(this);
+    this.onRowSelection = this.onRowSelection.bind(this);
   }
 
-  handleOpen() {
+  handleOpen () {
     this.setState({ open: !this.state.open, WBOpen: false });
   }
-  handleClose() {
+  handleClose () {
     this.setState({ open: false });
   }
-  handleWBOpen() {
+  handleWBOpen () {
     this.setState({ open: false, WBOpen: !this.state.WBOpen });
   }
-  handleWBClose() {
+  handleWBClose () {
     this.setState({ open: false, WBOpen: false });
   }
 
-  render() {
+  onRowSelection (key) {
+    console.log(key, this.props.problems[key]);
+    this.currentProblem = key;
+  }
+
+  render () {
+    let plannedInterview = !!(this.props.auth && this.props.interviewId);
+    console.log('in InterviewRoom, plannedInterview is ', plannedInterview);
+    console.log('in InterviewRoom, auth is  ', this.props.auth);
+    console.log('in InterviewRoom, id is  ', this.props.interviewId);
     return (
       <div id="ir-root" className="animated fadeIn">
         <AppBar
@@ -79,6 +90,7 @@ export class InterviewRoom extends React.Component {
         <div id="ir-content">
           <Editor/>
         </div>
+        <ProblemContainer problems={this.problems}/>
     </div>
     );
   }
@@ -89,8 +101,11 @@ export class InterviewRoom extends React.Component {
 // Required libraries
 import { connect } from 'react-redux';
 
-const mapState = (state) => {
+const mapState = (state, ownProps) => {
   return {
+    auth: state.auth,
+    interviewId: (ownProps.location.query && +ownProps.location.query.id) || null,
+    problems: state.interview.interviewProblems
   };
 };
 
