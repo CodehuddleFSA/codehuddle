@@ -1,89 +1,47 @@
 // Required libraries
 import React from 'react';
-import Toggle from 'material-ui/Toggle/Toggle';
+import Toggle from 'material-ui/Toggle';
+import Checkbox from 'material-ui/Checkbox';
 
 /* -----------------    COMPONENT     ------------------ */
 
 const styles = {
   block: {
-    maxWidth: 250
+    maxWidth: 250,
   },
-  toggle: {
-    marginBottom: 16
+  checkbox: {
+    marginBottom: 16,
   },
-  thumbOff: {
-    backgroundColor: '#ffcccc'
-  },
-  trackOff: {
-    backgroundColor: '#ff9d9d'
-  },
-  thumbSwitched: {
-    backgroundColor: 'red'
-  },
-  trackSwitched: {
-    backgroundColor: '#ff9d9d'
-  },
-  labelStyle: {
-    color: 'red'
-  }
 };
 
-export const iro = ({ options, setOptions }) => {
+export const Iro = ({ options, setOptions }) => {
   return (
-    /*<div style={styles.block}>
-      <Toggle
-        label="Linting / Coloring / Indentation"
+    <div style={styles.block}>
+      <Checkbox
+        label="Linting / Coloring"
         style={styles.toggle}
-
+        checked={ options.linting }
+        onCheck={ setOptions }
       />
-      <Toggle
-        label="Gutter"
+      <Checkbox
+        label="Show Gutter"
         style={styles.toggle}
-        toggled={ options.showGutter }
-        onToggle={ setOptions }
+        checked={ options.showGutter }
+        onCheck={ setOptions }
       />
-      <Toggle
+      <Checkbox
         label="Text Size: Small / Large"
         style={styles.toggle}
-        toggled={ options.textSize }
-        onToggle={ setOptions }
+        checked={ options.textSize }
+        onCheck={ setOptions }
       />
-      <Toggle
+      <Checkbox
         label="Theme: Light / Dark"
         style={styles.toggle}
-        toggled={ options.theme }
-        onToggle={ setOptions }
+        checked={ options.theme }
+        onCheck={ setOptions }
       />
-    </div>*/
-    <div style={styles.block}>
-    <Toggle
-      label="Simple"
-      style={styles.toggle}
-    />
-    <Toggle
-      label="Toggled by default"
-      defaultToggled={true}
-      style={styles.toggle}
-    />
-    <Toggle
-      label="Disabled"
-      disabled={true}
-      style={styles.toggle}
-    />
-    <Toggle
-      label="Label on the right"
-      labelPosition="right"
-      style={styles.toggle}
-    />
-    <Toggle
-      label="Styling"
-      thumbStyle={styles.thumbOff}
-      trackStyle={styles.trackOff}
-      thumbSwitchedStyle={styles.thumbSwitched}
-      trackSwitchedStyle={styles.trackSwitched}
-      labelStyle={styles.labelStyle}
-    />
-  </div>
+    </div>
   );
 };
 
@@ -105,9 +63,11 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     setOptions: (evt) => {
+      console.log('Event:', evt);
+      console.log('Event.Target:', evt.target);
       dispatch(setOptions(parseEvt(evt)));
     }
   };
 };
 
-export default connect(mapState, mapDispatch)(iro);
+export default connect(mapState, mapDispatch)(Iro);
