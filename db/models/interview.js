@@ -8,8 +8,6 @@ const Interview = db.define('interviews', {
   date: {
     type: Sequelize.DATE
   },
-  // add default token - random string - before create class method
-  // shortId, crypto secure random sequence 
   authToken: Sequelize.STRING,
   candidateName: Sequelize.STRING,
   candidateEmail: {

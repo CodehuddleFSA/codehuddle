@@ -76,7 +76,7 @@ export class InterviewRoom extends React.Component {
           docked={ false }
           onRequestChange={(open) => this.setState({open})}>
           <IconButton><Close onTouchTap={ this.handleClose }/></IconButton>
-          <InterviewRoomOptions/>
+          <InterviewRoomOptions />
         </Drawer>
       {/* Right Side Drawer */}
         <Drawer
