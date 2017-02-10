@@ -88,9 +88,17 @@ export class InterviewRoom extends React.Component {
         </Drawer>
       {/* Page Content */}
         <div id="ir-content">
-          <Editor/>
+          <div className="row">
+            <div className="col-xs-12 col-md-7 no-gutter">
+              <Editor/>
+            </div>
+            <div className="col-xs-12 col-md-5 no-gutter">
+              <ProblemContainer problems={this.problems}/>
+            </div>
+          </div>
+
         </div>
-        <ProblemContainer problems={this.problems}/>
+
     </div>
     );
   }

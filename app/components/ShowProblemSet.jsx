@@ -107,21 +107,20 @@ export class ProblemContainer extends React.Component {
     console.log('problems are  ', problems);
     let show = (problems.length !== 0);
     return (
-    <section className="row row-padding">
-      <div className="container">
-        <div className="col-xs-12 col-lg-6">
+      <div>
+        <div>
           <ProblemSet problems={problems}
-          onRowSelection={this.onRowSelection}
-          onCellClick={this.onRowSelection}
-          onStatusChange={this.onStatusChange}
-          currentProblem={this.currentProblem}
-          />
+            onRowSelection={this.onRowSelection}
+            onCellClick={this.onRowSelection}
+            onStatusChange={this.onStatusChange}
+            currentProblem={this.currentProblem}
+            />
         </div>
-        <div className="col-xs-12 col-lg-6">
+        <div>
           {show && <Problem problems={problems} currentProblem={this.currentProblem} />}
         </div>
       </div>
-    </section>
+
     );
   }
 }
