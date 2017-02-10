@@ -83,7 +83,7 @@ export const ProblemSet = (props) => {
 export class ProblemContainer extends React.Component {
   constructor (props) {
     super(props);
-    this.currentProblem = 0;
+    this.state = {currentProblem: 0};
     this.onRowSelection = this.onRowSelection.bind(this);
     this.onStatusChange = this.onStatusChange.bind(this);
   }
@@ -101,9 +101,10 @@ export class ProblemContainer extends React.Component {
 
   render () {
     let problems = this.props.interviewProblems;
+    let num = this.currentProblem || 0;
     console.log('in Container render props are ', this.props);
     console.log('problems are  ', problems);
-    console.log('currentProblem is ', this.currentProblem);
+    console.log('currentProblem is ', num);
     let show = (problems.length !== 0);
     return (
     <section className="row row-padding">
@@ -116,7 +117,7 @@ export class ProblemContainer extends React.Component {
           />
         </div>
         <div className="col-xs-12 col-lg-6">
-          {show && <Problem problems={problems} currentProblem={this.currentProblem} />}
+          {show && <Problem problems={problems} currentProblem={num} />}
         </div>
       </div>
     </section>
