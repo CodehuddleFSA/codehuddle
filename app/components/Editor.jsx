@@ -28,7 +28,7 @@ export const Editor = ({ onChange, text, options, ranges, setRange, onChangeSele
       onChange={ onChange }
       value={ text }
       width="100%"
-      height="100vh"
+      height="93vh"
       setOptions={{
         showGutter: options.showGutter,
         fontSize: options.textSize ? 24 : 18
