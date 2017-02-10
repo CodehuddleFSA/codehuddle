@@ -16,9 +16,13 @@ injectTapEventPlugin();
 
 // Material Theme Provider. Wraps everything in `render()` method below
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+
 
 render(
-  <MuiThemeProvider>
+  <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
     <Provider store={ store }>
       <Routes />
     </Provider>
