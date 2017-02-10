@@ -20,7 +20,7 @@ const Problem = (props) => {
         <p>{prob.description}</p>
         <p><b>Solution(s)</b></p>
         {prob.solutions.map((s, i) =>
-          <div key={i}div style ={{display: 'flex', flexWrap: 'wrap'}}>
+          <div key={i} style ={{overflow: 'auto'}}>
             <p>Solution {i + 1 }</p>
             <pre>{s.code}</pre>
             <p>BigO: {s.bigO}</p>
@@ -46,7 +46,7 @@ export const ProblemSet = (props) => {
             fixedHeader={true}
             selectable={true}
             multiSelectable={false}
-            onRowSelection={props._onRowSelection}
+            onRowSelection={props.onRowSelection}
           >
             <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
               <TableRow>
@@ -87,14 +87,12 @@ export class ProblemContainer extends React.Component {
     this.onRowSelection = this.onRowSelection.bind(this);
     this.onStatusChange = this.onStatusChange.bind(this);
   }
-  // componentDidMount () {
-  //   // or onEnter ?? load problems for organization
-  // }
 
   onRowSelection (keys) {
-    console.log('in select row, got ', keys);
-    // console.log(key, this.props.problems[key]);
-    // this.setState({currentProblem: key});
+    let num = keys.pop();
+    console.log('in select row, got ', num);
+    console.log('problem is', this.props.interviewProblems[num]);
+    this.setState({currentProblem: num});
   }
 
   onStatusChange (event, index, status) {
@@ -105,16 +103,17 @@ export class ProblemContainer extends React.Component {
     let problems = this.props.interviewProblems;
     console.log('in Container render props are ', this.props);
     console.log('problems are  ', problems);
+    console.log('currentProblem is ', this.currentProblem);
     let show = (problems.length !== 0);
     return (
       <div>
         <div>
           <ProblemSet problems={problems}
-            onRowSelection={this.onRowSelection}
-            onCellClick={this.onRowSelection}
-            onStatusChange={this.onStatusChange}
-            currentProblem={this.currentProblem}
-            />
+          onRowSelection={this.onRowSelection}
+          onStatusChange={this.onStatusChange}
+          currentProblem={this.currentProblem}
+          />
+
         </div>
         <div>
           {show && <Problem problems={problems} currentProblem={this.currentProblem} />}
@@ -128,7 +127,7 @@ export class ProblemContainer extends React.Component {
 // -----------------    CONNECT CONTAINER     ------------------ //
 
 const mapStateToProps = (state) => {
-  const foo = {
+  let foo = {
     interviewProblems: state.interview.interviewProblems.toJS()
   };
   console.log('in stateToProps, props ', foo);
