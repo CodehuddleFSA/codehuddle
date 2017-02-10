@@ -20,9 +20,9 @@ const Problem = (props) => {
         <p>{prob.description}</p>
         <p><b>Solution(s)</b></p>
         {prob.solutions.map((s, i) =>
-          <div key={i}>
+          <div key={i}div style ={{display: 'flex', flexWrap: 'wrap'}}>
             <p>Solution {i + 1 }</p>
-            <pre>{s.description}</pre>
+            <pre>{s.code}</pre>
             <p>BigO: {s.bigO}</p>
           </div>
         )}
