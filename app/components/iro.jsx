@@ -1,6 +1,6 @@
 // Required libraries
 import React from 'react';
-import Toggle from 'material-ui/Toggle';
+import Toggle from 'material-ui/Toggle/Toggle';
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -28,14 +28,13 @@ const styles = {
   }
 };
 
-export const iro2 = ({ options, setOptions }) => {
+export const iro = ({ options, setOptions }) => {
   return (
-    <div style={styles.block}>
+    /*<div style={styles.block}>
       <Toggle
         label="Linting / Coloring / Indentation"
         style={styles.toggle}
-        toggled={ options.linting }
-        onToggle={ setOptions }
+
       />
       <Toggle
         label="Gutter"
@@ -55,7 +54,36 @@ export const iro2 = ({ options, setOptions }) => {
         toggled={ options.theme }
         onToggle={ setOptions }
       />
-    </div>
+    </div>*/
+    <div style={styles.block}>
+    <Toggle
+      label="Simple"
+      style={styles.toggle}
+    />
+    <Toggle
+      label="Toggled by default"
+      defaultToggled={true}
+      style={styles.toggle}
+    />
+    <Toggle
+      label="Disabled"
+      disabled={true}
+      style={styles.toggle}
+    />
+    <Toggle
+      label="Label on the right"
+      labelPosition="right"
+      style={styles.toggle}
+    />
+    <Toggle
+      label="Styling"
+      thumbStyle={styles.thumbOff}
+      trackStyle={styles.trackOff}
+      thumbSwitchedStyle={styles.thumbSwitched}
+      trackSwitchedStyle={styles.trackSwitched}
+      labelStyle={styles.labelStyle}
+    />
+  </div>
   );
 };
 
@@ -82,4 +110,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(mapState, mapDispatch)(iro2);
+export default connect(mapState, mapDispatch)(iro);
