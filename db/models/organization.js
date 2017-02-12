@@ -2,7 +2,7 @@
 
 const Sequelize = require('sequelize');
 const db = require('APP/db');
-const slug = require('slug');
+const slugify = require('APP/utils').slugify;
 
 const Organization = db.define('organizations', {
   name: {
@@ -12,13 +12,8 @@ const Organization = db.define('organizations', {
   slug: Sequelize.STRING
 }, {
   hooks: {
-    beforeCreate: generateSlug
+    beforeCreate: slugify
   }
 });
-
-function generateSlug(organization) {
-  const name = organization.name.toLowerCase();
-  organization.slug = slug(name, '_');
-} 
 
 module.exports = Organization;

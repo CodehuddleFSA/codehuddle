@@ -84,7 +84,6 @@
     "shortid": "^2.2.6",
     "sinon": "^1.17.6",
     "sinon-chai": "^2.8.0",
-    "slug": "^0.9.1",
     "socket.io": "^1.7.2",
     "supertest": "^2.0.1",
     "supertest-as-promised": "^4.0.1",
