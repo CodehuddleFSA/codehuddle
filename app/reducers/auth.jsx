@@ -21,12 +21,21 @@ export const login = (username, password) =>
       {username, password})
       .then(() => {
         dispatch(whoami());
-        browserHistory.push('/');
+        browserHistory.push('/interviewerDashboard');
       })
       .catch(() => {
         dispatch(whoami());
         console.log('login failure');  
       });
+
+export const signup = (name, email, password) =>  
+  dispatch => {
+    console.log('signup');
+    return axios.post('/api/users', {name, email, password})
+    .then(() => dispatch(login(email, password)))
+    .catch(() => dispatch(whoami()));    
+  }
+
 
 export const logout = () =>
   dispatch =>

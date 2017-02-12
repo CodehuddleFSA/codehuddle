@@ -13,13 +13,13 @@ import Home from './components/splash/Home';
 import InterviewRoom from './components/interview-room/InterviewRoom';
 import FeedbackCandidate from './components/FeedbackCandidate';
 import InterviewerDashboard from './components/InterviewerDashboard';
+import Signup from './components/Signup';
 
 // Helper functions
 import { socketsJoinRoom } from 'APP/app/sockets';
 import { fetchProblems } from 'APP/app/reducers/interviewProblems';
 import { fetchAllInterviews } from 'APP/app/reducers/allInterviews';
 import { fetchInterview } from 'APP/app/reducers/interviewInfo';
-
 
 /* -----------------    COMPONENT     ------------------ */
 const Routes = ({ interviewOnEnter, feedbackCandidateOnEnter, interviewDashboardOnEnter, interviewPlanningOnEnter }) => (
@@ -30,6 +30,7 @@ const Routes = ({ interviewOnEnter, feedbackCandidateOnEnter, interviewDashboard
     <Route path="/feedbackCandidate/:interviewID" component={ FeedbackCandidate } onEnter={ feedbackCandidateOnEnter } />
     <Route path="/interviewPlanning/:interviewID" component={ InterviewerDashboard } onEnter={ interviewPlanningOnEnter } />
     <Route path="/login" component={ Login }/>
+    <Route path="/signup" component={ Signup }/>
   </Router>
 );
 
