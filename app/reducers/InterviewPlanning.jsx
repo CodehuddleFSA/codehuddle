@@ -24,6 +24,15 @@ export const addInterview = (data) => {
   };
 };
 
+export const addProblem = (problemId, interviewId) => {
+  return dispatch => {
+    return axios.put('/api/interviews/', data)
+      .then(res => {
+        console.log("adding interview: ", res);
+      });
+  };
+}
+
 export const loadProblems = problems => ({
   type: LOAD_PROBLEMS,
   problems
