@@ -4,7 +4,7 @@ import { combineReducers } from 'redux';
 // Requried files
 import editor from './editor';
 import whiteboard from './whiteboard';
-import interviewPlanning from './interviewPlanning';
+import interviewPlanning from './InterviewPlanning';
 import interviewProblems from './interviewProblems';
 import allInterviews from './allInterviews';
 import interviewInfo from './interviewInfo';
