@@ -12,7 +12,9 @@ import Home from './components/splash/Home';
 import InterviewRoom from './components/interview-room/InterviewRoom';
 import FeedbackCandidate from './components/FeedbackCandidate';
 import InterviewerDashboard from './components/InterviewerDashboard';
+<<<<<<< HEAD
 import InterviewPlanning from './components/InterviewPlanning';
+import Signup from './components/Signup';
 
 // Helper functions
 import { socketsJoinRoom } from 'APP/app/sockets';
@@ -29,6 +31,7 @@ const Routes = ({ interviewOnEnter, feedbackCandidateOnEnter, interviewDashboard
     <Route path="/feedbackCandidate/:interviewID" component={ FeedbackCandidate } onEnter={ feedbackCandidateOnEnter } />
     <Route path="/interviewPlanning/:interviewID" component={ InterviewPlanning } onEnter={ interviewPlanningOnEnter } />
     <Route path="/login" component={ Login }/>
+    <Route path="/signup" component={ Signup }/>
   </Router>
 );
 
