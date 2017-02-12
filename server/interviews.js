@@ -2,8 +2,18 @@ const router = require('express').Router();
 const db = require('APP/db');
 const Interview = db.model('interviews');
 const InterviewProblem = db.model('interviewProblems');
+const Solution = db.model('solutions');
 
 // TODO: check authorizations where necessary. Can we do it in router.param?
+
+router.get('/', (req, res, next) => {
+  req.user.getInterviews()
+  .then(response => {
+    if (response) res.json(response);
+    else res.sendStatus(404);
+  })
+  .catch(next);
+});
 
 router.post('/', (req, res, next) => {
   Interview.create(req.body)
@@ -40,7 +50,7 @@ router.delete('/:interviewId', (req, res, next) => {
 });
 
 router.get('/:interviewId/problems', (req, res, next) => {
-  req.interview.getProblems()
+  req.interview.getProblems({include: [Solution]})
   .then(problems => res.send(problems))
   .catch(next);
 });
@@ -48,18 +58,6 @@ router.get('/:interviewId/problems', (req, res, next) => {
 router.post('/:interviewId/problems', (req, res, next) => {
   req.interview.addProblem(req.body.problemId)
   .then(problem => res.status(201).send(problem))
-  .catch(next);
-});
-
-// We need to check authorization based on fields being changed. Probably in class method.
-router.put('/:interviewId/problems/:problemId', (req, res, next) => {
-  InterviewProblem.update(req.body, {
-    where: {
-      interview_id: req.params.interviewId,
-      problem_id: req.params.problemId
-    }
-  })
-  .then(_ => res.send(_))
   .catch(next);
 });
 

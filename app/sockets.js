@@ -1,6 +1,5 @@
-
-// Grab socket reference from window
-export const socket = window && window.io(window.location.origin);
+import io from 'socket.io-client';
+export const socket = io(window.location.origin);
 
 socket.on('connect', () => {
   console.log('Client connected:', socket.id);
@@ -14,6 +13,7 @@ export const socketsEmit = (socket, channelName) => store => {
     if (action.meta && action.meta.remote) {
       socket.emit(channelName, action); // If action has meta.remote = true, this emit to server;
     }
+
     return next(action);
   };
 };

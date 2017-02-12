@@ -5,13 +5,14 @@ import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import IconButton from 'material-ui/IconButton';
-import Menu from 'material-ui/svg-icons/navigation/menu';
+import Menu from 'material-ui/svg-icons/action/settings';
 // import Refresh from 'material-ui/svg-icons/navigation/refresh';
 import Close from 'material-ui/svg-icons/navigation/close';
 import AlertError from 'material-ui/svg-icons/alert/error';
 import Gesture from 'material-ui/svg-icons/content/gesture';
+import { blueGrey500 } from 'material-ui/styles/colors';
 
-import Whiteboard from '../Whiteboard';
+import WhiteboardContainer from '../WhiteboardContainer';
 import Editor from '../Editor';
 import InterviewRoomOptions from '../InterviewRoomOptions';
 
@@ -22,7 +23,8 @@ export class InterviewRoom extends React.Component {
     super(props);
     this.iconStyles = {
       marginRight: 24,
-      marginTop: 10
+      marginTop: 10,
+      backgroundColor: blueGrey500
     };
     this.WBStyles = {
       width: "50%"
@@ -49,22 +51,26 @@ export class InterviewRoom extends React.Component {
   handleWBClose() {
     this.setState({ open: false, WBOpen: false });
   }
-  
+
   render() {
     return (
       <div id="ir-root" className="animated fadeIn">
         <AppBar
           title={ <a href="/">CodeHuddle</a> }
           iconElementLeft={ <IconButton><Menu onTouchTap={ this.handleOpen }/></IconButton> }
-          iconElementRight={ <IconButton><Gesture onTouchTap={ this.handleWBOpen } style={ this.iconStyles }/></IconButton> }/>
+          iconElementRight={ <IconButton><Gesture onTouchTap={ this.handleWBOpen } style={ this.iconStyles }/></IconButton> }
+          titleStyle={{ fontFamily: 'Aldrich', textAlign: 'center' }}
+          style={{ backgroundColor: blueGrey500 }}/>
       {/* Left Side Drawer */}
         <Drawer
           open={ this.state.open }
           width={ 250 }
           docked={ false }
-          onRequestChange={(open) => this.setState({open})}>
+          onRequestChange={(open) => this.setState({open})}
+          >
           <IconButton><Close onTouchTap={ this.handleClose }/></IconButton>
           <InterviewRoomOptions/>
+          
         </Drawer>
       {/* Right Side Drawer */}
         <Drawer
@@ -72,8 +78,7 @@ export class InterviewRoom extends React.Component {
           openSecondary={ true }
           docked={ true }
           width={ 650 }>
-          <IconButton><Close onTouchTap={ this.handleWBClose }/></IconButton>
-          <Whiteboard/>
+          <WhiteboardContainer handleClose={this.handleWBClose}/>
         </Drawer>
       {/* Page Content */}
         <div id="ir-content">

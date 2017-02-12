@@ -8,7 +8,7 @@ const app = require('./start');
 describe('interviews router', () => {
   let marla;
   let createdInterview;
-  before(() =>
+  before('create interviews', () =>
     User.create({
       name: 'Marla', 
       email: 'marla@test.com', 
@@ -30,7 +30,6 @@ describe('interviews router', () => {
     .then(interview => {
       createdInterview = interview;
     })
-    .catch(err => console.log('Create interview error:, ', err))
   );
 
   describe('POST /api/interviews', () => {

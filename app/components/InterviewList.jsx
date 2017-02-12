@@ -34,7 +34,7 @@ export const InterviewList = ({ allInterviews }) => {
             return (
               <TableRow key={ interview.id }>
                 <TableRowColumn>{ interview.id }</TableRowColumn>
-                <TableRowColumn>{ new Date(interview.date).toLocaleDateString() }</TableRowColumn>
+                <TableRowColumn>{ interview.date && new Date(interview.date).toLocaleDateString() }</TableRowColumn>
                 <TableRowColumn>{ interview.candidateName }</TableRowColumn> // TODO: change this to candidate name
                   <TableRowColumn>{ interview.position }</TableRowColumn>
                   <TableRowColumn>{ interview.status }</TableRowColumn>
@@ -61,6 +61,7 @@ export const InterviewList = ({ allInterviews }) => {
 import { connect } from 'react-redux';
 
 // Required files
+
 // TODO: look for Immutable method instead of handing down a normal method
 const mapState = (state) => {
   return {

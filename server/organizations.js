@@ -16,41 +16,41 @@ router.post('/', (req, res, next) => {
   .catch(next);
 });
 
-router.delete('/:organizationName', (req, res, next) => {
-  Organization.destroy({
-    where: {
-      name: req.params.organizationName
+router.param('organizationSlug', (req, res, next, slug) => {
+  Organization.findById(slug)
+  .then(organization => {
+    if (!organization) res.sendStatus(404);
+    else {
+      req.organization = organization;
+      next()
     }
   })
-  .then(r => {
-    if (r === 0) res.sendStatus(404);
+  .catch(next);
+});
+
+router.delete('/:organizationSlug', (req, res, next) => {
+  req.organization.destroy()
+  .then(response => {
+    if (response === 0) res.sendStatus(404);
     else res.sendStatus(204);
   })
   .catch(next);
 });
 
-router.get('/:organizationName/problems', (req, res, next) => {
-  Problems.findAll({
-    where: {
-      organization_name: req.params.organizationName
-    }
-  })
+router.get('/:organizationSlug/problems', (req, res, next) => {
+  req.organization.getProblems()
   .then(problems => res.send(problems))
   .catch(next);
 });
 
-router.get('/:organizationName/users', (req, res, next) => {
-  User.findAll({
-    where: {
-      organization_name: req.params.organizationName
-    }
-  })
+router.get('/:organizationSlug/users', (req, res, next) => {
+  req.organization.getUsers()
   .then(users => res.send(users))
   .catch(next);
 });
 
 // Is this route necessary?
-// router.get('/:organizationName/interviews', (req, res, next) => {
+// router.get('/:organizationSlug/interviews', (req, res, next) => {
 
 // });
 

@@ -2,12 +2,26 @@
 
 const Sequelize = require('sequelize');
 const db = require('APP/db');
+const shortid = require('shortid');
 
 const Interview = db.define('interviews', {
-  date: Sequelize.DATE,
+  date: {
+    type: Sequelize.DATE
+  },
+  authToken: Sequelize.STRING,
   candidateName: Sequelize.STRING,
+  candidateEmail: {
+    type: Sequelize.STRING,
+    validate: {
+      isEmail: true
+    }
+  },
+  duration: Sequelize.INTEGER,
   position: Sequelize.STRING,
-  status: Sequelize.ENUM('planned', 'done'),
+  status: {
+    type: Sequelize.ENUM('planned', 'done'),
+    defaultValue: 'planned'
+  },
   candidateOverallRating: {
     type: Sequelize.INTEGER,
     validate: {
@@ -16,6 +30,14 @@ const Interview = db.define('interviews', {
     }
   },
   comments: Sequelize.TEXT
+}, {
+  hooks: {
+    beforeCreate: generateToken
+  }
 });
+
+function generateToken(interview) {
+  interview.authToken = shortid.generate();
+}
 
 module.exports = Interview;

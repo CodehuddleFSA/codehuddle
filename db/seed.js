@@ -60,6 +60,7 @@ const seedSolutions = () => db.Promise.map(Array(...Array(400)).map(_ => ({
 
 const seedInterviews = () => db.Promise.map(Array(...Array(50)).map(_ => ({
   candidateName: faker.name.findName(),
+  candidateEmail: faker.internet.email(),
   interviewer_id: rand(11, 60),
   date: faker.date.future(),
   position: faker.name.jobType(),

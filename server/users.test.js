@@ -44,10 +44,10 @@ describe('users router', () => {
   describe('GET /api/users/:userId', () => {
     it('returns user by ID', () =>
       request(app)
-      .get(`/api/users/${createdUser.id}`)
+      .get(`/api/users/${userWithProblems.id}`)
       .expect(200)
       .then(res => {
-        expect(res.body.name).to.equal(createdUser.name)
+        expect(res.body.name).to.equal(userWithProblems.name)
       })
     );
   });

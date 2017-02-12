@@ -179,3 +179,14 @@ nav {
 #whiteboard {
   border: solid black 1px;
 }
+
+.editor-highlight {
+  background-color: pink;
+  position: absolute;
+}
+
+fieldset {
+  border: none;
+  margin: 0;
+  padding-left: 1rem;
+}
