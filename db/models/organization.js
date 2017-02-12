@@ -2,7 +2,6 @@
 
 const Sequelize = require('sequelize');
 const db = require('APP/db');
-const slug = require('slug');
 
 const Organization = db.define('organizations', {
   name: {
@@ -12,13 +11,18 @@ const Organization = db.define('organizations', {
   slug: Sequelize.STRING
 }, {
   hooks: {
-    beforeCreate: generateSlug
+    beforeCreate: slugify
   }
 });
 
-function generateSlug(organization) {
+function slugify(organization) {
   const name = organization.name.toLowerCase();
-  organization.slug = slug(name, '_');
-} 
+  const slugified = name.replace(/\s+/g, '-')           // Replace spaces with -
+    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+    .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+    .replace(/^-+/, '')             // Trim - from start of text
+    .replace(/-+$/, '');            // Trim - from end of text
+  organization.slug = slugified;
+}
 
 module.exports = Organization;
