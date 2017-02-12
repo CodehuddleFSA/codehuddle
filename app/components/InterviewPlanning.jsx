@@ -219,7 +219,7 @@ export class InterviewPlanning extends React.Component {
 
 /* -----------------    CONNECT CONTAINER     ------------------ */
 
-import { receiveProblems, addInterview } from '../reducers/InterviewPlanning';
+import { receiveProblems, addInterview } from '../reducers/interviewPlanningInfo';
 
 const mapStateToProps = state => {
   return {
