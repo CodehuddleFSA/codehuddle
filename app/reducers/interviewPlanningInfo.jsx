@@ -72,5 +72,5 @@ const initialInterviewPlanningState = {
 
     default: return newState;
   }
-};
+}
 

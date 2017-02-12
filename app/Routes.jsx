@@ -12,7 +12,6 @@ import Home from './components/splash/Home';
 import InterviewRoom from './components/interview-room/InterviewRoom';
 import FeedbackCandidate from './components/FeedbackCandidate';
 import InterviewerDashboard from './components/InterviewerDashboard';
-<<<<<<< HEAD
 import InterviewPlanning from './components/InterviewPlanning';
 import Signup from './components/Signup';
 
