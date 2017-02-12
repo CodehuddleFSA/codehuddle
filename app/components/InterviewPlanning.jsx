@@ -28,7 +28,6 @@ export class InterviewPlanning extends React.Component {
     super(props);
     const {candidateName, candidateEmail, date, time, position} = props.selectedInterviewInfo;
     let changeableProblemSet = props.selectedInterviewProblems;
-    console.log("user in constructor is: ", props.user);
     this.state = {
       candidateName,
       candidateEmail,
@@ -52,9 +51,6 @@ export class InterviewPlanning extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(" componentWillReceiveProps user in props is: ", this.props.user);
-    console.log("componentWillReceiveProps user in nextProps: ", nextProps.user);
-    console.log("componentWillReceiveProps user in nextProps: ", this.state.user);
     if (this.props !== nextProps) {
       this.setState({
         candidateName: nextProps.selectedInterviewInfo.candidateName,
@@ -101,7 +97,6 @@ export class InterviewPlanning extends React.Component {
   }
 
   handleRemoveProblem (i){
-    console.log("the index inside handleRemoveProblem: ", i);
     let tempProblem = this.state.selectedProblems.splice(i, 1);
     this.setState({
       selectedProblems: this.state.selectedProblems
@@ -109,8 +104,6 @@ export class InterviewPlanning extends React.Component {
   }
 
   handleAddProblemToInterview (j){
-    console.log("the index inside handleRemoveProblem: ", j);
-    console.log("peoblem to be added is: ", this.props.problems[j]);
     this.state.selectedProblems.push(this.props.problems[j]);
     this.setState({
       selectedProblems: this.state.selectedProblems
