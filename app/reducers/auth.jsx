@@ -4,6 +4,7 @@ import {browserHistory} from 'react-router';
 const reducer = (state = null, action) => {
   switch (action.type) {
     case AUTHENTICATED:
+      console.log(action.user);
       return action.user;
   }
   return state;
@@ -42,13 +43,17 @@ export const logout = () =>
       .then(() => dispatch(whoami()))
       .catch(() => dispatch(whoami()));
 
-export const whoami = () =>
-  dispatch =>
+export const whoami = (arg) => {
+  return dispatch =>
     axios.get('/api/auth/whoami')
       .then(response => {
         const user = response.data;
         dispatch(authenticated(user));
       })
-      .catch(failed => dispatch(authenticated(null)));
+      // .catch(failed => {
+      //   console.log('fail', arg, failed);
+      //   dispatch(authenticated(null))
+      // });
+};
 
 export default reducer;

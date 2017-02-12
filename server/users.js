@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const db = require('APP/db');
 const User = db.model('users');
+const Organization = db.model('organizations');
 const {mustBeLoggedIn, forbidden} = require('./auth.filters');
 
 router.get('/', forbidden('only admins can list users'), (req, res, next) => {
@@ -16,7 +17,7 @@ router.post('/', (req, res, next) => {
 });
 
 router.param('userId', (req, res, next, id) => {
-  User.findById(id)
+  User.findById(id, {include: [Organization]})
   .then(user => {
     if (!user) res.send(404);
     else {
