@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Card, CardHeader, CardText, Table, TableHeader, TableRow, TableHeaderColumn, TableBody, TableRowColumn, DropDownMenu, MenuItem, Divider, GridTile, GridList, Subheader, TextField} from 'material-ui';
+import {Card, CardTitle, CardHeader, CardText, Table, TableHeader, TableRow, TableHeaderColumn, TableBody, TableRowColumn, DropDownMenu, MenuItem, Divider, GridTile, GridList, Subheader, TextField} from 'material-ui';
 import {setProblemStatus, setInterviewerRating} from 'APP/app/reducers/interviewProblems';
 
 // fetchProblems(interviewID)
@@ -12,10 +12,7 @@ const Problem = (props) => {
   const prob = props.problems[props.currentProblem];
   return (
     <Card>
-      <CardHeader
-        style={{textAlign: 'center'}}
-        title={prob.name}
-      />
+      <CardTitle title={prob.name} />
       <CardText >
         <p><b>Description</b></p>
         <p>{prob.description}</p>
@@ -39,10 +36,7 @@ export const ProblemSet = (props) => {
   let dropdownStyle = {fontSize: '13px'};
   return (
     <Card>
-        <CardHeader
-          style={{textAlign: 'center'}}
-          title="Interview Problem Set"
-        />
+      <CardTitle title="Problem Set" />
         <CardText >
           <Table className='problem-list'
             height={props.height}
