@@ -37,7 +37,6 @@ export class InterviewRoom extends React.Component {
     this.handleClose = this.handleClose.bind(this);
     this.handleWBOpen = this.handleWBOpen.bind(this);
     this.handleWBClose = this.handleWBClose.bind(this);
-    this.onRowSelection = this.onRowSelection.bind(this);
   }
 
   handleOpen () {
@@ -51,11 +50,6 @@ export class InterviewRoom extends React.Component {
   }
   handleWBClose () {
     this.setState({ open: false, WBOpen: false });
-  }
-
-  onRowSelection (key) {
-    console.log(key, this.props.problems[key]);
-    this.currentProblem = key;
   }
 
   render () {
@@ -88,9 +82,17 @@ export class InterviewRoom extends React.Component {
         </Drawer>
       {/* Page Content */}
         <div id="ir-content">
-          <Editor/>
+          <div className="row">
+            <div className="col-xs-12 col-md-7 no-gutter">
+              <Editor/>
+            </div>
+            <div className="col-xs-12 col-md-5 no-gutter">
+              <ProblemContainer problems={this.problems}/>
+            </div>
+          </div>
+
         </div>
-        <ProblemContainer problems={this.problems}/>
+
     </div>
     );
   }
