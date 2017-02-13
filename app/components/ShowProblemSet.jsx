@@ -9,7 +9,6 @@ const PROBLEM_SET_HEIGHT = '25vh';
 // ------------------- DUMB COMPONENTS ------------------------ //
 // Display a single interview problem and it's solutions
 const Problem = (props) => {
-  console.log('in Problem, props are ', props);
   const prob = props.problems[props.currentProblem];
   return (
     <Card>
@@ -35,14 +34,9 @@ const Problem = (props) => {
 
 // Display a table listing of the problems in the interview problem set
 export const ProblemSet = (props) => {
-  // let narrowColumn = {width: '5em', fontSize: '12pt', paddingTop: '6px', paddingBottom: '6px', height: '24px'};
   let narrowColumn = {width: '5em'};
-  // let medColumn = {width: '8em', fontSize: '12pt', paddingTop: '6px', paddingBottom: '6px', height: '24px'};
   let medColumn = {width: '8em'};
-  // let allColumn = {fontSize: '12pt', paddingTop: '6px', paddingBottom: '6px', height: '24px'};
-  let allColumn = {};
-  // let allRow = {height: '24px'};
-  let allRow = {};
+  let dropdownStyle = {fontSize: '13px'};
   return (
     <Card>
         <CardHeader
@@ -58,34 +52,33 @@ export const ProblemSet = (props) => {
             onRowSelection={props.onRowSelection}
           >
             <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-              <TableRow style={allRow}>
+              <TableRow>
                 <TableHeaderColumn className="row-order" style={narrowColumn}>
                   Order
                 </TableHeaderColumn>
-                <TableHeaderColumn className="row-name" style={allColumn}>Name</TableHeaderColumn>
+                <TableHeaderColumn className="row-name">Name</TableHeaderColumn>
                 <TableHeaderColumn className="row-difficulty" style={medColumn}>Difficulty</TableHeaderColumn>
-                <TableHeaderColumn className="row-status" style={allColumn}>Status</TableHeaderColumn>
-                <TableHeaderColumn className="row-rating" style={allColumn}>Rating</TableHeaderColumn>
+                <TableHeaderColumn className="row-status">Status</TableHeaderColumn>
+                <TableHeaderColumn className="row-rating">Rating</TableHeaderColumn>
               </TableRow>
             </TableHeader>
             <TableBody displayRowCheckbox = {false} showRowHover={true}
             >
               {props.problems.map((p, i) =>
-                <TableRow key={i} value={p} selected={i === props.currentProblem} style={allRow}>
+                <TableRow key={i} value={p} selected={i === props.currentProblem}>
                   <TableRowColumn className="row-order" style={narrowColumn}>{i + 1}</TableRowColumn>
-                  <TableRowColumn className="row-name" style={allColumn}>{p.name}</TableRowColumn>
-                  <TableRowColumn className="row-difficulty" style={medColumn}>{p.difficulty}</TableRowColumn>
-                  <TableRowColumn className="row-status" style={allColumn}>
-                    <DropDownMenu value={p.interviewProblems.status} onChange={props.onStatusChange}style={{fontSize: '13px'}}>
+                  <TableRowColumn className="row-name">{p.name}</TableRowColumn>
+                  <TableRowColumn className="row-difficulty">{p.difficulty}</TableRowColumn>
+                  <TableRowColumn className="row-status">
+                    <DropDownMenu value={p.interviewProblems.status} onChange={props.onStatusChange}style={dropdownStyle}>
                       <MenuItem value={'planned'} primaryText="Planned" />
                       <MenuItem value={'used'} primaryText="Completed" />
                       <MenuItem value={'not used'} primaryText="Skipped" />
                     </DropDownMenu>
                   </TableRowColumn>
-                  <TableRowColumn className="row-rating" style={allColumn}>
-                    <DropDownMenu value={p.interviewProblems.interviewerRating} onChange={props.onRatingChange} style={{fontSize: '13px'}}>
-                      <MenuItem value={null} primaryText="Not Rated" />
-                      <MenuItem value={0} primaryText="0" />
+                  <TableRowColumn className="row-rating">
+                    <DropDownMenu value={p.interviewProblems.interviewerRating || 0} onChange={props.onRatingChange} style={dropdownStyle}>
+                      <MenuItem value={0} primaryText="Not Rated" />
                       <MenuItem value={1} primaryText="1" />
                       <MenuItem value={2} primaryText="2" />
                       <MenuItem value={3} primaryText="3" />
@@ -116,28 +109,21 @@ export class ProblemContainer extends React.Component {
 
   onRowSelection (keys) {
     if (keys.length === 0) return;
-    console.log('changing selected row: ', keys);
     let num = keys.pop();
     this.setState({currentProblem: num});
   }
 
   onStatusChange (event, index, status) {
-    console.log('current state is: ', this.state);
     let i = this.state.currentProblem;
-    console.log('In onStatusChange,  index: ', i);
     let problemId = this.props.interviewProblems[i].interviewProblems.problem_id;
     let interviewId = this.props.interviewProblems[i].interviewProblems.interview_id;
-    console.log(`In onStatusChange, status: ${status} problemId: ${problemId} interviewId: ${interviewId}`);
     this.props.setProblemStatus(interviewId, problemId, i, status);
   }
 
   onRatingChange (event, index, rating) {
-    console.log('In onRatingChange, this.state is ', this.state);
     let i = this.state.currentProblem;
-    console.log('currentProblem is ', i);
     let problemId = this.props.interviewProblems[i].interviewProblems.problem_id;
     let interviewId = this.props.interviewProblems[i].interviewProblems.interview_id;
-    console.log(`In onRatingChange, rating: ${rating} problemId: ${problemId} interviewId: ${interviewId}`);
     this.props.setInterviewerRating(interviewId, problemId, i, +rating);
   }
 

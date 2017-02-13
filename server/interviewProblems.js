@@ -9,7 +9,7 @@ router.put('/:interviewId/problems/:problemId', (req, res, next) => {
       problem_id: req.params.problemId
     }
   })
-  .then(() => 
+  .then(() =>
     InterviewProblem.find({
       where: {
         interview_id: req.params.interviewId,

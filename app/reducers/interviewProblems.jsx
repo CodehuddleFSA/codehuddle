@@ -14,7 +14,6 @@ export const setProblems = problems => ({
 });
 
 export const updateProblem = problem => {
-  console.log('in updateProblem');
   return {
     type: UPDATE_PROBLEM,
     problem
@@ -31,7 +30,7 @@ export default function reducer (problemData = initialProblemData, action) {
     case SET_PROBLEMS:
       return Immutable.fromJS(action.problems);
     case UPDATE_PROBLEM:
-      return problemData[action.problem.index].setIn(['interviewProblems'],
+      return problemData.setIn([action.problem.index, 'interviewProblems'],
         Immutable.fromJS(action.problem.data));
     default: return problemData;
 
@@ -57,14 +56,11 @@ export const setCandidateRating = (interviewID, problemID, rating) => {
 };
 
 export const setProblemStatus = (interviewID, problemID, index, status) => {
-  // console.log('In setProblemStatus');
   return dispatch => {
-    console.log('In setProblemStatus, dispatch');
     return axios.put(`/api/interviewProblems/${interviewID}/problems/${problemID}`, {
       status: status
     })
     .then(response => {
-      console.log('In setProblemStatus, got response back', response);
       return dispatch(updateProblem({data: response.data, index: index}));
     })
     .catch(console.error);
