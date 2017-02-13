@@ -1,7 +1,7 @@
 // Required libraries
 import Immutable from 'immutable';
 import axios from 'axios';
-import {hashHistory} from 'react-router';
+import { browserHistory } from 'react-router';
 
 /* -----------------    ACTIONS     ------------------ */
 const RECEIVE_INTERVIEWS = 'RECEIVE_INTERVIEWS';
@@ -15,23 +15,74 @@ const LOAD_PROBLEMS = 'LOAD_PROBLEMS';
 2. adding a new interview (should create a new user for the candidate? and then add )
 **/
 
-export const addInterview = (data) => {
+export const saveInterview = (interviewId, userId) => {
   return dispatch => {
-    return axios.post('/api/interviews/', data)
+    //return axios.put('/api/interviews/${interviewId}', data)
+      axios.get(`/api/interviews/${interviewId}`)
+      .then(response => response.data)
+      .then(data => browserHistory.push(`/interviewerDashboard?userID=${userId}`))
+      .catch(console.error);
+  };
+};
+
+export const addCandidateNameToInterview = (data, interviewId) => {
+  console.log("inside reducer addCandidateNameToInterview: ", data);
+  return dispatch => {
+    return axios.put(`/api/interviews/${interviewId}`, data)
       .then(res => {
-        console.log("adding interview: ", res);
+        console.log("adding interview: ", res.data);
       });
   };
 };
 
-export const addProblem = (problemId, interviewId) => {
+export const addDateToInterview = (data, interviewId) => {
+  console.log("inside reducer addDateToInterview: ", data);
   return dispatch => {
-    return axios.put('/api/interviews/', data)
+    return axios.put(`/api/interviews/${interviewId}`, data)
       .then(res => {
-        console.log("adding interview: ", res);
+        console.log("adding interview: ", res.data);
       });
   };
 };
+
+export const addTimeToInterview = (data, interviewId) => {
+  console.log("inside reducer addTimeToInterview: ", data);
+  return dispatch => {
+    return axios.put(`/api/interviews/${interviewId}`, data)
+      .then(res => {
+        console.log("adding interview: ", res.data);
+      });
+  };
+};
+
+export const addPositionToInterview = (data, interviewId) => {
+  console.log("inside reducer addPositionToInterview: ", data);
+  return dispatch => {
+    return axios.put(`/api/interviews/${interviewId}`, data)
+      .then(res => {
+        console.log("adding interview: ", res.data);
+      });
+  };
+};
+
+export const addProblemToInterview = (data, interviewId) => {
+  return dispatch => {
+    return axios.post(`/api/interviews/${interviewId}/problems`, data)
+      .then(res => {
+        console.log("adding interview: ", res.data);
+      });
+  };
+};
+
+export const removeProblemFromInterview = (problemId, interviewId) => {
+  return dispatch => {
+    return axios.delete(`/api/interviews/${interviewId}/problems/${problemId}`)
+      .then(res => {
+        console.log("adding interview: ", res.data);
+      });
+  };
+};
+
 
 export const loadProblems = problems => ({
   type: LOAD_PROBLEMS,
