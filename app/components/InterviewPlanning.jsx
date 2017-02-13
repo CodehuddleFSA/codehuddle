@@ -13,6 +13,8 @@ import FlatButton from 'material-ui/FlatButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
+import { blueGrey500 } from 'material-ui/styles/colors';
+
 const style = {
   margin: 12,
 };
@@ -125,7 +127,7 @@ export class InterviewPlanning extends React.Component {
 
   handleOrganizationProblemSetClose() {
     this.setState({
-      showOrganizationProblemSet: false
+    showOrganizationProblemSet: false
     });
   }
 
@@ -133,92 +135,119 @@ export class InterviewPlanning extends React.Component {
     evt.preventDefault();
     this.setState({
       showOrganizationProblemSet: true
-    });
+      });
     this.props.receiveProblems(this.props.user.organization_name);
   }
 
   handleSaveInterview (evt) {
-    this.props.saveInterview(data, this.props.selectedInterviewInfo.id, this.props.user.id);
+    evt.preventDefault();
+    this.props.addInterview(this.state);
   }
 
-  render () {
-    return (
-      <div>
-        <AppBar title={`Codehuddle`}/> 
-        <form>
-        <div style={{marginLeft: "350px"}}>
-        <label>Candidate Name </label>
-        <span style={{marginLeft: "80px"}}> </span>
-        <TextField id="name" value={this.state.candidateName || null} onChange={this.handleNameChange}/>
-        <br />
-        <label>Interview Date</label>
-        <DatePicker style={{display: "inline", marginLeft: "100px"}} id="date" hintText="Controlled Date Input" value={this.state.interviewDate || this.today} onChange={this.handleDateChange}/>
-        <br />
-        <label>Interview Time</label>
-        <TimePicker style={{display: "inline", marginLeft: "100px"}} id="time" format="24hr" hintText="24hr Format" value={this.state.interviewTime || null} onChange={this.handleChangeTimePicker24}/>
-        <br />
-        <label>Position</label>
-        <span style={{marginLeft: "140px"}}> </span>
-        <TextField id="position" hintText="Position" value={this.state.position || null} onChange={this.handlePositionChange }/>
-        </div>
-          <hr />
-          <Table height={this.state.height} fixedHeader={this.state.fixedHeader} fixedFooter={this.state.fixedFooter} selectable={this.state.selectable} multiSelectable={this.state.multiSelectable}>
-            <TableHeader>
-              <TableRow>
-                <TableHeaderColumn>Name</TableHeaderColumn>
-                <TableHeaderColumn>Description</TableHeaderColumn>
-                <TableHeaderColumn>Difficulty</TableHeaderColumn>
-                <TableHeaderColumn>Remove</TableHeaderColumn>
-              </TableRow>
-            </TableHeader>
-            <TableBody displayRowCheckbox = {false}>
-              {this.state.selectedProblems.map((p, i) =>
-              <TableRow key={i}>
-                <TableRowColumn>{p.name}</TableRowColumn>
-                <TableRowColumn>{p.description}</TableRowColumn>
-                <TableRowColumn>{p.difficulty}</TableRowColumn>
-                <TableRowColumn><FloatingActionButton mini={true} secondary={true} style={removeButtonStyle} onClick={() => this.handleRemoveProblem(i)}><ActionDelete/></FloatingActionButton></TableRowColumn>
-              </TableRow>
-              )}
-            </TableBody>
-          </Table> 
-          <div style={{marginLeft: "400px"}}>
-            <RaisedButton label="Add Problems" primary={true} style={style} onClick={this.handleAddProblems}/>
-            <RaisedButton label="Save Interview" primary={true} style={style} onClick={this.handleSaveInterview}/>
+      render () {
+        return (
+          <div>
+            <AppBar
+              title={ <a href="/">CodeHuddle</a> }
+              titleStyle={{ fontFamily: 'Aldrich', textAlign: 'center' }}
+              style={{ backgroundColor: blueGrey500 }}/>
+            <div className="row">
+              <div className="container">
+                <div className="col-xs-12">
+                  <h2>Interview Planning</h2>
+                  <form>
+                    <Card>
+                      <CardTitle title="Interview details:" />
+                      <CardText>
+
+                        <div style={{marginLeft: "350px"}}>
+                          <label>Candidate Name </label>
+                          <span style={{marginLeft: "80px"}}> </span>
+                          <TextField id="name" value={this.state.candidateName || null} onChange={this.handleNameChange}/>
+                          <br />
+                          <label>Interview Date</label>
+                          <DatePicker style={{display: "inline", marginLeft: "100px"}} id="date" hintText="Controlled Date Input" value={this.state.interviewDate || this.today} onChange={this.handleDateChange}/>
+                          <br />
+                          <label>Interview Time</label>
+                          <TimePicker style={{display: "inline", marginLeft: "100px"}} id="time" format="24hr" hintText="24hr Format" value={this.state.interviewTime || null} onChange={this.handleChangeTimePicker24}/>
+                          <br />
+                          <label>Position</label>
+                          <span style={{marginLeft: "140px"}}> </span>
+                          <TextField id="position" hintText="Position" value={this.state.position || null} onChange={this.handlePositionChange }/>
+                        </div>
+                      </CardText>
+                    </Card>
+
+                    <Card style={{marginTop: "2rem"}}>
+                      <CardTitle title="Problem set:" />
+                      <CardText>
+                        <Table height={this.state.height} fixedHeader={this.state.fixedHeader} fixedFooter={this.state.fixedFooter} selectable={this.state.selectable} multiSelectable={this.state.multiSelectable}>
+                          <TableHeader
+                            displaySelectAll={ false }
+                            adjustForCheckbox={ false }>
+                            <TableRow>
+                              <TableHeaderColumn>Name</TableHeaderColumn>
+                              <TableHeaderColumn>Description</TableHeaderColumn>
+                              <TableHeaderColumn>Difficulty</TableHeaderColumn>
+                              <TableHeaderColumn></TableHeaderColumn>
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody displayRowCheckbox = {false}>
+                            {this.state.selectedProblems.map((p, i) =>
+                              <TableRow key={i}>
+                                <TableRowColumn>{p.name}</TableRowColumn>
+                                <TableRowColumn>{p.description}</TableRowColumn>
+                                <TableRowColumn>{p.difficulty}</TableRowColumn>
+                                <TableRowColumn><FloatingActionButton mini={true} secondary={true} style={removeButtonStyle} onClick={() => this.handleRemoveProblem(i)}><ActionDelete/></FloatingActionButton></TableRowColumn>
+                              </TableRow>
+                            )}
+                          </TableBody>
+                        </Table>
+                      </CardText>
+                      <CardActions>
+                        <RaisedButton label="Add Problems" style={style} onClick={this.handleAddProblems} backgroundColor="#66BB6A" labelColor="white" />
+                      </CardActions>
+                    </Card>
+                    <div className="center-content">
+                      <RaisedButton label="Save Interview" style={style} onClick={this.handleSaveInterview} backgroundColor="#2196F3" labelColor="white" />
+                      <RaisedButton label="Back to dashboard" style={style} href="/interviewerDashboard" backgroundColor="#2196F3" labelColor="white" />
+                  </div>
+                    <Dialog title="Organization Problems" actions={[<FlatButton label="Done" primary={true} onTouchTap={this.handleOrganizationProblemSetClose}/>]}
+                      modal={false} open={this.state.showOrganizationProblemSet} onRequestClose={this.handleOrganizationProblemSetClose} autoScrollBodyContent={true}>
+                      <Table>
+                        <TableBody displayRowCheckbox = {false}>
+                          {this.props.problems.map((q, j) =>
+                            <TableRow key={q.id}>
+                              <TableRowColumn>{q.name}</TableRowColumn>
+                              <TableRowColumn>{q.description}</TableRowColumn>
+                              <TableRowColumn>{q.difficulty}</TableRowColumn>
+                              <TableRowColumn><FloatingActionButton mini={true} style={style} onClick={() => this.handleAddProblemToInterview(j)}><ContentAdd /></FloatingActionButton></TableRowColumn>
+                            </TableRow>
+                          )}
+                        </TableBody>
+                      </Table>
+                    </Dialog>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
-        <Dialog title="Organization Problems" actions={[<FlatButton label="Done" primary={true} onTouchTap={this.handleOrganizationProblemSetClose}/>]} 
-          modal={false} open={this.state.showOrganizationProblemSet} onRequestClose={this.handleOrganizationProblemSetClose} autoScrollBodyContent={true}>
-          <Table>
-            <TableBody displayRowCheckbox = {false}>
-              {this.props.problems.map((q, j) =>
-              <TableRow key={q.id}>
-                <TableRowColumn>{q.name}</TableRowColumn>
-                <TableRowColumn>{q.description}</TableRowColumn>
-                <TableRowColumn>{q.difficulty}</TableRowColumn>
-                <TableRowColumn><FloatingActionButton mini={true} style={style} onClick={() => this.handleAddProblemToInterview(j)}><ContentAdd /></FloatingActionButton></TableRowColumn>
-              </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </Dialog>
-      </form>
-    </div>
-    );
-  }
-}
+        );
+      }
+    }
 
-/* -----------------    CONNECT CONTAINER     ------------------ */
+    /* -----------------    CONNECT CONTAINER     ------------------ */
 
 import { receiveProblems, addInterview, addProblemToInterview, removeProblemFromInterview, saveInterview, addCandidateNameToInterview, addPositionToInterview, addDateToInterview, addTimeToInterview} from '../reducers/interviewPlanningInfo';
 
-const mapStateToProps = state => {
-  return {
-    user: state.auth,
-    selectedInterviewInfo: state.interview.interviewInfo.toJS(),
-    selectedInterviewProblems: state.interview.interviewProblems.toJS(),
-    problems: state.interviewPlanning.problems
-  };
-};
+    const mapStateToProps = state => {
+      return {
+        user: state.auth,
+        selectedInterviewInfo: state.interview.interviewInfo.toJS(),
+        selectedInterviewProblems: state.interview.interviewProblems.toJS(),
+        problems: state.interviewPlanning.problems
+      };
+    };
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -249,4 +278,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(InterviewPlanning);
+    export default connect(mapStateToProps, mapDispatchToProps)(InterviewPlanning);
