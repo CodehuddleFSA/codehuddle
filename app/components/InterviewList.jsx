@@ -11,7 +11,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 export const InterviewList = ({ allInterviews }) => {
   return (
     <div>
-      <h3>Your interviews:</h3>
       <Table selectable={ false }>
         <TableHeader
           displaySelectAll={ false }
@@ -23,6 +22,7 @@ export const InterviewList = ({ allInterviews }) => {
             <TableHeaderColumn>Name</TableHeaderColumn>
             <TableHeaderColumn>Position</TableHeaderColumn>
             <TableHeaderColumn>Status</TableHeaderColumn>
+            <TableHeaderColumn></TableHeaderColumn>
             <TableHeaderColumn></TableHeaderColumn>
           </TableRow>
         </TableHeader>
@@ -40,9 +40,17 @@ export const InterviewList = ({ allInterviews }) => {
                   <TableRowColumn>{ interview.status }</TableRowColumn>
                   <TableRowColumn>
                     <RaisedButton
-                      href="/interviewRoom/publicRoom"
+                      href={`/interviewPlanning/${interview.id}`}
                       label="Details"
-                      backgroundColor="#2bbbad"
+                      backgroundColor="#2196F3"
+                      labelColor="white"
+                      />
+                  </TableRowColumn>
+                  <TableRowColumn>
+                    <RaisedButton
+                      href={`/interviewRoom/${interview.authToken}?id=${interview.id}`}
+                      label="Start"
+                      backgroundColor="#66BB6A"
                       labelColor="white"
                       />
                   </TableRowColumn>
@@ -51,27 +59,27 @@ export const InterviewList = ({ allInterviews }) => {
             }) }
           </TableBody>
         </Table>
-    </div>
-  );
-};
-
-/* -----------------    CONTAINER     ------------------ */
-
-// Required libraries
-import { connect } from 'react-redux';
-
-// Required files
-
-// TODO: look for Immutable method instead of handing down a normal method
-const mapState = (state) => {
-  return {
-    allInterviews: state.allInterviews.toJS()
+      </div>
+    );
   };
-};
 
-const mapDispatch = (dispatch) => {
-  return {
+  /* -----------------    CONTAINER     ------------------ */
+
+  // Required libraries
+  import { connect } from 'react-redux';
+
+  // Required files
+
+  // TODO: look for Immutable method instead of handing down a normal method
+  const mapState = (state) => {
+    return {
+      allInterviews: state.allInterviews.toJS()
+    };
   };
-};
 
-export default connect(mapState, mapDispatch)(InterviewList);
+  const mapDispatch = (dispatch) => {
+    return {
+    };
+  };
+
+  export default connect(mapState, mapDispatch)(InterviewList);
