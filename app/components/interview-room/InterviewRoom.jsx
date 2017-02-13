@@ -55,9 +55,6 @@ export class InterviewRoom extends React.Component {
 
   render () {
     let plannedInterview = !!(this.props.auth && this.props.interviewId);
-    console.log('in InterviewRoom, plannedInterview is ', plannedInterview);
-    console.log('in InterviewRoom, auth is  ', this.props.auth);
-    console.log('in InterviewRoom, id is  ', this.props.interviewId);
     return (
       <div id="ir-root" className="animated fadeIn">
         <AppBar
@@ -75,7 +72,6 @@ export class InterviewRoom extends React.Component {
           >
           <IconButton><Close onTouchTap={ this.handleClose }/></IconButton>
           <InterviewRoomOptions/>
-          
         </Drawer>
       {/* Right Side Drawer */}
         <Drawer
@@ -92,12 +88,12 @@ export class InterviewRoom extends React.Component {
               <Editor/>
             </div>
             <div className="col-xs-12 col-md-5 no-gutter">
+              {plannedInterview &&
               <ProblemContainer problems={this.problems}/>
+              }
             </div>
           </div>
-
         </div>
-
     </div>
     );
   }
