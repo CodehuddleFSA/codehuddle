@@ -5,6 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import Popover from 'material-ui/Popover';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import {blueGrey500} from 'material-ui/styles/colors';
 import Close from 'material-ui/svg-icons/navigation/close';
 import Stop from 'material-ui/svg-icons/av/stop';
 import {PALETTE} from './WhiteboardConstants';
@@ -51,15 +52,17 @@ export class WhiteboardToolbar extends React.Component {
     const handleClear = this.props.handleClear;
     const handleErase = this.props.handleErase;
     const tightStyle = {padding: '0px', border: '0px', margin: '0px'};
+    const buttonStyle = {backgroundColor: blueGrey500};
     return (
       <Toolbar>
         <ToolbarGroup firstChild={true}>
           <IconButton style={{marginRight: '25px'}}><Close onTouchTap={handleClose}/></IconButton>
           <RaisedButton
             onTouchTap={this.handleTouchTap}
-            label="Change Color"
-            primary={true}
-            style={tightStyle}
+            label = 'Change Color'
+            labelColor = 'white'
+            buttonStyle = {buttonStyle}
+            style = {tightStyle}
           />
           <IconButton>><Stop color={color}/></IconButton>
           <Popover
@@ -80,8 +83,16 @@ export class WhiteboardToolbar extends React.Component {
           <ToolbarSeparator />
         </ToolbarGroup>
         <ToolbarGroup>
-          <RaisedButton label="Eraser" primary={true} onClick={handleErase}/>
-          <RaisedButton label="Clear Board" primary={true} onClick={handleClear}/>
+          <RaisedButton
+            label="Eraser"
+            labelColor = 'white'
+            buttonStyle = {buttonStyle}
+            onClick={handleErase}/>
+          <RaisedButton
+            label="Clear Board"
+            labelColor = 'white'
+            buttonStyle = {buttonStyle}
+            onClick={handleClear}/>
         </ToolbarGroup>
       </Toolbar>
     );
