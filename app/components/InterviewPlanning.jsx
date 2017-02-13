@@ -55,6 +55,7 @@ export class InterviewPlanning extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log("inside component", this.selectedProblems)
     if (this.props !== nextProps) {
       this.setState({
         candidateName: nextProps.selectedInterviewInfo.candidateName,
@@ -122,8 +123,6 @@ export class InterviewPlanning extends React.Component {
     this.setState({
       selectedProblems: this.state.selectedProblems
     });
-    console.log("inside handleAddProblemToInterview, state is: ", this.state.selectedProblems);
-    console.log("problem id is: ", this.props.problems[j].id);
     this.props.addProblemToInterview({problemId: this.props.problems[j].id}, this.props.selectedInterviewInfo.id);
   }
 

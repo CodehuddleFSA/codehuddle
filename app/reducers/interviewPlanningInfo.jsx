@@ -52,7 +52,6 @@ export const addPositionToInterview = (data, interviewId) => {
 };
 
 export const addProblemToInterview = (data, interviewId) => {
-  console.log("inside reducer addProblemToInterview: ", data);
   return dispatch => {
     return axios.post(`/api/interviews/${interviewId}/problems`, data)
       .then(res => {
