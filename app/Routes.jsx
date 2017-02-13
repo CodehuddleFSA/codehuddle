@@ -47,7 +47,7 @@ const mapDispatch = (dispatch, ownProps) => ({
   },
   interviewOnEnter: (nextState) => {
     socketsJoinRoom(nextState.params.room);
-    if (nextState.location.query) {
+    if (nextState.location.query && nextState.location.query.id) {
       dispatch(fetchProblems(+nextState.location.query.id));
     }
   },
