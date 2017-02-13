@@ -6,20 +6,20 @@ import { browserHistory, Router, Route } from 'react-router';
 import { connect } from 'react-redux';
 
 // Required files
-import store from './store';
 import Login from './components/Login';
 import WhoAmI from './components/WhoAmI';
 import Home from './components/splash/Home';
 import InterviewRoom from './components/interview-room/InterviewRoom';
 import FeedbackCandidate from './components/FeedbackCandidate';
 import InterviewerDashboard from './components/InterviewerDashboard';
+import InterviewPlanning from './components/InterviewPlanning';
+import Signup from './components/Signup';
 
 // Helper functions
 import { socketsJoinRoom } from 'APP/app/sockets';
 import { fetchProblems } from 'APP/app/reducers/interviewProblems';
 import { fetchAllInterviews } from 'APP/app/reducers/allInterviews';
 import { fetchInterview } from 'APP/app/reducers/interviewInfo';
-
 
 /* -----------------    COMPONENT     ------------------ */
 const Routes = ({ interviewOnEnter, feedbackCandidateOnEnter, interviewDashboardOnEnter, interviewPlanningOnEnter }) => (
@@ -28,8 +28,9 @@ const Routes = ({ interviewOnEnter, feedbackCandidateOnEnter, interviewDashboard
     <Route path="/interviewRoom/:room" component={ InterviewRoom } onEnter={ interviewOnEnter }/>
     <Route path="/interviewerDashboard" component={ InterviewerDashboard } onEnter={ interviewDashboardOnEnter }/>
     <Route path="/feedbackCandidate/:interviewID" component={ FeedbackCandidate } onEnter={ feedbackCandidateOnEnter } />
-    <Route path="/interviewPlanning/:interviewID" component={ InterviewerDashboard } onEnter={ interviewPlanningOnEnter } />
+    <Route path="/interviewPlanning/:interviewID" component={ InterviewPlanning } onEnter={ interviewPlanningOnEnter } />
     <Route path="/login" component={ Login }/>
+    <Route path="/signup" component={ Signup }/>
   </Router>
 );
 
@@ -51,6 +52,7 @@ const mapDispatch = (dispatch, ownProps) => ({
   },
   interviewPlanningOnEnter: (nextState) => {
     dispatch(fetchInterview(nextState.params.interviewID));
+    dispatch(fetchProblems(nextState.params.interviewID));
   }
 });
 
