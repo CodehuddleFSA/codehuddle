@@ -15,11 +15,12 @@ import { blueGrey500 } from 'material-ui/styles/colors';
 import WhiteboardContainer from '../WhiteboardContainer';
 import Editor from '../Editor';
 import InterviewRoomOptions from '../InterviewRoomOptions';
+import ProblemContainer from '../ShowProblemSet';
 
 /* -----------------    COMPONENT     ------------------ */
 
 export class InterviewRoom extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.iconStyles = {
       marginRight: 24,
@@ -27,7 +28,7 @@ export class InterviewRoom extends React.Component {
       backgroundColor: blueGrey500
     };
     this.WBStyles = {
-      width: "50%"
+      width: '50%'
     };
     this.state = {
       open: false,
@@ -39,20 +40,21 @@ export class InterviewRoom extends React.Component {
     this.handleWBClose = this.handleWBClose.bind(this);
   }
 
-  handleOpen() {
+  handleOpen () {
     this.setState({ open: !this.state.open, WBOpen: false });
   }
-  handleClose() {
+  handleClose () {
     this.setState({ open: false });
   }
-  handleWBOpen() {
+  handleWBOpen () {
     this.setState({ open: false, WBOpen: !this.state.WBOpen });
   }
-  handleWBClose() {
+  handleWBClose () {
     this.setState({ open: false, WBOpen: false });
   }
 
-  render() {
+  render () {
+    let plannedInterview = !!(this.props.auth && this.props.interviewId);
     return (
       <div id="ir-root" className="animated fadeIn">
         <AppBar
@@ -70,7 +72,6 @@ export class InterviewRoom extends React.Component {
           >
           <IconButton><Close onTouchTap={ this.handleClose }/></IconButton>
           <InterviewRoomOptions/>
-          
         </Drawer>
       {/* Right Side Drawer */}
         <Drawer
@@ -82,7 +83,16 @@ export class InterviewRoom extends React.Component {
         </Drawer>
       {/* Page Content */}
         <div id="ir-content">
-          <Editor/>
+          <div className="row">
+            <div className="col-xs-12 col-md-7 no-gutter">
+              <Editor/>
+            </div>
+            <div className="col-xs-12 col-md-5 no-gutter">
+              {plannedInterview &&
+              <ProblemContainer problems={this.problems}/>
+              }
+            </div>
+          </div>
         </div>
     </div>
     );
@@ -94,8 +104,11 @@ export class InterviewRoom extends React.Component {
 // Required libraries
 import { connect } from 'react-redux';
 
-const mapState = (state) => {
+const mapState = (state, ownProps) => {
   return {
+    auth: state.auth,
+    interviewId: (ownProps.location.query && +ownProps.location.query.id) || null,
+    problems: state.interview.interviewProblems
   };
 };
 
