@@ -50,7 +50,7 @@ export class WhiteboardToolbar extends React.Component {
     const color = this.props.color;
     const handleClear = this.props.handleClear;
     const handleErase = this.props.handleErase;
-    const tightStyle = {padding: '0px', border: '0px', margin: '0px'};
+    const tightStyle = {padding: '0px', border: '0px', margin: '0px', backgroundColor: 'blueGrey500'};
     return (
       <Toolbar>
         <ToolbarGroup firstChild={true}>
@@ -58,7 +58,6 @@ export class WhiteboardToolbar extends React.Component {
           <RaisedButton
             onTouchTap={this.handleTouchTap}
             label="Change Color"
-            primary={true}
             style={tightStyle}
           />
           <IconButton>><Stop color={color}/></IconButton>

@@ -30,7 +30,6 @@ const Routes = ({ interviewOnEnter, feedbackCandidateOnEnter, interviewDashboard
     <Route path="/interviewerDashboard" component={ InterviewerDashboard } onEnter={ interviewDashboardOnEnter }/>
     <Route path="/feedbackCandidate/:interviewID" component={ FeedbackCandidate } onEnter={ feedbackCandidateOnEnter } />
     <Route path="/interviewPlanning/:interviewID" component={ InterviewPlanning } onEnter={ interviewPlanningOnEnter } />
-    <Route path="/showProblems/:interviewID" component={ ShowProblemSet } onEnter={ showProblemSetOnEnter } />
     <Route path="/login" component={ Login }/>
     <Route path="/signup" component={ Signup }/>
   </Router>
@@ -57,9 +56,6 @@ const mapDispatch = (dispatch, ownProps) => ({
   },
   interviewPlanningOnEnter: (nextState) => {
     dispatch(fetchInterview(nextState.params.interviewID));
-  },
-  showProblemSetOnEnter: (nextState) => {
-    dispatch(fetchProblems(nextState.params.interviewID));
   }
 });
 
