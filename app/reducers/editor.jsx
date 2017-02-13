@@ -66,6 +66,7 @@ const initialEditorData = Immutable.fromJS(
 
 export default function reducer (editorData = initialEditorData, action) {
   let newEditorData = editorData;
+      const newRange = {};
 
   switch (action.type) {
     case SET_TEXT:
@@ -77,7 +78,6 @@ export default function reducer (editorData = initialEditorData, action) {
       break;
 
     case SET_RANGE:
-      const newRange = {};
       newRange[action.id] = action.range;
       newEditorData = newEditorData.mergeIn(['ranges'], newRange);
       break;
@@ -95,8 +95,8 @@ export default function reducer (editorData = initialEditorData, action) {
 
 /* ------------       DISPATCHERS     ------------------ */
 
-export const parseEvt = evt => {
+export const parseEvt = (checked, name) => {
   const status = {};
-  status[evt.target.id] = evt.target.checked;
+  status[name] = checked;
   return status;
 };

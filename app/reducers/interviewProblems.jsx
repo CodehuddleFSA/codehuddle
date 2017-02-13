@@ -43,6 +43,7 @@ export const fetchProblems = interviewID => {
   return dispatch => {
     return axios.get(`/api/interviews/${interviewID}/problems`)
     .then(response => {
+      console.log("inside fetchProblems: ", response.data);
       return dispatch(setProblems(response.data));
     })
     .catch(console.error);
