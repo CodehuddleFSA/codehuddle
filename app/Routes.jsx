@@ -56,6 +56,7 @@ const mapDispatch = (dispatch, ownProps) => ({
   },
   interviewPlanningOnEnter: (nextState) => {
     dispatch(fetchInterview(nextState.params.interviewID));
+    dispatch(fetchProblems(nextState.params.interviewID));
   }
 });
 
