@@ -2,6 +2,11 @@
 import React from 'react';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import AppBar from 'material-ui/AppBar';
+import { blueGrey500 } from 'material-ui/styles/colors';
+import {Card, CardActions, CardHeader, CardText, CardTitle} from 'material-ui/Card';
+
+
 
 // Required files
 import InterviewList from './InterviewList';
@@ -11,11 +16,30 @@ import InterviewList from './InterviewList';
 export const InterviewerDashboard = ({ interviewProblems, user, createInterviewAndRedirect }) => {
   return (
     <div>
-      <h3>Welcome, { user && user.name }</h3>
-      <InterviewList />
-      <FloatingActionButton onClick={ createInterviewAndRedirect }>
-        <ContentAdd />
-      </FloatingActionButton>
+      <AppBar
+        title={ <a href="/">CodeHuddle</a> }
+        titleStyle={{ fontFamily: 'Aldrich', textAlign: 'center' }}
+        style={{ backgroundColor: blueGrey500 }}/>
+      <div className="row">
+        <div className="container">
+          <div className="col-xs-12">
+
+
+            <h2>Welcome, { user && user.name }!</h2>
+            <Card>
+              <CardTitle title="Your Interviews" />
+              <CardText>
+                <InterviewList />
+              </CardText>
+              <CardActions>
+                <FloatingActionButton onClick={ createInterviewAndRedirect }>
+                  <ContentAdd />
+                </FloatingActionButton>
+              </CardActions>
+            </Card>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
