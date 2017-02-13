@@ -27,7 +27,7 @@ export const InterviewerDashboard = ({ interviewProblems, user, createInterviewA
 
             <h2>Welcome, { user && user.name }!</h2>
             <Card>
-              <CardTitle title="Your Interviews" />
+              <CardTitle title="Your interviews:" />
               <CardText>
                 <InterviewList />
               </CardText>

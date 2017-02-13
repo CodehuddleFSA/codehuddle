@@ -48,7 +48,7 @@ export const InterviewList = ({ allInterviews }) => {
                   </TableRowColumn>
                   <TableRowColumn>
                     <RaisedButton
-                      href={`/interviewPlanning/${interview.id}`}
+                      href={`/interviewRoom/${interview.authToken}?id=${interview.id}`}
                       label="Start"
                       backgroundColor="#66BB6A"
                       labelColor="white"
