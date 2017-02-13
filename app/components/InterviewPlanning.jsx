@@ -206,9 +206,11 @@ export class InterviewPlanning extends React.Component {
                           </TableBody>
                         </Table>
                       </CardText>
+                      <CardActions>
+                        <RaisedButton label="Add Problems" style={style} onClick={this.handleAddProblems} backgroundColor="#66BB6A" labelColor="white" />
+                      </CardActions>
                     </Card>
                     <div className="center-content">
-                      <RaisedButton label="Add Problems" style={style} onClick={this.handleAddProblems} backgroundColor="#66BB6A" labelColor="white" />
                       <RaisedButton label="Save Interview" style={style} onClick={this.handleSaveInterview} backgroundColor="#2196F3" labelColor="white" />
                       <RaisedButton label="Back to dashboard" style={style} href="/interviewerDashboard" backgroundColor="#2196F3" labelColor="white" />
                   </div>
