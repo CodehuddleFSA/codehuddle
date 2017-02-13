@@ -12,7 +12,7 @@
     "build-branch": "bin/build-branch.sh",
     "deploy-heroku": "bin/deploy-heroku.sh",
     "start": "bin/setup && webpack && nodemon server/start.js",
-    "seed": "node db/seed.js"
+    "seed": "node db/newSeed.js"
   },
   "repository": {
     "type": "git",
