@@ -15,18 +15,7 @@ const LOAD_PROBLEMS = 'LOAD_PROBLEMS';
 2. adding a new interview (should create a new user for the candidate? and then add )
 **/
 
-export const saveInterview = (interviewId, userId) => {
-  return dispatch => {
-    //return axios.put('/api/interviews/${interviewId}', data)
-      axios.get(`/api/interviews/${interviewId}`)
-      .then(response => response.data)
-      .then(data => browserHistory.push(`/interviewerDashboard?userID=${userId}`))
-      .catch(console.error);
-  };
-};
-
 export const addCandidateNameToInterview = (data, interviewId) => {
-  console.log("inside reducer addCandidateNameToInterview: ", data);
   return dispatch => {
     return axios.put(`/api/interviews/${interviewId}`, data)
       .then(res => {
@@ -36,7 +25,6 @@ export const addCandidateNameToInterview = (data, interviewId) => {
 };
 
 export const addDateToInterview = (data, interviewId) => {
-  console.log("inside reducer addDateToInterview: ", data);
   return dispatch => {
     return axios.put(`/api/interviews/${interviewId}`, data)
       .then(res => {
@@ -46,7 +34,6 @@ export const addDateToInterview = (data, interviewId) => {
 };
 
 export const addTimeToInterview = (data, interviewId) => {
-  console.log("inside reducer addTimeToInterview: ", data);
   return dispatch => {
     return axios.put(`/api/interviews/${interviewId}`, data)
       .then(res => {
@@ -56,7 +43,6 @@ export const addTimeToInterview = (data, interviewId) => {
 };
 
 export const addPositionToInterview = (data, interviewId) => {
-  console.log("inside reducer addPositionToInterview: ", data);
   return dispatch => {
     return axios.put(`/api/interviews/${interviewId}`, data)
       .then(res => {
@@ -66,6 +52,7 @@ export const addPositionToInterview = (data, interviewId) => {
 };
 
 export const addProblemToInterview = (data, interviewId) => {
+  console.log("inside reducer addProblemToInterview: ", data);
   return dispatch => {
     return axios.post(`/api/interviews/${interviewId}/problems`, data)
       .then(res => {

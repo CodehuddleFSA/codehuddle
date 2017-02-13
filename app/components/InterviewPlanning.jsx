@@ -122,6 +122,8 @@ export class InterviewPlanning extends React.Component {
     this.setState({
       selectedProblems: this.state.selectedProblems
     });
+    console.log("inside handleAddProblemToInterview, state is: ", this.state.selectedProblems);
+    console.log("problem id is: ", this.props.problems[j].id);
     this.props.addProblemToInterview({problemId: this.props.problems[j].id}, this.props.selectedInterviewInfo.id);
   }
 
@@ -137,11 +139,6 @@ export class InterviewPlanning extends React.Component {
       showOrganizationProblemSet: true
       });
     this.props.receiveProblems(this.props.user.organization_name);
-  }
-
-  handleSaveInterview (evt) {
-    evt.preventDefault();
-    this.props.addInterview(this.state);
   }
 
       render () {
@@ -193,6 +190,7 @@ export class InterviewPlanning extends React.Component {
                             </TableRow>
                           </TableHeader>
                           <TableBody displayRowCheckbox = {false}>
+                            {console.log("inside render and selected problm set is: ", this.state.selectedProblems)}
                             {this.state.selectedProblems.map((p, i) =>
                               <TableRow key={i}>
                                 <TableRowColumn>{p.name}</TableRowColumn>
@@ -209,7 +207,6 @@ export class InterviewPlanning extends React.Component {
                       </CardActions>
                     </Card>
                     <div className="center-content">
-                      <RaisedButton label="Save Interview" style={style} onClick={this.handleSaveInterview} backgroundColor="#2196F3" labelColor="white" />
                       <RaisedButton label="Back to dashboard" style={style} href="/interviewerDashboard" backgroundColor="#2196F3" labelColor="white" />
                   </div>
                     <Dialog title="Organization Problems" actions={[<FlatButton label="Done" primary={true} onTouchTap={this.handleOrganizationProblemSetClose}/>]}
@@ -238,7 +235,7 @@ export class InterviewPlanning extends React.Component {
 
     /* -----------------    CONNECT CONTAINER     ------------------ */
 
-import { receiveProblems, addInterview, addProblemToInterview, removeProblemFromInterview, saveInterview, addCandidateNameToInterview, addPositionToInterview, addDateToInterview, addTimeToInterview} from '../reducers/interviewPlanningInfo';
+import { receiveProblems, addInterview, addProblemToInterview, removeProblemFromInterview, addCandidateNameToInterview, addPositionToInterview, addDateToInterview, addTimeToInterview} from '../reducers/interviewPlanningInfo';
 
     const mapStateToProps = state => {
       return {
@@ -253,9 +250,6 @@ const mapDispatchToProps = dispatch => {
   return {
     receiveProblems: organization => {
       dispatch(receiveProblems(organization));
-    },
-    saveInterview: (data, interviewId, userId) => {
-      dispatch(saveInterview(data, interviewId, userId));
     },
     addProblemToInterview: (data, interviewId) => {
       dispatch(addProblemToInterview(data, interviewId));
