@@ -30,6 +30,7 @@ export class InterviewPlanning extends React.Component {
     super(props);
     const {candidateName, candidateEmail, date, time, position} = props.selectedInterviewInfo;
     let changeableProblemSet = props.selectedInterviewProblems;
+    this.today = new Date();
     this.state = {
       candidateName,
       candidateEmail,
@@ -38,7 +39,8 @@ export class InterviewPlanning extends React.Component {
       position: position,
       selectedProblems: props.selectedInterviewProblems,
       user: props.user,
-      showOrganizationProblemSet: false
+      showOrganizationProblemSet: false,
+      saveInterview: null
 
     };
 
@@ -53,6 +55,7 @@ export class InterviewPlanning extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log("inside component", this.selectedProblems)
     if (this.props !== nextProps) {
       this.setState({
         candidateName: nextProps.selectedInterviewInfo.candidateName,
@@ -62,6 +65,7 @@ export class InterviewPlanning extends React.Component {
         position: nextProps.selectedInterviewInfo.position,
         selectedProblems: nextProps.selectedInterviewProblems,
         user: nextProps.user,
+        saveInterview: nextProps.saveInterview,
         height: '200px',
         fixedHeader: true,
         fixedFooter: true,
@@ -80,56 +84,61 @@ export class InterviewPlanning extends React.Component {
     this.setState({
       candidateName: name
     });
+    this.props.addCandidateNameToInterview({candidateName: name}, this.props.selectedInterviewInfo.id);
   }
 
   handleDateChange(event, date) {
+    const updatedDate = new Date(date.toDateString() + " " + this.state.interviewTime.toTimeString());
     this.setState({
-      interviewDate: date
+      interviewDate: updatedDate
     });
+    this.props.addDateToInterview({date: updatedDate}, this.props.selectedInterviewInfo.id);
   }
 
   handleChangeTimePicker24 (event, time) {
+    const date = new Date(this.state.interviewDate.toDateString() + " " + time.toTimeString());  
     this.setState({
-      interviewTime: time});
-    }
+      interviewTime: date
+    });
+    this.props.addTimeToInterview({date: date}, this.props.selectedInterviewInfo.id);
+  }
 
-    handlePositionChange (event, position) {
-      this.setState({
-        position: position});
-      }
+  handlePositionChange (event, position) {
+    this.setState({
+      position: position
+    });
+    this.props.addPositionToInterview({position: position}, this.props.selectedInterviewInfo.id);
+  }
 
-      handleRemoveProblem (i){
-        let tempProblem = this.state.selectedProblems.splice(i, 1);
-        this.setState({
-          selectedProblems: this.state.selectedProblems
-        });
-      }
+  handleRemoveProblem (i){
+    this.props.removeProblemFromInterview(this.state.selectedProblems[i].id, this.props.selectedInterviewInfo.id);
+    let tempProblem = this.state.selectedProblems.splice(i, 1);
+    this.setState({
+      selectedProblems: this.state.selectedProblems
+    });
+  }
 
-      handleAddProblemToInterview (j){
-        this.state.selectedProblems.push(this.props.problems[j]);
-        this.setState({
-          selectedProblems: this.state.selectedProblems
-        });
-      }
+  handleAddProblemToInterview (j){
+    this.state.selectedProblems.push(this.props.problems[j]);
+    this.setState({
+      selectedProblems: this.state.selectedProblems
+    });
+    this.props.addProblemToInterview({problemId: this.props.problems[j].id}, this.props.selectedInterviewInfo.id);
+  }
 
-      handleOrganizationProblemSetClose() {
-        this.setState({
-          showOrganizationProblemSet: false
-        });
-      }
+  handleOrganizationProblemSetClose() {
+    this.setState({
+    showOrganizationProblemSet: false
+    });
+  }
 
-      handleAddProblems (evt) {
-        evt.preventDefault();
-        this.setState({
-          showOrganizationProblemSet: true
-        });
-        this.props.receiveProblems(this.props.user.organization_name);
-      }
-
-      handleSaveInterview (evt) {
-        evt.preventDefault();
-        this.props.addInterview(this.state);
-      }
+  handleAddProblems (evt) {
+    evt.preventDefault();
+    this.setState({
+      showOrganizationProblemSet: true
+      });
+    this.props.receiveProblems(this.props.user.organization_name);
+  }
 
       render () {
         return (
@@ -147,36 +156,21 @@ export class InterviewPlanning extends React.Component {
                       <CardTitle title="Interview details:" />
                       <CardText>
 
-                        <Table>
-                          <TableBody displayRowCheckbox = {false} >
-                            <TableRow>
-                              <TableRowColumn style = {{width: "250px"}}></TableRowColumn>
-                              <TableRowColumn>
-                                <Table>
-                                  <TableBody displayRowCheckbox = {false} >
-                                    <TableRow>
-                                      <TableRowColumn style= {{margin: "10px"}}><label>Candidate Name: </label></TableRowColumn>
-                                      <TableRowColumn><TextField hintText="Controlled Text Input" value={this.state.candidateName} onChange={this.handleNameChange}/></TableRowColumn>
-                                    </TableRow>
-                                    <TableRow>
-                                      <TableRowColumn><label>Date: </label></TableRowColumn>
-                                      <TableRowColumn><DatePicker hintText="Controlled Date Input" value={this.state.interviewDate} onChange={this.handleDateChange} /></TableRowColumn>
-                                    </TableRow>
-                                    <TableRow>
-                                      <TableRowColumn><label>Time: </label></TableRowColumn>
-                                      <TableRowColumn><TimePicker format="24hr" hintText="24hr Format" value={this.state.interviewTime} onChange={this.handleChangeTimePicker24} /></TableRowColumn>
-                                    </TableRow>
-                                    <TableRow>
-                                      <TableRowColumn><label>Position: </label></TableRowColumn>
-                                      <TableRowColumn><TextField hintText="Position" value={this.state.position} onChange={this.handlePositionChange}/></TableRowColumn>
-                                    </TableRow>
-                                  </TableBody>
-                                </Table>
-                              </TableRowColumn>
-                              <TableRowColumn style = {{width: "250px"}}></TableRowColumn>
-                            </TableRow>
-                          </TableBody>
-                        </Table>
+                        <div style={{marginLeft: "350px"}}>
+                          <label>Candidate Name </label>
+                          <span style={{marginLeft: "80px"}}> </span>
+                          <TextField id="name" value={this.state.candidateName || null} onChange={this.handleNameChange}/>
+                          <br />
+                          <label>Interview Date</label>
+                          <DatePicker style={{display: "inline", marginLeft: "100px"}} id="date" hintText="Controlled Date Input" value={this.state.interviewDate || this.today} onChange={this.handleDateChange}/>
+                          <br />
+                          <label>Interview Time</label>
+                          <TimePicker style={{display: "inline", marginLeft: "100px"}} id="time" format="24hr" hintText="24hr Format" value={this.state.interviewTime || null} onChange={this.handleChangeTimePicker24}/>
+                          <br />
+                          <label>Position</label>
+                          <span style={{marginLeft: "140px"}}> </span>
+                          <TextField id="position" hintText="Position" value={this.state.position || null} onChange={this.handlePositionChange }/>
+                        </div>
                       </CardText>
                     </Card>
 
@@ -195,6 +189,7 @@ export class InterviewPlanning extends React.Component {
                             </TableRow>
                           </TableHeader>
                           <TableBody displayRowCheckbox = {false}>
+                            {console.log("inside render and selected problm set is: ", this.state.selectedProblems)}
                             {this.state.selectedProblems.map((p, i) =>
                               <TableRow key={i}>
                                 <TableRowColumn>{p.name}</TableRowColumn>
@@ -211,7 +206,6 @@ export class InterviewPlanning extends React.Component {
                       </CardActions>
                     </Card>
                     <div className="center-content">
-                      <RaisedButton label="Save Interview" style={style} onClick={this.handleSaveInterview} backgroundColor="#2196F3" labelColor="white" />
                       <RaisedButton label="Back to dashboard" style={style} href="/interviewerDashboard" backgroundColor="#2196F3" labelColor="white" />
                   </div>
                     <Dialog title="Organization Problems" actions={[<FlatButton label="Done" primary={true} onTouchTap={this.handleOrganizationProblemSetClose}/>]}
@@ -233,7 +227,6 @@ export class InterviewPlanning extends React.Component {
                 </div>
               </div>
             </div>
-
           </div>
         );
       }
@@ -241,7 +234,7 @@ export class InterviewPlanning extends React.Component {
 
     /* -----------------    CONNECT CONTAINER     ------------------ */
 
-    import { receiveProblems, addInterview } from '../reducers/interviewPlanningInfo';
+import { receiveProblems, addInterview, addProblemToInterview, removeProblemFromInterview, addCandidateNameToInterview, addPositionToInterview, addDateToInterview, addTimeToInterview} from '../reducers/interviewPlanningInfo';
 
     const mapStateToProps = state => {
       return {
@@ -252,15 +245,30 @@ export class InterviewPlanning extends React.Component {
       };
     };
 
-    const mapDispatchToProps = dispatch => {
-      return {
-        receiveProblems: organization => {
-          dispatch(receiveProblems(organization));
-        },
-        addInterview: () => {
-          dispatch(addInterview());
-        }
-      };
-    };
+const mapDispatchToProps = dispatch => {
+  return {
+    receiveProblems: organization => {
+      dispatch(receiveProblems(organization));
+    },
+    addProblemToInterview: (data, interviewId) => {
+      dispatch(addProblemToInterview(data, interviewId));
+    },
+    removeProblemFromInterview: (problemId, interviewId) => {
+      dispatch(removeProblemFromInterview(problemId, interviewId));
+    },
+    addCandidateNameToInterview: (data, interviewId) => {
+      dispatch(addCandidateNameToInterview(data, interviewId));
+    },
+    addPositionToInterview: (data, interviewId) => {
+      dispatch(addPositionToInterview(data, interviewId));
+    },
+    addDateToInterview: (data, interviewId) => {
+      dispatch(addDateToInterview(data, interviewId));
+    },
+    addTimeToInterview: (data, interviewId) => {
+      dispatch(addTimeToInterview(data, interviewId));
+    }
+  };
+};
 
     export default connect(mapStateToProps, mapDispatchToProps)(InterviewPlanning);
